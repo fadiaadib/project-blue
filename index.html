@@ -122,34 +122,88 @@
       padding-left: 0;
       padding-right: 24px;
     }
-    html[dir="rtl"] .lang-toggle {
+    html[dir="rtl"] .toolbar {
       right: auto;
       left: 24px;
     }
 
-    /* ─── LANGUAGE TOGGLE BUTTON ────────────────────────────────── */
-    .lang-toggle {
+    /* ─── TOOLBAR (zoom + language) ─────────────────────────────── */
+    .toolbar {
       position: fixed;
       top: 24px;
       right: 24px;
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    /* Shared control-button base */
+    .toolbar button {
       background: var(--bg);
       border: 1px solid var(--rule);
       color: var(--ink);
-      padding: 8px 16px;
       font-family: var(--sans-en);
       font-size: 0.75rem;
       letter-spacing: 0.08em;
       cursor: pointer;
       border-radius: 4px;
-      z-index: 100;
       transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
-      min-width: 72px;
-      text-align: center;
     }
-    .lang-toggle:hover {
+    .toolbar button:hover {
       border-color: var(--accent);
       color: var(--accent);
       background: var(--bg-elevated);
+    }
+    .toolbar button:disabled {
+      opacity: 0.4;
+      cursor: default;
+      border-color: var(--rule);
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    /* ─── ZOOM CONTROLS ─────────────────────────────────────────── */
+    .zoom-controls {
+      display: flex;
+      align-items: stretch;
+    }
+    .zoom-btn {
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.125rem !important;
+      line-height: 1;
+      padding: 0;
+    }
+    /* Numeric readout — also the reset affordance */
+    .zoom-level {
+      min-width: 52px;
+      padding: 0 8px;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+    /* Join the three controls into a single segmented control */
+    .zoom-controls > :not(:first-child) { margin-left: -1px; }
+    .zoom-controls > :not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+    .zoom-controls > :first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .zoom-controls > :last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .zoom-controls button:hover { z-index: 1; }
+
+    /* ─── LANGUAGE TOGGLE BUTTON ────────────────────────────────── */
+    .lang-toggle {
+      padding: 8px 16px;
+      min-width: 72px;
+      text-align: center;
     }
     .lang-toggle span[lang="ar"] {
       font-family: var(--sans-ar);
@@ -510,8 +564,8 @@
       html[lang="ar"] .section-title { font-size: 2rem; }
       .section h2 { font-size: 1.375rem; }
       html[lang="ar"] .section h2 { font-size: 1.5rem; }
-      .lang-toggle { top: 16px; right: 16px; }
-      html[dir="rtl"] .lang-toggle { right: auto; left: 16px; }
+      .toolbar { top: 16px; right: 16px; }
+      html[dir="rtl"] .toolbar { right: auto; left: 16px; }
     }
 
     /* ─── PRINT ─────────────────────────────────────────────────── */
@@ -519,7 +573,7 @@
       :root { --gutter: 32px; }
       body { background: white; color: black; font-size: 11pt; line-height: 1.55; }
       .sidebar { display: none; }
-      .lang-toggle { display: none; }
+      .toolbar { display: none; }
       .review-banner { display: none !important; }
       .layout { display: block; }
       .main { padding: 0; max-width: none; }
@@ -540,10 +594,17 @@
 </head>
 <body>
 
-  <!-- ─── LANGUAGE TOGGLE ─────────────────────────────────────── -->
-  <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
-    <span lang="ar">عربي</span>
-  </button>
+  <!-- ─── TOOLBAR: ZOOM + LANGUAGE ────────────────────────────── -->
+  <div class="toolbar">
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-out" type="button" aria-label="Zoom out">&minus;</button>
+      <button class="zoom-level" id="zoom-reset" type="button" aria-label="Reset zoom to 100%" title="Reset to 100%">100%</button>
+      <button class="zoom-btn" id="zoom-in" type="button" aria-label="Zoom in">&plus;</button>
+    </div>
+    <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+      <span lang="ar">عربي</span>
+    </button>
+  </div>
 
   <!-- ─── ARABIC REVIEW BANNER ─────────────────────────────────── -->
   <div class="review-banner">
@@ -962,6 +1023,51 @@
         const next = root.lang === 'en' ? 'ar' : 'en';
         setLang(next);
       });
+    })();
+
+    // ─── Zoom controls + persistence ──────────────────────────
+    (function() {
+      const STORAGE_KEY = 'alfa-strategy-zoom';
+      const root = document.documentElement;
+      const BASE = 16;          // matches html { font-size: 16px }
+      const MIN = 12, MAX = 24, STEP = 1;
+
+      const out = document.getElementById('zoom-out');
+      const inc = document.getElementById('zoom-in');
+      const reset = document.getElementById('zoom-reset');
+
+      let size = BASE;
+      try {
+        const saved = parseFloat(localStorage.getItem(STORAGE_KEY));
+        if (!isNaN(saved)) size = Math.min(MAX, Math.max(MIN, saved));
+      } catch (e) {}
+
+      function apply() {
+        root.style.fontSize = size + 'px';
+        reset.textContent = Math.round(size / BASE * 100) + '%';
+        out.disabled = size <= MIN;
+        inc.disabled = size >= MAX;
+        try { localStorage.setItem(STORAGE_KEY, size); } catch (e) {}
+      }
+
+      function setSize(next) {
+        size = Math.min(MAX, Math.max(MIN, next));
+        apply();
+      }
+
+      out.addEventListener('click', () => setSize(size - STEP));
+      inc.addEventListener('click', () => setSize(size + STEP));
+      reset.addEventListener('click', () => setSize(BASE));
+
+      // Keyboard: Cmd/Ctrl with +/= (in), -/_ (out), 0 (reset)
+      document.addEventListener('keydown', (e) => {
+        if (!(e.metaKey || e.ctrlKey)) return;
+        if (e.key === '+' || e.key === '=') { e.preventDefault(); setSize(size + STEP); }
+        else if (e.key === '-' || e.key === '_') { e.preventDefault(); setSize(size - STEP); }
+        else if (e.key === '0') { e.preventDefault(); setSize(BASE); }
+      });
+
+      apply();
     })();
 
     // ─── Active section highlighting on scroll ─────────────────
