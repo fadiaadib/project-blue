@@ -7,29 +7,39 @@
   <title>Alfa Electronics — AI Adoption Strategy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
     :root {
-      --bg: #FAF8F4;
+      --bg: #F7F3EC;
+      --bg-warm: #F1EADD;
       --bg-elevated: #FFFFFF;
-      --ink: #1A1A1A;
+      --ink: #211C18;
       --ink-muted: #6B6660;
       --ink-soft: #9B968F;
       --accent: #6B2737;
       --accent-soft: #A04050;
-      --rule: #E8E2D8;
-      --rule-soft: #F0EBE2;
-      --highlight: #F5EFE3;
+      --accent-deep: #4A1A26;
+      --gold: #B08D57;
+      --rule: #E2DACB;
+      --rule-soft: #ECE4D6;
+      --highlight: #F3ECDD;
 
+      --display-en: 'Fraunces', 'Crimson Pro', Georgia, serif;
       --serif-en: 'Crimson Pro', Georgia, 'Times New Roman', serif;
       --sans-en: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       --serif-ar: 'Markazi Text', 'Amiri', 'Times New Roman', serif;
       --sans-ar: 'IBM Plex Sans Arabic', 'Tajawal', 'Cairo', sans-serif;
 
-      --nav-w: 280px;
+      --shadow-sm: 0 1px 2px rgba(33, 28, 24, 0.04), 0 2px 8px rgba(33, 28, 24, 0.04);
+      --shadow-md: 0 4px 12px rgba(33, 28, 24, 0.06), 0 12px 32px rgba(33, 28, 24, 0.07);
+      --shadow-lg: 0 8px 24px rgba(74, 26, 38, 0.08), 0 24px 64px rgba(74, 26, 38, 0.10);
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --nav-w: 300px;
       --content-w: 720px;
-      --gutter: 64px;
+      --gutter: 72px;
     }
 
     /* ─── RESET ─────────────────────────────────────────────────── */
@@ -39,15 +49,82 @@
     a { color: inherit; text-decoration: none; }
 
     /* ─── BASE (English default) ────────────────────────────────── */
-    html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 32px; }
+    html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 48px; }
     body {
-      background: var(--bg);
+      position: relative;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(120% 80% at 85% -10%, rgba(176, 141, 87, 0.10), transparent 55%),
+        radial-gradient(100% 70% at 0% 110%, rgba(107, 39, 55, 0.06), transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      background-attachment: fixed;
       color: var(--ink);
       font-family: var(--serif-en);
       font-size: 1.0625rem;
-      line-height: 1.65;
+      line-height: 1.68;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Fine paper grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.5;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    }
+
+    /* Reading-progress rail */
+    .progress-rail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      z-index: 200;
+      background: transparent;
+      pointer-events: none;
+    }
+    .progress-rail span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-deep), var(--accent) 60%, var(--gold));
+      box-shadow: 0 0 8px rgba(107, 39, 55, 0.35);
+      transition: width 0.1s linear;
+    }
+    html[dir="rtl"] .progress-rail span {
+      margin-left: auto;
+      background: linear-gradient(270deg, var(--accent-deep), var(--accent) 60%, var(--gold));
+    }
+
+    /* Motion primitives — orchestrated load + scroll reveal */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+      will-change: opacity, transform;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .load > * { opacity: 0; animation: rise 1s var(--ease-out) forwards; }
+    .load > *:nth-child(1) { animation-delay: 0.05s; }
+    .load > *:nth-child(2) { animation-delay: 0.18s; }
+    .load > *:nth-child(3) { animation-delay: 0.32s; }
+    .load > *:nth-child(4) { animation-delay: 0.46s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .load > * { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+      .progress-rail span { transition: none; }
     }
 
     /* ─── LANGUAGE VISIBILITY TOGGLE ────────────────────────────── */
@@ -226,6 +303,8 @@
 
     /* ─── LAYOUT ────────────────────────────────────────────────── */
     .layout {
+      position: relative;
+      z-index: 2;
       display: grid;
       grid-template-columns: var(--nav-w) 1fr;
       min-height: 100vh;
@@ -237,8 +316,10 @@
       top: 0;
       height: 100vh;
       border-right: 1px solid var(--rule);
-      background: var(--bg);
-      padding: 48px 32px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(247,243,236,0.35));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 48px 36px;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -252,6 +333,20 @@
       color: var(--ink);
       line-height: 1.4;
     }
+    .sidebar-mark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+      font-family: var(--display-en);
+      font-weight: 600;
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .sidebar-mark .dot { color: var(--gold); }
+    html[lang="ar"] .sidebar-mark { font-family: var(--serif-ar); }
     html[lang="ar"] .sidebar-brand {
       text-transform: none;
       letter-spacing: 0.02em;
@@ -294,14 +389,14 @@
     .sidebar-nav li { counter-increment: section; margin: 0; }
     .sidebar-nav a {
       display: block;
-      padding: 8px 0;
+      padding: 9px 0 9px 30px;
       font-family: var(--sans-en);
       font-size: 0.8125rem;
       line-height: 1.45;
       color: var(--ink-muted);
-      transition: color 0.18s ease;
+      transition: color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
       position: relative;
-      padding-left: 26px;
+      border-radius: 3px;
     }
     html[lang="ar"] .sidebar-nav a {
       font-size: 0.9375rem;
@@ -314,12 +409,30 @@
       font-size: 0.6875rem;
       color: var(--ink-soft);
       font-variant-numeric: tabular-nums;
-      top: 11px;
+      top: 12px;
       font-family: var(--sans-en);
+      transition: color 0.25s var(--ease-out);
     }
-    .sidebar-nav a:hover { color: var(--ink); }
+    /* Animated active marker */
+    .sidebar-nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 2px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease-out);
+      transform-origin: center;
+    }
+    html[dir="rtl"] .sidebar-nav a::after { left: auto; right: 0; }
+    .sidebar-nav a:hover { color: var(--ink); transform: translateX(3px); }
+    html[dir="rtl"] .sidebar-nav a:hover { transform: translateX(-3px); }
     .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
     .sidebar-nav a.active::before { color: var(--accent); }
+    .sidebar-nav a.active::after { transform: translateY(-50%) scaleY(1); }
     .sidebar-footer {
       font-family: var(--sans-en);
       font-size: 0.6875rem;
@@ -337,22 +450,52 @@
     .main {
       padding: 96px var(--gutter) 128px;
       max-width: calc(var(--content-w) + var(--gutter) * 2);
+      overflow-x: clip;
     }
 
     /* ─── DOCUMENT HEADER ───────────────────────────────────────── */
     .doc-header {
-      margin-bottom: 96px;
-      padding-bottom: 48px;
+      position: relative;
+      margin-bottom: 104px;
+      padding-bottom: 52px;
       border-bottom: 1px solid var(--rule);
     }
+    /* Oversized faint watermark behind the title */
+    .doc-header::before {
+      content: 'AI';
+      position: absolute;
+      top: -36px;
+      right: -8px;
+      font-family: var(--display-en);
+      font-weight: 500;
+      font-size: 13rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      opacity: 0.05;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    html[dir="rtl"] .doc-header::before { right: auto; left: -8px; }
+    .doc-header > * { position: relative; z-index: 1; }
     .doc-eyebrow {
       font-family: var(--sans-en);
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 24px;
+      font-weight: 600;
+      margin-bottom: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .doc-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
     }
     html[lang="ar"] .doc-eyebrow {
       text-transform: none;
@@ -360,13 +503,18 @@
       font-size: 0.9375rem;
     }
     .doc-title {
-      font-family: var(--serif-en);
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
       font-weight: 400;
-      font-size: 3.5rem;
-      line-height: 1.05;
-      letter-spacing: -0.015em;
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
       color: var(--ink);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .doc-title em {
+      font-style: italic;
+      color: var(--accent);
     }
     .doc-meta {
       font-family: var(--sans-en);
@@ -376,14 +524,23 @@
     }
     .doc-meta-row {
       display: flex;
-      gap: 24px;
+      gap: 0;
       flex-wrap: wrap;
+      margin-top: 36px;
     }
     .doc-meta-item {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
+      padding: 2px 28px;
+      border-left: 1px solid var(--rule);
     }
+    .doc-meta-item:first-child { padding-left: 0; border-left: none; }
+    html[dir="rtl"] .doc-meta-item {
+      border-left: none;
+      border-right: 1px solid var(--rule);
+    }
+    html[dir="rtl"] .doc-meta-item:first-child { padding-right: 0; border-right: none; }
     .doc-meta-label {
       font-size: 0.6875rem;
       letter-spacing: 0.14em;
@@ -408,14 +565,19 @@
     .section { margin-bottom: 96px; }
     .section-header { margin-bottom: 48px; }
     .section-number {
+      display: inline-block;
       font-family: var(--sans-en);
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
       font-variant-numeric: tabular-nums;
+      padding: 5px 13px;
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.45);
     }
     html[lang="ar"] .section-number {
       text-transform: none;
@@ -423,91 +585,283 @@
       font-size: 0.9375rem;
     }
     .section-title {
-      font-family: var(--serif-en);
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
       font-weight: 400;
-      font-size: 2.5rem;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
       color: var(--accent-soft) !important;
     }
     .section h2 {
-      font-family: var(--serif-en);
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
       font-weight: 500;
-      font-size: 1.625rem;
+      font-size: 1.7rem;
       line-height: 1.25;
-      letter-spacing: -0.005em;
+      letter-spacing: -0.012em;
       color: var(--ink);
-      margin-top: 64px;
+      margin-top: 68px;
       margin-bottom: 24px;
     }
     .section h3 {
       font-family: var(--sans-en);
       font-weight: 600;
-      font-size: 0.9375rem;
+      font-size: 0.8125rem;
       line-height: 1.4;
-      letter-spacing: 0.01em;
-      color: var(--ink);
-      margin-top: 32px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 36px;
       margin-bottom: 12px;
+    }
+    html[lang="ar"] .section h3 {
+      text-transform: none;
+      letter-spacing: 0.01em;
+      font-size: 1.0625rem;
     }
     .section p {
       margin-bottom: 20px;
       max-width: var(--content-w);
     }
     .section p + p { margin-top: -8px; }
-    .section strong { font-weight: 600; color: var(--ink); }
+    .section strong {
+      font-weight: 600;
+      color: var(--accent-deep);
+      background: linear-gradient(180deg, transparent 62%, rgba(176, 141, 87, 0.18) 62%);
+    }
     .section em { font-style: italic; }
+
+    /* Editorial drop cap (LTR only) */
+    .section p.lead { margin-bottom: 24px; }
+    html[dir="ltr"] .section p.lead::first-letter {
+      font-family: var(--display-en);
+      font-weight: 500;
+      font-size: 4.2rem;
+      line-height: 0.78;
+      float: left;
+      margin: 0.06em 0.10em 0 0;
+      color: var(--accent);
+    }
 
     .section ul.body-list {
       list-style: none;
-      margin: 24px 0;
+      margin: 28px 0;
       padding-left: 0;
     }
     .section ul.body-list li {
-      padding-left: 24px;
+      padding-left: 30px;
       position: relative;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       max-width: var(--content-w);
     }
     .section ul.body-list li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 0.7em;
-      width: 12px;
-      height: 1px;
-      background: var(--accent);
+      top: 0.62em;
+      width: 16px;
+      height: 7px;
+      border-left: 2px solid var(--accent);
+      border-bottom: 2px solid var(--gold);
+    }
+    html[dir="rtl"] .section ul.body-list li::before {
+      border-left: none;
+      border-right: 2px solid var(--accent);
     }
 
     .pullquote {
-      font-family: var(--serif-en);
+      position: relative;
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
       font-style: italic;
       font-weight: 400;
-      font-size: 1.375rem;
-      line-height: 1.4;
+      font-size: 1.75rem;
+      line-height: 1.32;
       color: var(--ink);
-      border-left: 2px solid var(--accent);
-      padding: 8px 0 8px 24px;
-      margin: 40px 0;
+      padding: 16px 0 16px 40px;
+      margin: 56px 0;
       max-width: var(--content-w);
+      border-left: 2px solid var(--accent);
     }
+    .pullquote::before {
+      content: '\201C';
+      position: absolute;
+      left: 18px;
+      top: 0.34em;
+      font-family: var(--display-en);
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    html[dir="rtl"] .pullquote::before { content: '\201D'; left: auto; right: 18px; }
 
     .divider {
-      width: 64px;
+      position: relative;
+      width: 100%;
+      max-width: var(--content-w);
       height: 1px;
-      background: var(--accent);
-      margin: 64px 0;
+      background: none;
+      margin: 72px 0;
       border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    .divider::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      max-width: var(--content-w);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rule) 18%, var(--rule) 82%, transparent);
+    }
+    .divider::after {
+      content: '✦';
+      position: relative;
+      background: var(--bg);
+      padding: 0 18px;
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+
+    /* ─── STAT CALLOUTS ─────────────────────────────────────────── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin: 44px 0;
+      max-width: var(--content-w);
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.55));
+      padding: 30px 26px 28px;
+      transition: background 0.4s var(--ease-out);
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 26px;
+      width: 26px;
+      height: 2px;
+      background: var(--gold);
+    }
+    html[dir="rtl"] .stat::before { left: auto; right: 26px; }
+    .stat:hover { background: linear-gradient(180deg, #fff, rgba(255,255,255,0.78)); }
+    .stat-value {
+      display: inline-flex;
+      align-items: baseline;
+      direction: ltr;               /* numbers read LTR in both languages */
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-size: 2.7rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-value .unit {
+      font-size: 1.4rem;
+      color: var(--accent-soft);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .stat-value .unit.pre { margin-right: 6px; font-size: 1.1rem; color: var(--ink-soft); }
+    .stat-value .unit.m { margin-left: 6px; }
+    html[lang="ar"] .stat-value .unit { font-family: var(--sans-ar); font-size: 1.05rem; }
+    .stat-label {
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    html[lang="ar"] .stat-label {
+      font-family: var(--sans-ar);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.8125rem;
+    }
+    .stat-context {
+      font-family: var(--serif-en);
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+    html[lang="ar"] .stat-context {
+      font-family: var(--serif-ar);
+      font-size: 1.0625rem;
+    }
+    /* "Gap / plateau" cards get a muted tick instead of gold */
+    .stat-flag::before { background: var(--ink-soft); }
+    /* Inline trend marker — a flat-line badge */
+    .stat-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--sans-en);
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-soft);
+      vertical-align: 1px;
+    }
+    .stat-trend::before {
+      content: '';
+      width: 13px;
+      height: 2px;
+      background: var(--accent-soft);
+      border-radius: 1px;
+    }
+    html[lang="ar"] .stat-trend {
+      font-family: var(--sans-ar);
+      text-transform: none;
+      font-size: 0.75rem;
+      letter-spacing: 0;
     }
 
     .placeholder-section {
-      padding: 48px;
-      background: var(--bg-elevated);
-      border: 1px dashed var(--rule);
-      border-radius: 4px;
+      position: relative;
+      padding: 56px 48px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+      border: 1px solid var(--rule);
+      border-radius: 10px;
       text-align: center;
       max-width: var(--content-w);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: box-shadow 0.4s var(--ease-out), transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
     }
+    .placeholder-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out);
+    }
+    .placeholder-section:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--rule-soft);
+    }
+    .placeholder-section:hover::before { opacity: 1; }
     .placeholder-section p {
       font-family: var(--sans-en);
       font-size: 0.875rem;
@@ -521,8 +875,16 @@
     .placeholder-section a {
       color: var(--accent);
       font-weight: 500;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 1px;
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-size: 100% 1px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      padding-bottom: 2px;
+      transition: background-size 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .placeholder-section a:hover {
+      color: var(--accent-deep);
+      background-size: 100% 2px;
     }
 
     .doc-footer {
@@ -566,6 +928,8 @@
       html[lang="ar"] .section h2 { font-size: 1.5rem; }
       .toolbar { top: 16px; right: 16px; }
       html[dir="rtl"] .toolbar { right: auto; left: 16px; }
+      .stat-strip { grid-template-columns: 1fr; }
+      .stat-value { font-size: 2.4rem; }
     }
 
     /* ─── PRINT ─────────────────────────────────────────────────── */
@@ -594,6 +958,10 @@
 </head>
 <body>
 
+  <!-- ─── ATMOSPHERE ──────────────────────────────────────────── -->
+  <div class="progress-rail" aria-hidden="true"><span id="progress-bar"></span></div>
+  <div class="grain" aria-hidden="true"></div>
+
   <!-- ─── TOOLBAR: ZOOM + LANGUAGE ────────────────────────────── -->
   <div class="toolbar">
     <div class="zoom-controls">
@@ -616,6 +984,7 @@
     <!-- ─── SIDEBAR ───────────────────────────────────────────── -->
     <aside class="sidebar">
       <div>
+        <div class="sidebar-mark" aria-hidden="true">A<span class="dot">.</span></div>
         <div class="lang-en">
           <div class="sidebar-brand">Alfa Electronics</div>
           <div class="sidebar-subbrand">AI Adoption Strategy</div>
@@ -677,7 +1046,7 @@
     <!-- ─── MAIN ──────────────────────────────────────────────── -->
     <main class="main">
 
-      <header class="doc-header">
+      <header class="doc-header load">
         <div class="lang-en">
           <div class="doc-eyebrow">Strategy Brief</div>
           <h1 class="doc-title">AI Adoption Strategy</h1>
@@ -750,13 +1119,58 @@
         <div class="lang-en">
           <h2>Alfa's Next Identity</h2>
 
-          <p>Alfa Electronics has, since 1987, been an electronics-hardware company with software embedded inside the boxes it ships. Over the next 24 months, that order inverts. <strong>Alfa becomes an AI-enabled software-on-hardware company</strong> — a company whose products are intelligent software, delivered through the hardware substrates Alfa has spent thirty-nine years learning how to design, install, and service in the field.</p>
+          <p class="lead">Alfa Electronics has, since 1987, been an electronics-hardware company with software embedded inside the boxes it ships. Over the next 24 months, that order inverts. <strong>Alfa becomes an AI-enabled software-on-hardware company</strong> — a company whose products are intelligent software, delivered through the hardware substrates Alfa has spent thirty-nine years learning how to design, install, and service in the field.</p>
 
           <p>This is not a pivot away from what Alfa is. It is the next move in a line of moves: becoming Markem's distributor in 1989, building the in-house engineering capability that produced the Electronic Solutions portfolio and earned the upgrade to the Markem-Imaje partnership, and folding Aura's software capability into Alfa's engineering arm. Each of those moves was a step toward software as the center of the offer. This one names what the previous ones implied.</p>
 
           <h2>What the Books Say</h2>
 
           <p>The financial picture says it more clearly than any narrative can.</p>
+
+          <div class="stat-strip stat-strip-6">
+            <div class="stat">
+              <div class="stat-value" data-target="579" data-decimals="0">
+                <span class="unit pre">EGP</span><span class="num">579</span><span class="unit">M</span>
+              </div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-context">FY2025 — the whole picture</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="428" data-decimals="0">
+                <span class="unit pre">EGP</span><span class="num">428</span><span class="unit">M</span>
+              </div>
+              <div class="stat-label">Recurring Revenue</div>
+              <div class="stat-context">The Markem-Imaje annuity — inks, solvents, service</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="74" data-decimals="0">
+                <span class="num">74</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">Recurring Share</div>
+              <div class="stat-context">The base this strategy protects</div>
+            </div>
+            <div class="stat stat-flag">
+              <div class="stat-value" data-target="75" data-decimals="0">
+                <span class="unit pre">EGP</span><span class="num">75</span><span class="unit">M</span>
+              </div>
+              <div class="stat-label">Electronic Solutions</div>
+              <div class="stat-context"><span class="stat-trend">Flat since 2023</span> — a product-feature gap</div>
+            </div>
+            <div class="stat stat-flag">
+              <div class="stat-value" data-target="2.16" data-decimals="2">
+                <span class="num">2.16</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">R&amp;D Investment</div>
+              <div class="stat-context">Today — funded like a distributor</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">
+                <span class="num">6&ndash;10</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">R&amp;D Benchmark</div>
+              <div class="stat-context">Where software-led B2B invests</div>
+            </div>
+          </div>
 
           <p>Of Alfa's EGP 579M FY2025 revenue, <strong>EGP 428M — 74% — is recurring</strong>, almost entirely from the Markem-Imaje annuity: inks, solvents, ribbons, spare parts, and the service relationships that keep them flowing. The Electronic Solutions division produced EGP 75M last year — and the year before that, and the year before that. The ES revenue line has been <strong>flat since 2023</strong>.</p>
 
@@ -814,6 +1228,51 @@
           <h2>ما تقوله الدفاتر</h2>
 
           <p>تتحدّث الصورة المالية بصراحةٍ أكثر ممّا يمكن لأيّ سرد أن يفعل.</p>
+
+          <div class="stat-strip stat-strip-6">
+            <div class="stat">
+              <div class="stat-value" data-target="579" data-decimals="0">
+                <span class="num">579</span><span class="unit m">مليون ج.م</span>
+              </div>
+              <div class="stat-label">إجمالي الإيرادات</div>
+              <div class="stat-context">السنة المالية 2025 — الصورة الكاملة</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="428" data-decimals="0">
+                <span class="num">428</span><span class="unit m">مليون ج.م</span>
+              </div>
+              <div class="stat-label">الإيرادات المتكرّرة</div>
+              <div class="stat-context">سنويّة Markem-Imaje — الأحبار والمذيبات والخدمة</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" data-target="74" data-decimals="0">
+                <span class="num">74</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">نسبة التكرار</div>
+              <div class="stat-context">القاعدة التي تحميها الاستراتيجية</div>
+            </div>
+            <div class="stat stat-flag">
+              <div class="stat-value" data-target="75" data-decimals="0">
+                <span class="num">75</span><span class="unit m">مليون ج.م</span>
+              </div>
+              <div class="stat-label">الحلول الإلكترونية</div>
+              <div class="stat-context"><span class="stat-trend">ثابتة منذ 2023</span> — فجوة في خصائص المنتج</div>
+            </div>
+            <div class="stat stat-flag">
+              <div class="stat-value" data-target="2.16" data-decimals="2">
+                <span class="num">2.16</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">الاستثمار في البحث والتطوير</div>
+              <div class="stat-context">اليوم — يُموَّل كموزّع</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">
+                <span class="num">6&ndash;10</span><span class="unit">%</span>
+              </div>
+              <div class="stat-label">معيار القطاع</div>
+              <div class="stat-context">حيث تستثمر شركات البرمجيات</div>
+            </div>
+          </div>
 
           <p>من إجمالي إيرادات ألفا للسنة المالية 2025 البالغة 579 مليون جنيه مصري، فإنّ <strong>428 مليون جنيه — أي 74% — هي إيرادات متكرّرة</strong>، أغلبها من سنويّة Markem-Imaje: الأحبار والمذيبات والأشرطة وقطع الغيار وعلاقات الخدمة التي تُبقيها متدفّقة. أنتج قسم الحلول الإلكترونية 75 مليون جنيه العام الماضي — والعام الذي قبله، والذي قبله أيضاً. خطّ إيرادات قسم الحلول الإلكترونية <strong>ثابت منذ 2023</strong>.</p>
 
@@ -1094,6 +1553,94 @@
       });
 
       sections.forEach(s => observer.observe(s));
+    })();
+
+    // ─── Reading-progress rail ────────────────────────────────
+    (function() {
+      const bar = document.getElementById('progress-bar');
+      if (!bar) return;
+      let ticking = false;
+      function update() {
+        const doc = document.documentElement;
+        const max = doc.scrollHeight - doc.clientHeight;
+        const pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+        bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
+    })();
+
+    // ─── Scroll-reveal (progressive enhancement) ──────────────
+    (function() {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll('.section, .doc-footer');
+      if (reduce || !('IntersectionObserver' in window)) {
+        targets.forEach(t => t.classList.add('in'));
+        return;
+      }
+      // Add the hidden state only when JS is active, so no-JS users see content.
+      targets.forEach(t => t.classList.add('reveal'));
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      targets.forEach(t => io.observe(t));
+    })();
+
+    // ─── Animated stat count-up ───────────────────────────────
+    (function() {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const vals = Array.from(document.querySelectorAll('.stat-value[data-target]'));
+      if (!vals.length) return;
+
+      function fmt(v, dec) {
+        return Number(v).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      }
+      function isVisible(el) { return !!el.offsetParent; }
+      function decOf(el) { return parseInt(el.dataset.decimals || '0', 10); }
+
+      function animate(el) {
+        const target = parseFloat(el.dataset.target);
+        const dec = decOf(el);
+        const num = el.querySelector('.num');
+        if (reduce) { num.textContent = fmt(target, dec); return; }
+        const dur = 1500;
+        let start = null;
+        function step(ts) {
+          if (start === null) start = ts;
+          const p = Math.min(1, (ts - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 4);   // easeOutQuart
+          num.textContent = fmt(target * eased, dec);
+          if (p < 1) requestAnimationFrame(step);
+          else num.textContent = fmt(target, dec);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Zero-out only the currently-visible cards (they're below the fold,
+      // so no flash). Hidden-language cards keep their static final value.
+      if (!reduce) {
+        vals.forEach(el => { if (isVisible(el)) el.querySelector('.num').textContent = fmt(0, decOf(el)); });
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        vals.forEach(el => { if (isVisible(el)) animate(el); });
+        return;
+      }
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && isVisible(e.target)) { animate(e.target); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.4 });
+      vals.forEach(el => io.observe(el));
     })();
   </script>
 </body>
