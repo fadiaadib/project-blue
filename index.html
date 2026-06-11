@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Alfa Electronics — AI Adoption Strategy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg: #FAF8F4;
+      --bg-elevated: #FFFFFF;
+      --ink: #1A1A1A;
+      --ink-muted: #6B6660;
+      --ink-soft: #9B968F;
+      --accent: #6B2737;
+      --accent-soft: #A04050;
+      --rule: #E8E2D8;
+      --rule-soft: #F0EBE2;
+      --highlight: #F5EFE3;
+
+      --serif-en: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+      --sans-en: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --serif-ar: 'Markazi Text', 'Amiri', 'Times New Roman', serif;
+      --sans-ar: 'IBM Plex Sans Arabic', 'Tajawal', 'Cairo', sans-serif;
+
+      --nav-w: 280px;
+      --content-w: 720px;
+      --gutter: 64px;
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, h4, p, ul, ol, blockquote, figure { margin: 0; padding: 0; }
+    ul, ol { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── BASE (English default) ────────────────────────────────── */
+    html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 32px; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif-en);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── LANGUAGE VISIBILITY TOGGLE ────────────────────────────── */
+    .lang-ar { display: none; }
+    .lang-en { display: block; }
+    span.lang-en, em.lang-en, strong.lang-en { display: inline; }
+    span.lang-ar, em.lang-ar, strong.lang-ar { display: none; }
+
+    html[lang="ar"] .lang-en { display: none; }
+    html[lang="ar"] .lang-ar { display: block; }
+    html[lang="ar"] span.lang-en, html[lang="ar"] em.lang-en, html[lang="ar"] strong.lang-en { display: none; }
+    html[lang="ar"] span.lang-ar, html[lang="ar"] em.lang-ar, html[lang="ar"] strong.lang-ar { display: inline; }
+
+    /* ─── ARABIC TYPOGRAPHY ─────────────────────────────────────── */
+    html[lang="ar"] body {
+      font-family: var(--serif-ar);
+      font-size: 1.1875rem;
+      line-height: 1.85;
+    }
+    html[lang="ar"] .sidebar-brand,
+    html[lang="ar"] .sidebar-subbrand,
+    html[lang="ar"] .sidebar-nav-label,
+    html[lang="ar"] .sidebar-nav a,
+    html[lang="ar"] .sidebar-footer,
+    html[lang="ar"] .doc-eyebrow,
+    html[lang="ar"] .doc-meta,
+    html[lang="ar"] .doc-meta-label,
+    html[lang="ar"] .doc-meta-value,
+    html[lang="ar"] .section h3,
+    html[lang="ar"] .callout-label,
+    html[lang="ar"] .section-number,
+    html[lang="ar"] .doc-footer,
+    html[lang="ar"] .placeholder-section p,
+    html[lang="ar"] .review-banner {
+      font-family: var(--sans-ar);
+    }
+    html[lang="ar"] .doc-title,
+    html[lang="ar"] .section-title,
+    html[lang="ar"] .section h2,
+    html[lang="ar"] .pullquote {
+      font-family: var(--serif-ar);
+    }
+    html[lang="ar"] .doc-title { font-size: 3.75rem; line-height: 1.15; }
+    html[lang="ar"] .section-title { font-size: 2.75rem; line-height: 1.2; }
+    html[lang="ar"] .section h2 { font-size: 1.875rem; }
+    html[lang="ar"] .pullquote { font-size: 1.5rem; }
+
+    /* ─── RTL ADJUSTMENTS ───────────────────────────────────────── */
+    html[dir="rtl"] .sidebar {
+      border-right: none;
+      border-left: 1px solid var(--rule);
+    }
+    html[dir="rtl"] .sidebar-nav a {
+      padding-left: 0;
+      padding-right: 26px;
+    }
+    html[dir="rtl"] .sidebar-nav a::before {
+      left: auto;
+      right: 0;
+    }
+    html[dir="rtl"] .section ul.body-list li {
+      padding-left: 0;
+      padding-right: 24px;
+    }
+    html[dir="rtl"] .section ul.body-list li::before {
+      left: auto;
+      right: 0;
+    }
+    html[dir="rtl"] .pullquote {
+      border-left: none;
+      border-right: 2px solid var(--accent);
+      padding-left: 0;
+      padding-right: 24px;
+    }
+    html[dir="rtl"] .lang-toggle {
+      right: auto;
+      left: 24px;
+    }
+
+    /* ─── LANGUAGE TOGGLE BUTTON ────────────────────────────────── */
+    .lang-toggle {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      padding: 8px 16px;
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 100;
+      transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+      min-width: 72px;
+      text-align: center;
+    }
+    .lang-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--bg-elevated);
+    }
+    .lang-toggle span[lang="ar"] {
+      font-family: var(--sans-ar);
+      font-size: 0.875rem;
+    }
+
+    /* ─── REVIEW BANNER (Arabic translation caveat) ─────────────── */
+    .review-banner {
+      display: none;
+      background: var(--highlight);
+      border-bottom: 1px solid var(--rule);
+      padding: 12px 24px;
+      font-family: var(--sans-ar);
+      font-size: 0.8125rem;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+    html[lang="ar"] .review-banner { display: block; }
+
+    /* ─── LAYOUT ────────────────────────────────────────────────── */
+    .layout {
+      display: grid;
+      grid-template-columns: var(--nav-w) 1fr;
+      min-height: 100vh;
+    }
+
+    /* ─── SIDEBAR ───────────────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      border-right: 1px solid var(--rule);
+      background: var(--bg);
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-brand {
+      font-family: var(--sans-en);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      font-size: 0.6875rem;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    html[lang="ar"] .sidebar-brand {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .sidebar-subbrand {
+      font-family: var(--sans-en);
+      font-weight: 400;
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+    html[lang="ar"] .sidebar-subbrand {
+      font-size: 0.875rem;
+      margin-top: 6px;
+    }
+    .sidebar-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+      margin: 24px 0;
+    }
+    .sidebar-nav { flex: 1; }
+    .sidebar-nav-label {
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+    html[lang="ar"] .sidebar-nav-label {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.875rem;
+    }
+    .sidebar-nav ol { counter-reset: section; }
+    .sidebar-nav li { counter-increment: section; margin: 0; }
+    .sidebar-nav a {
+      display: block;
+      padding: 8px 0;
+      font-family: var(--sans-en);
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: var(--ink-muted);
+      transition: color 0.18s ease;
+      position: relative;
+      padding-left: 26px;
+    }
+    html[lang="ar"] .sidebar-nav a {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+    .sidebar-nav a::before {
+      content: counter(section, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      font-size: 0.6875rem;
+      color: var(--ink-soft);
+      font-variant-numeric: tabular-nums;
+      top: 11px;
+      font-family: var(--sans-en);
+    }
+    .sidebar-nav a:hover { color: var(--ink); }
+    .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
+    .sidebar-nav a.active::before { color: var(--accent); }
+    .sidebar-footer {
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.04em;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    html[lang="ar"] .sidebar-footer {
+      font-size: 0.8125rem;
+      letter-spacing: 0;
+    }
+
+    /* ─── MAIN ──────────────────────────────────────────────────── */
+    .main {
+      padding: 96px var(--gutter) 128px;
+      max-width: calc(var(--content-w) + var(--gutter) * 2);
+    }
+
+    /* ─── DOCUMENT HEADER ───────────────────────────────────────── */
+    .doc-header {
+      margin-bottom: 96px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .doc-eyebrow {
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    html[lang="ar"] .doc-eyebrow {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.9375rem;
+    }
+    .doc-title {
+      font-family: var(--serif-en);
+      font-weight: 400;
+      font-size: 3.5rem;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .doc-meta {
+      font-family: var(--sans-en);
+      font-size: 0.875rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.02em;
+    }
+    .doc-meta-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .doc-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .doc-meta-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    html[lang="ar"] .doc-meta-label {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.8125rem;
+    }
+    .doc-meta-value {
+      font-size: 0.875rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    html[lang="ar"] .doc-meta-value {
+      font-size: 1rem;
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────────────── */
+    .section { margin-bottom: 96px; }
+    .section-header { margin-bottom: 48px; }
+    .section-number {
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    html[lang="ar"] .section-number {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.9375rem;
+    }
+    .section-title {
+      font-family: var(--serif-en);
+      font-weight: 400;
+      font-size: 2.5rem;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .section h2 {
+      font-family: var(--serif-en);
+      font-weight: 500;
+      font-size: 1.625rem;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin-top: 64px;
+      margin-bottom: 24px;
+    }
+    .section h3 {
+      font-family: var(--sans-en);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+    .section p {
+      margin-bottom: 20px;
+      max-width: var(--content-w);
+    }
+    .section p + p { margin-top: -8px; }
+    .section strong { font-weight: 600; color: var(--ink); }
+    .section em { font-style: italic; }
+
+    .section ul.body-list {
+      list-style: none;
+      margin: 24px 0;
+      padding-left: 0;
+    }
+    .section ul.body-list li {
+      padding-left: 24px;
+      position: relative;
+      margin-bottom: 12px;
+      max-width: var(--content-w);
+    }
+    .section ul.body-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 12px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .pullquote {
+      font-family: var(--serif-en);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.375rem;
+      line-height: 1.4;
+      color: var(--ink);
+      border-left: 2px solid var(--accent);
+      padding: 8px 0 8px 24px;
+      margin: 40px 0;
+      max-width: var(--content-w);
+    }
+
+    .divider {
+      width: 64px;
+      height: 1px;
+      background: var(--accent);
+      margin: 64px 0;
+      border: 0;
+    }
+
+    .placeholder-section {
+      padding: 48px;
+      background: var(--bg-elevated);
+      border: 1px dashed var(--rule);
+      border-radius: 4px;
+      text-align: center;
+      max-width: var(--content-w);
+    }
+    .placeholder-section p {
+      font-family: var(--sans-en);
+      font-size: 0.875rem;
+      color: var(--ink-muted);
+      margin: 0;
+      max-width: none;
+    }
+    html[lang="ar"] .placeholder-section p {
+      font-size: 1rem;
+    }
+    .placeholder-section a {
+      color: var(--accent);
+      font-weight: 500;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+    }
+
+    .doc-footer {
+      margin-top: 128px;
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.04em;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    html[lang="ar"] .doc-footer {
+      font-size: 0.875rem;
+      letter-spacing: 0;
+    }
+
+    /* ─── MOBILE ────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding: 32px 24px;
+      }
+      html[dir="rtl"] .sidebar {
+        border-left: none;
+        border-bottom: 1px solid var(--rule);
+      }
+      .main { padding: 48px 24px 96px; }
+      .doc-title { font-size: 2.25rem; }
+      html[lang="ar"] .doc-title { font-size: 2.5rem; }
+      .section-title { font-size: 1.75rem; }
+      html[lang="ar"] .section-title { font-size: 2rem; }
+      .section h2 { font-size: 1.375rem; }
+      html[lang="ar"] .section h2 { font-size: 1.5rem; }
+      .lang-toggle { top: 16px; right: 16px; }
+      html[dir="rtl"] .lang-toggle { right: auto; left: 16px; }
+    }
+
+    /* ─── PRINT ─────────────────────────────────────────────────── */
+    @media print {
+      :root { --gutter: 32px; }
+      body { background: white; color: black; font-size: 11pt; line-height: 1.55; }
+      .sidebar { display: none; }
+      .lang-toggle { display: none; }
+      .review-banner { display: none !important; }
+      .layout { display: block; }
+      .main { padding: 0; max-width: none; }
+      .section { page-break-inside: auto; margin-bottom: 48px; }
+      .section-header { page-break-after: avoid; }
+      .section h2, .section h3 { page-break-after: avoid; }
+      .doc-header { page-break-after: always; }
+      .section { page-break-before: always; }
+      .doc-title { font-size: 32pt; }
+      .section-title { font-size: 22pt; }
+      .section h2 { font-size: 14pt; }
+      .pullquote { page-break-inside: avoid; }
+      .placeholder-section { display: none; }
+      a { color: black; text-decoration: none; }
+      .doc-footer { margin-top: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── LANGUAGE TOGGLE ─────────────────────────────────────── -->
+  <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+    <span lang="ar">عربي</span>
+  </button>
+
+  <!-- ─── ARABIC REVIEW BANNER ─────────────────────────────────── -->
+  <div class="review-banner">
+    الترجمة العربية مسودّة أوّلية أعدّها المساعد الذكي للمراجعة من قِبَل قارئ عربي أصلي قبل التسليم النهائي.
+  </div>
+
+  <div class="layout">
+
+    <!-- ─── SIDEBAR ───────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div>
+        <div class="lang-en">
+          <div class="sidebar-brand">Alfa Electronics</div>
+          <div class="sidebar-subbrand">AI Adoption Strategy</div>
+        </div>
+        <div class="lang-ar">
+          <div class="sidebar-brand">ألفا للإلكترونيات</div>
+          <div class="sidebar-subbrand">استراتيجية تبنّي الذكاء الاصطناعي</div>
+        </div>
+        <div class="sidebar-rule"></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">
+          <span class="lang-en">Contents</span>
+          <span class="lang-ar">المحتويات</span>
+        </div>
+        <ol>
+          <li><a href="#opening-hypothesis" class="nav-link">
+            <span class="lang-en">Opening Hypothesis</span>
+            <span class="lang-ar">الفرضية الافتتاحية</span>
+          </a></li>
+          <li><a href="#vision" class="nav-link">
+            <span class="lang-en">Vision — Alfa in 2028</span>
+            <span class="lang-ar">الرؤية — ألفا في 2028</span>
+          </a></li>
+          <li><a href="#strategic-choice" class="nav-link">
+            <span class="lang-en">The Strategic Choice</span>
+            <span class="lang-ar">الاختيار الاستراتيجي</span>
+          </a></li>
+          <li><a href="#execution-architecture" class="nav-link">
+            <span class="lang-en">Execution Architecture</span>
+            <span class="lang-ar">هندسة التنفيذ</span>
+          </a></li>
+          <li><a href="#evidence-reasoning" class="nav-link">
+            <span class="lang-en">Evidence &amp; Reasoning</span>
+            <span class="lang-ar">الأدلّة والاستدلال</span>
+          </a></li>
+          <li><a href="#people-sponsorship" class="nav-link">
+            <span class="lang-en">People &amp; Sponsorship</span>
+            <span class="lang-ar">الأفراد والرعاية</span>
+          </a></li>
+          <li><a href="#risks-metrics" class="nav-link">
+            <span class="lang-en">Risks, Metrics, Calibration</span>
+            <span class="lang-ar">المخاطر والمقاييس والمعايرة</span>
+          </a></li>
+          <li><a href="#phase-1-playbook" class="nav-link">
+            <span class="lang-en">Phase 1 Playbook</span>
+            <span class="lang-ar">كتيّب المرحلة الأولى</span>
+          </a></li>
+        </ol>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="lang-en">v1 · June 2026 · Draft</span>
+        <span class="lang-ar">النسخة 1 · يونيو 2026 · مسودّة</span>
+      </div>
+    </aside>
+
+    <!-- ─── MAIN ──────────────────────────────────────────────── -->
+    <main class="main">
+
+      <header class="doc-header">
+        <div class="lang-en">
+          <div class="doc-eyebrow">Strategy Brief</div>
+          <h1 class="doc-title">AI Adoption Strategy</h1>
+        </div>
+        <div class="lang-ar">
+          <div class="doc-eyebrow">ملخّص استراتيجي</div>
+          <h1 class="doc-title">استراتيجية تبنّي الذكاء الاصطناعي</h1>
+        </div>
+
+        <div class="doc-meta">
+          <div class="doc-meta-row">
+            <div class="doc-meta-item">
+              <span class="doc-meta-label">
+                <span class="lang-en">Prepared for</span>
+                <span class="lang-ar">أُعدّت لـ</span>
+              </span>
+              <span class="doc-meta-value">
+                <span class="lang-en">The Chairman</span>
+                <span class="lang-ar">رئيس مجلس الإدارة</span>
+              </span>
+            </div>
+            <div class="doc-meta-item">
+              <span class="doc-meta-label">
+                <span class="lang-en">Version</span>
+                <span class="lang-ar">الإصدار</span>
+              </span>
+              <span class="doc-meta-value">
+                <span class="lang-en">v1 — Draft</span>
+                <span class="lang-ar">النسخة 1 — مسودّة</span>
+              </span>
+            </div>
+            <div class="doc-meta-item">
+              <span class="doc-meta-label">
+                <span class="lang-en">Date</span>
+                <span class="lang-ar">التاريخ</span>
+              </span>
+              <span class="doc-meta-value">
+                <span class="lang-en">June 2026</span>
+                <span class="lang-ar">يونيو 2026</span>
+              </span>
+            </div>
+            <div class="doc-meta-item">
+              <span class="doc-meta-label">
+                <span class="lang-en">Horizon</span>
+                <span class="lang-ar">الأفق الزمني</span>
+              </span>
+              <span class="doc-meta-value">
+                <span class="lang-en">24 months</span>
+                <span class="lang-ar">24 شهراً</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ─── SECTION 1: OPENING HYPOTHESIS ─────────────────────── -->
+      <section id="opening-hypothesis" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 01</div>
+            <h2 class="section-title">Opening Hypothesis</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 01</div>
+            <h2 class="section-title">الفرضية الافتتاحية</h2>
+          </div>
+        </div>
+
+        <!-- ENGLISH CONTENT -->
+        <div class="lang-en">
+          <h2>Alfa's Next Identity</h2>
+
+          <p>Alfa Electronics has, since 1987, been an electronics-hardware company with software embedded inside the boxes it ships. Over the next 24 months, that order inverts. <strong>Alfa becomes an AI-enabled software-on-hardware company</strong> — a company whose products are intelligent software, delivered through the hardware substrates Alfa has spent thirty-nine years learning how to design, install, and service in the field.</p>
+
+          <p>This is not a pivot away from what Alfa is. It is the next move in a line of moves: becoming Markem's distributor in 1989, building the in-house engineering capability that produced the Electronic Solutions portfolio and earned the upgrade to the Markem-Imaje partnership, and folding Aura's software capability into Alfa's engineering arm. Each of those moves was a step toward software as the center of the offer. This one names what the previous ones implied.</p>
+
+          <h2>What the Books Say</h2>
+
+          <p>The financial picture says it more clearly than any narrative can.</p>
+
+          <p>Of Alfa's EGP 579M FY2025 revenue, <strong>EGP 428M — 74% — is recurring</strong>, almost entirely from the Markem-Imaje annuity: inks, solvents, ribbons, spare parts, and the service relationships that keep them flowing. The Electronic Solutions division produced EGP 75M last year — and the year before that, and the year before that. The ES revenue line has been <strong>flat since 2023</strong>.</p>
+
+          <p>The recurring base looks healthy because Markem-Imaje as a global partner is healthy. The Electronic Solutions plateau looks like a sales problem because the sales force has not changed. Neither read is accurate.</p>
+
+          <p>The recurring base is exposed to Markem-Imaje's own AI evolution: the 24/7 AI-powered virtual assistant they launched in 2024, the new AI inspection software they introduced at Empack 2026, the IoT-connected services portfolio they have been building. As their MEA distributor, Alfa either evolves alongside them — capable of selling, installing, and servicing intelligent products — or becomes, over time, a courier of consumables to customers who are being courted directly. <em>The annuity is protected only as long as the partnership is.</em></p>
+
+          <p>The Electronic Solutions plateau is not a sales problem. It is a product-feature problem. Q-MATIC has been shipping AI voice agents in production. Wavetec released a new AI forecasting module last month. Tensator has integrated facial recognition for passenger flow at airports. Customers walking into a tender in 2026 see vendor decks featuring AI capability across the queue management category, and Alfa's WAM platform — directionally right when it was built, faithfully maintained since — does not carry that capability. <em>The plateau is the market's quiet verdict.</em></p>
+
+          <p>Underneath both of these realities is a third one. <strong>Alfa invests 2.16% of revenue in R&amp;D.</strong> A distributor is funded that way. A software-led B2B company is funded at 6–10%. The gap between Alfa's R&amp;D spend and Alfa's actual strategic identity is the gap this strategy closes.</p>
+
+          <h2>The Bet</h2>
+
+          <p>Over the next 24 months, Alfa will:</p>
+
+          <ul class="body-list">
+            <li><strong>Protect the EGP 428M Markem-Imaje annuity</strong> by becoming an AI-capable distributor — equipping the field service organization with AI-augmented tools, integrating Markem-Imaje's AI inspection and connected services into the local offer, and developing the customer-facing intelligence layer that turns consumable supply from a transactional relationship into a managed one.</li>
+            <li><strong>Reinvent the Electronic Solutions line as a portfolio of intelligent software products on hardware substrates.</strong> The queueing platform, the kiosk line, ATUM's second generation, and the hospitality and parking products are reconceived with software as the center of the offer and hardware as the delivery substrate. The 2027 GS1 Digital Link inflection in the coding market creates a parallel upgrade wave Alfa must be positioned to lead among its existing customers, not lose to them.</li>
+            <li><strong>Step R&amp;D investment up from 2.16% toward the 6–10% range</strong> characteristic of software-led B2B, funded by the recurring base the investment is protecting. The investment is not speculative — it is the cost of staying in the business Alfa is actually in.</li>
+          </ul>
+
+          <h2>How</h2>
+
+          <p>Execution runs through the engineering capability Alfa already has — Aura, operationally embedded as Alfa's software arm under Samer's leadership. A small AI Office is established to govern method, measurement, and data accessibility. Four to six AI Pods run at any given time, each owning a specific outcome with a measurable Phase 1 result by year-end 2026. A network of AI Champions in the divisions provides the connective tissue between pod work and day-to-day operations.</p>
+
+          <p>The first wave includes product and engineering, deliberately. Internal efficiency wins are useful, but the strategic asset is the AI Products line — and product cannot lead from a position of catching up. Phase 1 measures product outcomes and operational outcomes from day one.</p>
+
+          <p>The pacing is fast lanes inside a slow organization. Small, visible pods generate the wins that pull the rest of the company forward, rather than asking the company to adopt at the same pace as the pods.</p>
+
+          <h2>Why Now</h2>
+
+          <p>Three forces converge.</p>
+
+          <p>The 2027 GS1 Digital Link sunrise gives Markem-Imaje's customers an immediate reason to upgrade their coding and inspection systems — and gives Alfa's competitors an immediate reason to call those customers first.</p>
+
+          <p>The competitive AI gap in queueing is no longer emerging. The flat-since-2023 number tells the same story the competitive scan does, in a quieter voice.</p>
+
+          <p>And the partnership window with Markem-Imaje is the partnership window with Markem-Imaje. They are building the next generation of products on a known timeline. Alfa either matches that timeline or watches it pass.</p>
+
+          <hr class="divider">
+
+          <p>This document does not argue for AI adoption. The chairman is the company's first AI advocate, and the strategic intent is settled. The document describes the execution plan: what Alfa will build over the next 24 months, how the work will be organized, who will lead it, what will be measured, what will be discovered through the work, and how the strategy will be calibrated as evidence comes in.</p>
+
+          <p class="pullquote">The rest of the document follows from this opening.</p>
+        </div>
+
+        <!-- ARABIC CONTENT -->
+        <div class="lang-ar">
+          <h2>هويّة ألفا القادمة</h2>
+
+          <p>ظلّت ألفا للإلكترونيات، منذ تأسيسها عام 1987، شركةً تعمل في الإلكترونيات والأجهزة، بينما كانت البرمجيات جزءاً مُدمَجاً داخل المنتجات التي تُسلَّم. خلال الأربعة والعشرين شهراً القادمة، يَنعكس هذا الترتيب. <strong>تتحوّل ألفا إلى شركة برمجيات على ركيزة من الأجهزة، مدعومة بالذكاء الاصطناعي</strong> — شركة يكون منتجها الأساسي ذكاءً برمجياً، يُقدَّم عبر الأجهزة التي قضت ألفا تسعةً وثلاثين عاماً تتعلّم تصميمها وتركيبها وصيانتها في الميدان.</p>
+
+          <p>هذا ليس انعطافاً عمّا هي عليه ألفا، بل هو الخطوة التالية في سلسلة من الخطوات: أن تصبح موزّعاً لـ Markem عام 1989، وبناء القدرة الهندسية الداخلية التي أنتجت محفظة الحلول الإلكترونية واستحقّت الترقية إلى شراكة Markem-Imaje، ودمج قدرات Aura البرمجية في الذراع الهندسي لألفا. كلّ خطوة من هذه كانت تقدُّماً نحو البرمجيات كمركز للعرض. هذه الخطوة تُعطي اسماً لما كانت الخطوات السابقة تُلمِّح إليه.</p>
+
+          <h2>ما تقوله الدفاتر</h2>
+
+          <p>تتحدّث الصورة المالية بصراحةٍ أكثر ممّا يمكن لأيّ سرد أن يفعل.</p>
+
+          <p>من إجمالي إيرادات ألفا للسنة المالية 2025 البالغة 579 مليون جنيه مصري، فإنّ <strong>428 مليون جنيه — أي 74% — هي إيرادات متكرّرة</strong>، أغلبها من سنويّة Markem-Imaje: الأحبار والمذيبات والأشرطة وقطع الغيار وعلاقات الخدمة التي تُبقيها متدفّقة. أنتج قسم الحلول الإلكترونية 75 مليون جنيه العام الماضي — والعام الذي قبله، والذي قبله أيضاً. خطّ إيرادات قسم الحلول الإلكترونية <strong>ثابت منذ 2023</strong>.</p>
+
+          <p>تبدو القاعدة المتكرّرة بصحّةٍ جيّدة لأنّ Markem-Imaje كشريك عالمي بصحّةٍ جيّدة. وتبدو هضبة قسم الحلول الإلكترونية كأنّها مشكلة مبيعات لأنّ فريق المبيعات لم يتغيّر. كِلتا القراءتين غير دقيقتين.</p>
+
+          <p>القاعدة المتكرّرة معرَّضة لتطوُّر Markem-Imaje نفسها نحو الذكاء الاصطناعي: المساعد الافتراضي العامل بالذكاء الاصطناعي على مدار الساعة الذي أطلقوه عام 2024، وبرنامج التفتيش بالذكاء الاصطناعي الذي عرضوه في Empack 2026، ومحفظة الخدمات المتّصلة عبر إنترنت الأشياء التي يبنونها. وكموزّع لهم في منطقة الشرق الأوسط وأفريقيا، إمّا أن تتطوّر ألفا معهم — قادرةً على بيع وتركيب وصيانة منتجات ذكيّة — أو تصبح، مع الوقت، مجرّد ناقلٍ للمستهلكات إلى عملاء تجري مغازلتهم مباشرةً. <em>السنويّة محميّة فقط طالما الشراكة قائمة.</em></p>
+
+          <p>هضبة قسم الحلول الإلكترونية ليست مشكلة مبيعات. هي مشكلة في خصائص المنتج. Q-MATIC تشحن وكلاء صوتيين بالذكاء الاصطناعي في الإنتاج. Wavetec أصدرت وحدة تنبّؤ بالذكاء الاصطناعي الشهر الماضي. Tensator دمجت التعرّف على الوجوه لتدفّق الركّاب في المطارات. العملاء الذين يدخلون مناقصةً في 2026 يرَون عروض المورّدين تحمل قدراتٍ من الذكاء الاصطناعي عبر فئة إدارة الطوابير، ومنصّة WAM الخاصّة بألفا — صحيحة الاتّجاه عندما بُنيت، ومُصانة بأمانة منذ ذلك — لا تحمل تلك القدرة. <em>الهضبة هي الحُكم الهادئ للسوق.</em></p>
+
+          <p>تحت هاتين الحقيقتين، ثمّة حقيقة ثالثة. <strong>تستثمر ألفا 2.16% من الإيرادات في البحث والتطوير.</strong> هكذا تُموَّل شركات التوزيع. أمّا شركة B2B تقودها البرمجيات فتُموَّل بنسبة 6–10%. الفجوة بين إنفاق ألفا على البحث والتطوير وهويّتها الاستراتيجية الفعلية هي الفجوة التي تُغلِقها هذه الاستراتيجية.</p>
+
+          <h2>الرهان</h2>
+
+          <p>خلال الأربعة والعشرين شهراً القادمة، ستقوم ألفا بـ:</p>
+
+          <ul class="body-list">
+            <li><strong>حماية سنويّة Markem-Imaje البالغة 428 مليون جنيه</strong> عبر التحوّل إلى موزّع قادر على الذكاء الاصطناعي — تجهيز منظومة خدمة الميدان بأدوات معزّزة بالذكاء الاصطناعي، ودمج برنامج التفتيش الذكي والخدمات المتّصلة من Markem-Imaje في العرض المحلّي، وتطوير طبقة الذكاء الموجّهة للعميل التي تحوّل تجهيز المستهلكات من علاقة معاملاتيّة إلى علاقة مُدارة.</li>
+            <li><strong>إعادة ابتكار خطّ الحلول الإلكترونية كمحفظةٍ من المنتجات البرمجية الذكيّة على ركائز من الأجهزة.</strong> يُعاد تصوُّر منصّة الطوابير، وخطّ الأكشاك، والجيل الثاني من ATUM، ومنتجات الضيافة والمواقف من الداخل: البرمجيات في مركز العرض، والأجهزة كركيزة للتسليم. إنّ منعطف 2027 لـ GS1 Digital Link في سوق التشفير يُحدِث موجة ترقية موازية يجب على ألفا أن تكون في موقع يقودها بين عملائها الحاليين، لا يخسرها.</li>
+            <li><strong>رفع استثمار البحث والتطوير من 2.16% نحو نطاق الـ 6–10%</strong> الخاصّ بشركات B2B التي تقودها البرمجيات، بتمويلٍ من القاعدة المتكرّرة التي يحميها هذا الاستثمار. الاستثمار ليس مضارَباً — إنّه تكلفة البقاء في النشاط الذي تعمل به ألفا فعلاً.</li>
+          </ul>
+
+          <h2>الكيفيّة</h2>
+
+          <p>يجري التنفيذ عبر القدرة الهندسية التي تملكها ألفا فعلاً — Aura، المُدمَجة عمليّاً كذراعٍ برمجي لألفا تحت قيادة سامر. يُؤسَّس مكتب صغير للذكاء الاصطناعي لإدارة المنهجية والقياس وإتاحة البيانات. تعمل من أربع إلى ست "مجموعات ذكاء اصطناعي" في أيّ وقت، تَملِك كلّ واحدة منها نتيجةً محدّدة بمعيار قياسٍ واضح خلال المرحلة الأولى حتى نهاية 2026. وشبكة من "أبطال الذكاء الاصطناعي" في الأقسام توفّر النسيج الرابط بين عمل المجموعات والتشغيل اليومي.</p>
+
+          <p>تشمل الموجة الأولى المنتج والهندسة، عن قصد. مكاسب الكفاءة الداخلية مفيدة، لكنّ الأصل الاستراتيجي هو خطّ منتجات الذكاء الاصطناعي — والمنتج لا يستطيع القيادة من موقع اللحاق بالرَّكب. تقيس المرحلة الأولى نتائج المنتج ونتائج التشغيل من اليوم الأوّل.</p>
+
+          <p>الإيقاع هو "مسارات سريعة داخل منظّمة بطيئة". تُولِّد مجموعاتٌ صغيرة وظاهرة الانتصاراتِ التي تجرّ بقيّة الشركة إلى الأمام، بدلاً من مطالبة الشركة بالتبنّي بنفس سرعة المجموعات.</p>
+
+          <h2>لماذا الآن</h2>
+
+          <p>تتلاقى ثلاث قُوى.</p>
+
+          <p>شروق GS1 Digital Link في 2027 يُعطي عملاء Markem-Imaje سبباً مباشراً لترقية أنظمة التشفير والتفتيش — ويُعطي منافسي ألفا سبباً مباشراً للاتّصال بهؤلاء العملاء أوّلاً.</p>
+
+          <p>فجوة الذكاء الاصطناعي التنافسية في مجال الطوابير لم تَعُد ناشئة. الرقم الثابت منذ 2023 يحكي القصّة نفسها التي يحكيها المسح التنافسي، لكن بصوتٍ أهدأ.</p>
+
+          <p>ونافذة الشراكة مع Markem-Imaje هي نافذة الشراكة مع Markem-Imaje. يبنون الجيل القادم من المنتجات على جدولٍ زمنيّ معروف. إمّا أن تواكب ألفا هذا الجدول، أو تشاهده يمرّ.</p>
+
+          <hr class="divider">
+
+          <p>لا تجادل هذه الوثيقة في أهمّية تبنّي الذكاء الاصطناعي. رئيس مجلس الإدارة هو المؤيِّد الأوّل للذكاء الاصطناعي في الشركة، والنيّة الاستراتيجية محسومة. تَصِف هذه الوثيقة خطّة التنفيذ: ما ستبنيه ألفا خلال الأربعة والعشرين شهراً القادمة، وكيف سيُنظَّم العمل، ومن سيقوده، وماذا سيُقاس، وما الذي سيُكتشَف خلال العمل، وكيف ستُعايَر الاستراتيجية مع وصول الأدلّة.</p>
+
+          <p class="pullquote">بقيّة الوثيقة تَتْبع من هذا الافتتاح.</p>
+        </div>
+      </section>
+
+      <!-- ─── PLACEHOLDER SECTIONS ─────────────────────────────── -->
+
+      <section id="vision" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 02</div>
+            <h2 class="section-title">Vision — Alfa in 2028</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 02</div>
+            <h2 class="section-title">الرؤية — ألفا في 2028</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c81e99997ffd88dee13d8">Notion</a>. Will be rendered into the brief once visual direction is confirmed.</p>
+          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c81e99997ffd88dee13d8">Notion</a>. ستُدرَج في الملخّص بعد تأكيد الاتّجاه البصري.</p>
+        </div>
+      </section>
+
+      <section id="strategic-choice" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 03</div>
+            <h2 class="section-title">The Strategic Choice</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 03</div>
+            <h2 class="section-title">الاختيار الاستراتيجي</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c81e0b777d7d5e36f029a">Notion</a>.</p>
+          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c81e0b777d7d5e36f029a">Notion</a>.</p>
+        </div>
+      </section>
+
+      <section id="execution-architecture" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 04</div>
+            <h2 class="section-title">Execution Architecture</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 04</div>
+            <h2 class="section-title">هندسة التنفيذ</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c8111911cef2be102874a">Notion</a>.</p>
+          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c8111911cef2be102874a">Notion</a>.</p>
+        </div>
+      </section>
+
+      <section id="evidence-reasoning" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 05</div>
+            <h2 class="section-title">Evidence &amp; Reasoning</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 05</div>
+            <h2 class="section-title">الأدلّة والاستدلال</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c811eaba8c762a52dd260">Notion</a>.</p>
+          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c811eaba8c762a52dd260">Notion</a>.</p>
+        </div>
+      </section>
+
+      <section id="people-sponsorship" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 06</div>
+            <h2 class="section-title">People &amp; Sponsorship</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 06</div>
+            <h2 class="section-title">الأفراد والرعاية</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft (skeleton with five placeholders) lives in <a href="https://app.notion.com/p/37bcb67bf82c8143aa24cb9a77805f1b">Notion</a>.</p>
+          <p class="lang-ar">المسودّة الحالية (هيكل بخمسة مواضع شاغرة) في <a href="https://app.notion.com/p/37bcb67bf82c8143aa24cb9a77805f1b">Notion</a>.</p>
+        </div>
+      </section>
+
+      <section id="risks-metrics" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Section 07</div>
+            <h2 class="section-title">Risks, Metrics, Calibration</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">القسم 07</div>
+            <h2 class="section-title">المخاطر والمقاييس والمعايرة</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37ccb67bf82c81d4a4d5fe1a252abfc6">Notion</a>.</p>
+          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37ccb67bf82c81d4a4d5fe1a252abfc6">Notion</a>.</p>
+        </div>
+      </section>
+
+      <section id="phase-1-playbook" class="section">
+        <div class="section-header">
+          <div class="lang-en">
+            <div class="section-number">Appendix</div>
+            <h2 class="section-title">Phase 1 Playbook</h2>
+          </div>
+          <div class="lang-ar">
+            <div class="section-number">ملحق</div>
+            <h2 class="section-title">كتيّب المرحلة الأولى</h2>
+          </div>
+        </div>
+        <div class="placeholder-section">
+          <p class="lang-en">Proposed draft (five pods, substrate work, 30/60/90 cadence) lives in <a href="https://app.notion.com/p/37ccb67bf82c815d87ceff2537606121">Notion</a>.</p>
+          <p class="lang-ar">المسودّة المقترحة (خمس مجموعات، عمل البنية التحتية، إيقاع 30/60/90) في <a href="https://app.notion.com/p/37ccb67bf82c815d87ceff2537606121">Notion</a>.</p>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <div>
+          <span class="lang-en">Alfa Electronics · AI Adoption Strategy · v1 Draft</span>
+          <span class="lang-ar">ألفا للإلكترونيات · استراتيجية تبنّي الذكاء الاصطناعي · النسخة 1 — مسودّة</span>
+        </div>
+        <div>
+          <span class="lang-en">Prepared June 2026</span>
+          <span class="lang-ar">أُعدّت في يونيو 2026</span>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <script>
+    // ─── Language toggle + persistence ────────────────────────
+    (function() {
+      const STORAGE_KEY = 'alfa-strategy-lang';
+      const root = document.documentElement;
+      const toggle = document.getElementById('lang-toggle');
+
+      function setLang(lang) {
+        root.lang = lang;
+        root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        toggle.innerHTML = lang === 'en'
+          ? '<span lang="ar">عربي</span>'
+          : '<span lang="en">EN</span>';
+        toggle.setAttribute('aria-label', lang === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية');
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+      }
+
+      // Init from storage (default English)
+      let saved = 'en';
+      try { saved = localStorage.getItem(STORAGE_KEY) || 'en'; } catch (e) {}
+      setLang(saved === 'ar' ? 'ar' : 'en');
+
+      toggle.addEventListener('click', () => {
+        const next = root.lang === 'en' ? 'ar' : 'en';
+        setLang(next);
+      });
+    })();
+
+    // ─── Active section highlighting on scroll ─────────────────
+    (function() {
+      const sections = document.querySelectorAll('.section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sectionMap = {};
+      navLinks.forEach(link => {
+        const id = link.getAttribute('href').slice(1);
+        sectionMap[id] = link;
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const link = sectionMap[entry.target.id];
+            if (link) link.classList.add('active');
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(s => observer.observe(s));
+    })();
+  </script>
+</body>
+</html>
