@@ -933,19 +933,20 @@
     }
     html[lang="ar"] .note-label { text-transform: none; letter-spacing: 0; }
 
-    /* Inline "(Seat — individual not yet assigned.)" marker */
+    /* Inline deferral marker — intentional note, not a gap */
     .seat-note {
       font-family: var(--sans-en);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-style: normal;
       color: var(--accent-soft);
-      background: rgba(160, 64, 80, 0.08);
+      background: rgba(160, 64, 80, 0.07);
       border: 1px solid rgba(160, 64, 80, 0.20);
-      border-radius: 100px;
-      padding: 1px 11px;
-      white-space: nowrap;
+      border-radius: 5px;
+      padding: 0 7px;
     }
-    html[lang="ar"] .seat-note { font-family: var(--sans-ar); white-space: normal; }
+    .seat-note::before { content: '⊘'; margin-right: 5px; opacity: 0.7; }
+    html[lang="ar"] .seat-note { font-family: var(--sans-ar); }
+    html[dir="rtl"] .seat-note::before { margin-right: 0; margin-left: 5px; }
 
     /* Definition grid (four layers, four D's) */
     .def-list { margin: 26px 0; max-width: var(--content-w); }
@@ -2071,9 +2072,148 @@
             <h2 class="section-title">الأدلّة والاستدلال</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c811eaba8c762a52dd260">Notion</a>.</p>
-          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c811eaba8c762a52dd260">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <div class="section-intro">
+            <p>This section makes the case for the specific shape of the strategy described in the preceding sections — the three workstreams, the product-first sequencing, the AI Pods with validate criteria, the Champions Network as a pull mechanism, the elevation of data accessibility to a co-equal Phase 1 priority. Each of these choices is supported by what comparable organizations have learned in their own AI adoption efforts, what the financial data on the table demands, and what is established about how new capability actually moves through an organization.</p>
+            <p>The argument is not <em>"AI is important."</em> That argument is settled. The argument is <em>"this shape is the right shape, for this company, at this moment."</em></p>
+          </div>
+
+          <h2>What Comparable Organizations Have Learned</h2>
+          <p>A recognizable pattern has emerged across enterprise AI adoption between 2023 and 2026. The pattern has both a positive and a negative form.</p>
+          <p><strong>The positive form</strong> appears in organizations that have shipped real AI capability — including some of the most-studied enterprise rollouts. The common elements:</p>
+          <ul class="body-list">
+            <li>Visible executive sponsorship without executive micromanagement. The sponsor names AI as a priority, removes obstacles, and shows up at moments that matter — but does not approve individual experiments.</li>
+            <li>Small, time-boxed teams owning specific outcomes, rather than centralized AI teams owning everything. The decentralization is structural, not incidental.</li>
+            <li>Measurable claims at the start of every initiative — what would success look like, in numbers, with a deadline. Initiatives that cannot articulate this do not get resourced.</li>
+            <li>Cross-functional composition of working teams — engineering paired with domain experts, never engineering working alone for non-engineering users.</li>
+            <li>Early publication of both wins and stops. Stops are normalized; they accumulate as learning rather than embarrass.</li>
+          </ul>
+          <p><strong>The negative form</strong> is observed in organizations that have run high-budget AI programs for two or three years and not shipped meaningful AI capability into their products or operations. The common failure modes:</p>
+          <ul class="body-list">
+            <li>The initiative is captured by a single function — usually IT or engineering — and the rest of the company treats it as someone else's project.</li>
+            <li>A centralized AI team is established and accumulates ownership of everything, becoming a bottleneck rather than an enabler.</li>
+            <li>The methodology becomes talk-heavy: workshops, training programs, communities of practice, and conference talks accumulate without anything shipping to a customer.</li>
+            <li>Internal efficiency wins are celebrated and the AI Products line never materializes. The company gets good at writing email faster and never ships an AI-enabled product.</li>
+            <li>The data infrastructure work becomes a multi-year prerequisite that prevents any actual AI work from starting.</li>
+            <li>One high-profile customer-facing launch is rushed without the validate discipline, performs poorly, gets walked back publicly, and becomes a cautionary tale that slows internal adoption for the following year.</li>
+          </ul>
+          <p>The strategy in this document is shaped by both forms. The positive pattern shows up as the AI Pod model with validate criteria, the cross-functional Council, the Champions Network as connective tissue, and the chairman's visible-but-not-micromanaging sponsorship role. The negative pattern shows up as everything we have explicitly committed <em>not</em> to do — the centralized AI team, the months-long curriculum as the primary learning vehicle, the data rebuild as prerequisite, the internal-first product-later sequencing.</p>
+          <p>The reasoning is not <em>"Company X did this"</em> or <em>"Company Y did that."</em> It is that the field has now had three years of public attempts, the patterns have stabilized enough to learn from, and the strategy is calibrated against those patterns.</p>
+
+          <h2>The Financial Logic of the Bet</h2>
+          <p>The financial argument rests on three claims, each grounded in numbers on the table.</p>
+          <h3>Claim 1: The current R&amp;D investment is structurally incompatible with the company's strategic identity.</h3>
+          <p>Alfa invests 2.16% of revenue in R&amp;D — EGP 12.5M against a 579M revenue base. This is the R&amp;D profile of a distributor. Distributor norms run roughly 2–3% of revenue, and the spend is largely operational — sales tools, vendor-supplied product configuration, partner-driven training.</p>
+          <p>Software-led B2B companies — which is what the strategy commits Alfa to becoming — invest 6–15% of revenue in R&amp;D. The lower end of that range is companies maintaining a stable product portfolio; the upper end is companies in active platform evolution. Alfa, executing a two-year identity transition, sits in the upper portion of that range.</p>
+          <p>The gap is therefore not 2.16% versus 6%. It is the difference between funding a distributor's incremental updates and funding a software company's platform evolution. The bet is to close that gap.</p>
+          <h3>Claim 2: The cost of evolving the partnership is structurally lower than the cost of losing the annuity.</h3>
+          <p>The EGP 504M Markem-Imaje contribution to revenue is 87% of the top line. Of that, EGP 428M is recurring. Recurring revenue at this scale is the cheapest revenue to protect and the most expensive revenue to lose.</p>
+          <p>Markem-Imaje's own evolution toward AI-mediated services — the 2024 24/7 AI assistant, the 2026 AI inspection software, the IoT-connected services portfolio — creates a partnership-readiness obligation for Alfa as their MEA distributor. The cost of evolving the local field service organization, integrating their AI tooling, and developing the customer-facing intelligence layer is in the low single-digit millions of EGP per year over the strategy window. The cost of being replaced as their MEA partner, or of being marginalized while a more capable distributor is courted, is the annuity itself.</p>
+          <p>The math is asymmetric. A small investment protects a large recurring stream. Even modest probability of partnership-stress in the absence of the investment justifies the spend.</p>
+          <h3>Claim 3: The Electronic Solutions plateau is unlockable, and the unlock pays for the work that unlocks it.</h3>
+          <p>The ES line has been flat at roughly EGP 75M since 2023. Queueing systems account for 64% of that. The competitive scan documents the reason: customers in 2026 are seeing AI-enabled queueing systems from Q-MATIC, Wavetec, and others. Alfa's WAM platform does not carry that capability. The plateau is the product-feature gap.</p>
+          <p>A successful re-base of the queueing platform with AI features — predictive routing, voice or chat agents, natural-language analytics, Arabic-first interaction — moves the addressable opportunity per tender materially. A return to growth that recovers even the 2018–2022 trajectory adds tens of millions of EGP to the ES line within the strategy window. The R&amp;D investment funds itself within two to three years, and continues compounding after.</p>
+          <p>The three claims together describe a <strong>self-funding transformation</strong>: the recurring base pays for the partnership evolution, the partnership evolution preserves the recurring base, the ES re-base unlocks growth, and the growth pays for further reinvestment. The strategy is not a cost program. It is a reallocation from underspending on identity to investing at the rate identity demands.</p>
+
+          <h2>What the Competitive Scan Says, in One Paragraph</h2>
+          <p>The full scan is in the appendix. The summary that matters here: in both of Alfa's core markets, AI capability has moved from "emerging" to <em>operational and at scale</em>. Q-MATIC ships AI voice agents, Wavetec ships predictive forecasting and natural-language analytics, Tensator has integrated facial recognition for passenger flow. In industrial coding, Domino has shipped more than a thousand AI-vision inspection units since 2020 and launched a printhead purpose-built for the 2027 GS1 Digital Link transition. Markem-Imaje is actively closing the gap — AI inspection software, 24/7 AI service tools, IoT-connected printers. The window for entering the AI products line as a differentiated player closes in 2027. Entering as a follower happens automatically; entering as a leader requires the action this strategy commits to.</p>
+
+          <h2>How New Capability Actually Moves Through Organizations</h2>
+          <p>The Champions Network and the pull-based adoption model are not arbitrary design choices. They follow from a well-established pattern in how innovation spreads inside organizations: not as a uniform wave, but in a sequence of distinct adopter groups.</p>
+          <p>A small fraction of people in any organization are oriented toward trying new tools immediately — they will engage regardless of the program's design. A larger early-adopter group will engage if the work is visible, credible, and supported by people they respect. The early majority will engage when the early adopters' wins become socially evident — when colleagues they trust have visibly benefited. The late majority will engage when <em>not</em> engaging starts to feel like falling behind. And a small group will hold out indefinitely, often productively as a counterweight to over-enthusiasm.</p>
+          <p>Programs that try to move everyone at the same pace produce uniform low engagement. Programs that concentrate effort on the early waves and let the later waves pull themselves in produce uneven but real adoption. The Champions Network is the implementation of this pattern: it identifies and resources the early adopters, makes their work visible, and lets the social mechanism do the work that no mandate can do.</p>
+          <p>The same pattern shows up in what is known about how adults build new capability. New skills are built mostly through doing real work — roughly seventy percent of the learning. Another twenty percent comes from interaction with skilled peers. Only the last ten percent comes from formal instruction. The pod model, the Champions Network, and the on-demand training delivery from the AI Office together honor this distribution. A six-month formal curriculum delivered to people who are not yet doing the work inverts it.</p>
+
+          <h2>What Skilled AI Use Looks Like</h2>
+          <p>The strategy's commitment to embedded learning has a counterpart in what "skilled AI use" actually means at the individual level. Across enterprise practice, four capabilities are emerging as the consistent markers of someone who uses AI well:</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">Delegation</div><div class="def-desc">Knowing what to hand to an AI and what to keep. The judgment is task-by-task, not technology-by-technology.</div></div>
+            <div class="def"><div class="def-term">Description</div><div class="def-desc">Being able to articulate what is needed, with the right context, at the right level of specificity. The bottleneck is rarely the AI; it is the human's ability to describe the work.</div></div>
+            <div class="def"><div class="def-term">Discernment</div><div class="def-desc">Evaluating AI output critically before acting on it. The skill that prevents the AI-generated mistakes that erode trust.</div></div>
+            <div class="def"><div class="def-term">Diligence</div><div class="def-desc">Maintaining responsibility for outcomes, including outcomes the AI participated in. AI does not absolve.</div></div>
+          </div>
+          <p>These four capabilities are not taught well in courses. They are built through repeated cycles of trying, failing visibly, and recalibrating with peers. The pod model is designed to produce these capabilities as a side effect of shipping outcomes, rather than as the primary objective of training programs.</p>
+
+          <h2>Evidence the Strategy Will Generate</h2>
+          <p>Phase 1 produces its own evidence base. The validate-criteria results from each pod, the patterns of which departments engage and which defer, the substrate work's actual cost and pace, the customer-facing pilots' reception in the two divisions' verticals — these accumulate into the data the strategy uses to calibrate itself. Phase 2 begins with this evidence in hand and adjusts accordingly.</p>
+          <p>The strategy does not require all of its bets to be right on day one. It requires the validate-and-calibrate discipline to be honored — which is why the methodology occupies as much space in the document as the structural choices do.</p>
+
+          <h2>Closing</h2>
+          <p>The reasoning behind the strategy is the same as the reasoning behind any considered bet: the trade-offs have been examined, the costs and benefits have been weighed against the data available, the patterns from comparable efforts have been incorporated, and the structure has been designed to learn and adjust as new evidence arrives.</p>
+          <p>The next section — People and Sponsorship — describes the human structure that holds this together: who plays which role, how the sponsorship transitions over time, and how the political weight of the transformation is distributed across the people who will own the outcomes.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <div class="section-intro">
+            <p>يبني هذا القسم الحجّة للشكل المحدّد للاستراتيجية الموصوفة في الأقسام السابقة — مسارات العمل الثلاثة، وترتيب المنتج أولاً، ومجموعات الذكاء الاصطناعي بمعايير تحقّقها، وشبكة الأبطال كآلية جذب، ورفع إتاحة البيانات إلى أولويةٍ مكافئة في المرحلة الأولى. كلٌّ من هذه الخيارات تدعمه دروس المنظّمات المماثلة في جهود تبنّيها للذكاء الاصطناعي، وما تتطلّبه البيانات المالية المطروحة، وما هو راسخٌ عن كيفية تحرّك القدرة الجديدة فعلاً عبر المنظّمة.</p>
+            <p>الحجّة ليست <em>«الذكاء الاصطناعي مهمّ»</em>. تلك الحجّة محسومة. الحجّة هي <em>«هذا الشكل هو الشكل الصحيح، لهذه الشركة، في هذه اللحظة»</em>.</p>
+          </div>
+
+          <h2>ما الذي تعلّمته المنظّمات المماثلة</h2>
+          <p>ظهر نمطٌ معروف عبر تبنّي الذكاء الاصطناعي المؤسّسي بين عامَي 2023 و2026. وللنمط صورةٌ إيجابية وأخرى سلبية.</p>
+          <p><strong>الصورة الإيجابية</strong> تظهر في المنظّمات التي شحنت قدرة ذكاءٍ اصطناعيٍّ حقيقية — بما فيها بعض أكثر عمليات الطرح المؤسّسي دراسةً. العناصر المشتركة:</p>
+          <ul class="body-list">
+            <li>رعايةٌ تنفيذية ظاهرة دون إدارةٍ تفصيلية تنفيذية. الراعي يُسمّي الذكاء الاصطناعي أولوية، ويُزيل العوائق، ويحضر في اللحظات المهمّة — لكنّه لا يعتمد التجارب الفردية.</li>
+            <li>فرقٌ صغيرة محدَّدة زمنيّاً تملك نتائج محدّدة، بدلاً من فرق ذكاءٍ اصطناعيٍّ مركزية تملك كلّ شيء. اللامركزية بنيوية، لا عَرَضية.</li>
+            <li>ادّعاءاتٌ قابلة للقياس عند بداية كلّ مبادرة — كيف يبدو النجاح، بالأرقام، وبموعدٍ نهائي. والمبادرات التي لا تستطيع صياغة هذا لا تحصل على موارد.</li>
+            <li>تكوينٌ متعدّد الوظائف لفرق العمل — الهندسة مقترنةً بخبراء المجال، ولا تعمل الهندسة وحدها أبداً لمستخدمين غير مهندسين.</li>
+            <li>نشرٌ مبكر للانتصارات والتوقّفات معاً. التوقّفات مُطبَّعة؛ تتراكم تعلُّماً بدلاً من أن تُحرِج.</li>
+          </ul>
+          <p><strong>الصورة السلبية</strong> تُلاحَظ في المنظّمات التي أدارت برامج ذكاءٍ اصطناعيٍّ عالية الميزانية لعامين أو ثلاثة دون أن تشحن قدرةً ذات معنى في منتجاتها أو عملياتها. أنماط الفشل المشتركة:</p>
+          <ul class="body-list">
+            <li>تستحوذ على المبادرة وظيفةٌ واحدة — عادةً تقنية المعلومات أو الهندسة — وتعاملها بقيّة الشركة كمشروع شخصٍ آخر.</li>
+            <li>يُؤسَّس فريق ذكاءٍ اصطناعيٍّ مركزي ويتراكم لديه امتلاك كلّ شيء، فيصبح عنق زجاجة بدلاً من أن يكون مُمكِّناً.</li>
+            <li>تصبح المنهجية مُثقلةً بالكلام: ورش عمل، وبرامج تدريب، ومجتمعات ممارسة، ومحاضرات مؤتمرات تتراكم دون أن يُشحَن أيّ شيء إلى عميل.</li>
+            <li>يُحتفى بمكاسب الكفاءة الداخلية ولا يتجسّد خطّ منتجات الذكاء الاصطناعي أبداً. تُتقن الشركة كتابة البريد أسرع ولا تشحن قطّ منتجاً ممكَّناً بالذكاء الاصطناعي.</li>
+            <li>يصبح عمل البنية التحتية للبيانات شرطاً مسبقاً يمتدّ سنواتٍ ويمنع أيّ عمل ذكاءٍ اصطناعيٍّ فعلي من البدء.</li>
+            <li>يُستعجَل إطلاقٌ واحدٌ بارزٌ موجَّه للعميل دون انضباط التحقّق، فيؤدّي أداءً ضعيفاً، ويُتراجَع عنه علناً، ويصبح حكايةً تحذيرية تُبطئ التبنّي الداخلي للعام التالي.</li>
+          </ul>
+          <p>تتشكّل استراتيجية هذا المستند بكلتا الصورتين. النمط الإيجابي يظهر كنموذج مجموعة الذكاء الاصطناعي بمعايير التحقّق، والمجلس المتعدّد الوظائف، وشبكة الأبطال كنسيجٍ رابط، ودور رئيس مجلس الإدارة الراعي الظاهر دون إدارةٍ تفصيلية. والنمط السلبي يظهر في كلّ ما التزمنا صراحةً <em>بعدم</em> فعله — فريق الذكاء الاصطناعي المركزي، والمنهج الذي يمتدّ أشهراً كوسيلة التعلّم الأساسية، وإعادة بناء البيانات كشرطٍ مسبق، وترتيب الداخل أولاً والمنتج لاحقاً.</p>
+          <p>الاستدلال ليس <em>«الشركة س فعلت هذا»</em> أو <em>«الشركة ص فعلت ذاك»</em>. بل هو أنّ المجال مرّ الآن بثلاث سنواتٍ من المحاولات العلنية، واستقرّت الأنماط بما يكفي للتعلّم منها، والاستراتيجية مُعايَرة مقابل تلك الأنماط.</p>
+
+          <h2>المنطق المالي للرهان</h2>
+          <p>تقوم الحجّة المالية على ثلاثة ادّعاءات، كلٌّ منها مؤسَّسٌ على أرقامٍ مطروحة.</p>
+          <h3>الادّعاء 1: استثمار البحث والتطوير الحالي غير متوافقٍ بنيويّاً مع الهوية الاستراتيجية للشركة.</h3>
+          <p>تستثمر ألفا 2.16% من الإيرادات في البحث والتطوير — 12.5 مليون جنيه مقابل قاعدة إيراداتٍ تبلغ 579 مليوناً. هذا هو ملمح البحث والتطوير لموزّع. وأعراف الموزّعين تتراوح تقريباً بين 2–3% من الإيرادات، والإنفاق تشغيليٌّ إلى حدٍّ كبير — أدوات مبيعات، وتكوين منتجاتٍ يوفّره المورّد، وتدريبٌ يقوده الشريك.</p>
+          <p>أمّا شركات B2B التي تقودها البرمجيات — وهو ما تلتزم الاستراتيجية بأن تصبحه ألفا — فتستثمر 6–15% من الإيرادات في البحث والتطوير. الطرف الأدنى من هذا النطاق شركاتٌ تحافظ على محفظة منتجاتٍ مستقرّة؛ والطرف الأعلى شركاتٌ في تطوّر منصّةٍ نشط. وألفا، وهي تنفّذ انتقال هويةٍ مدّته سنتان، تقع في الجزء الأعلى من ذلك النطاق.</p>
+          <p>الفجوة إذاً ليست 2.16% مقابل 6%. بل هي الفرق بين تمويل تحديثاتٍ تدريجية لموزّع وتمويل تطوّر منصّةٍ لشركة برمجيات. والرهان هو إغلاق تلك الفجوة.</p>
+          <h3>الادّعاء 2: تكلفة تطوير الشراكة أقلّ بنيويّاً من تكلفة خسارة السنويّة.</h3>
+          <p>إسهام Markem-Imaje في الإيرادات البالغ 504 ملايين جنيه يمثّل 87% من إجمالي الإيراد. ومن ذلك، 428 مليون جنيه متكرّرة. والإيراد المتكرّر بهذا الحجم هو أرخص إيرادٍ يُحمى وأغلى إيرادٍ يُخسَر.</p>
+          <p>تطوّر Markem-Imaje نفسها نحو الخدمات المتوسّطة بالذكاء الاصطناعي — مساعد 2024 العامل على مدار الساعة، وبرنامج التفتيش بالذكاء الاصطناعي في 2026، ومحفظة الخدمات المتّصلة عبر إنترنت الأشياء — يخلق التزام جاهزيةٍ للشراكة على ألفا بوصفها موزّعهم في الشرق الأوسط وأفريقيا. وتكلفة تطوير منظومة الخدمة الميدانية المحلّية، ودمج أدواتهم الذكية، وتطوير طبقة الذكاء الموجّهة للعميل، تقع في حدود ملايين قليلة من الجنيهات سنويّاً على مدى نافذة الاستراتيجية. أمّا تكلفة الاستبدال كشريكٍ في الشرق الأوسط وأفريقيا، أو التهميش بينما تُغازَل جهةُ توزيعٍ أقدر، فهي السنويّة نفسها.</p>
+          <p>الحساب غير متماثل. استثمارٌ صغير يحمي تدفّقاً متكرّراً كبيراً. وحتى احتمالٌ متواضع لتوتّر الشراكة في غياب الاستثمار يبرّر الإنفاق.</p>
+          <h3>الادّعاء 3: هضبة الحلول الإلكترونية قابلة للفتح، والفتح يدفع تكلفة العمل الذي يفتحها.</h3>
+          <p>ظلّ خطّ الحلول الإلكترونية ثابتاً عند نحو 75 مليون جنيه منذ 2023. وتمثّل أنظمة الطوابير 64% من ذلك. ويوثّق المسح التنافسي السبب: العملاء في 2026 يرَون أنظمة طوابير ممكَّنة بالذكاء الاصطناعي من Q-MATIC وWavetec وغيرهما. ومنصّة WAM الخاصّة بألفا لا تحمل تلك القدرة. الهضبة هي فجوة خصائص المنتج.</p>
+          <p>إنّ إعادة تأسيسٍ ناجحة لمنصّة الطوابير بخصائص ذكاءٍ اصطناعي — توجيهٌ تنبّؤي، ووكلاء صوتٍ أو دردشة، وتحليلاتٌ باللغة الطبيعية، وتفاعلٌ بالعربية أولاً — تُحرّك الفرصة القابلة للتوجّه لكلّ مناقصةٍ بشكلٍ جوهري. وعودةٌ إلى النموّ تستعيد ولو مسار 2018–2022 تضيف عشرات الملايين من الجنيهات إلى خطّ الحلول الإلكترونية خلال نافذة الاستراتيجية. واستثمار البحث والتطوير يموّل نفسه خلال سنتين إلى ثلاث، ويواصل التراكم بعدها.</p>
+          <p>تصف الادّعاءات الثلاثة معاً <strong>تحوّلاً ذاتيّ التمويل</strong>: القاعدة المتكرّرة تدفع تكلفة تطوير الشراكة، وتطوير الشراكة يحفظ القاعدة المتكرّرة، وإعادة تأسيس الحلول الإلكترونية تفتح النموّ، والنموّ يدفع مزيداً من إعادة الاستثمار. الاستراتيجية ليست برنامج تكاليف. إنّها إعادة تخصيصٍ من إنفاقٍ ناقصٍ على الهوية إلى استثمارٍ بالمعدّل الذي تتطلّبه الهوية.</p>
+
+          <h2>ما يقوله المسح التنافسي، في فقرةٍ واحدة</h2>
+          <p>المسح الكامل في الملحق. والخلاصة المهمّة هنا: في كلا سوقَي ألفا الأساسيين، انتقلت قدرة الذكاء الاصطناعي من «ناشئة» إلى <em>تشغيليةٍ وعلى نطاق</em>. Q-MATIC تشحن وكلاء صوتٍ بالذكاء الاصطناعي، وWavetec تشحن تنبّؤاً استشرافيّاً وتحليلاتٍ باللغة الطبيعية، وTensator دمجت التعرّف على الوجوه لتدفّق الركّاب. وفي الترميز الصناعي، شحنت Domino أكثر من ألف وحدة تفتيشٍ بالرؤية والذكاء الاصطناعي منذ 2020 وأطلقت رأس طباعةٍ مصمّماً خصّيصاً لانتقال GS1 Digital Link في 2027. وMarkem-Imaje تُغلق الفجوة بنشاط — برنامج تفتيشٍ بالذكاء الاصطناعي، وأدوات خدمةٍ بالذكاء الاصطناعي على مدار الساعة، وطابعاتٌ متّصلة عبر إنترنت الأشياء. ونافذة الدخول إلى خطّ منتجات الذكاء الاصطناعي كلاعبٍ متمايز تُغلَق في 2027. الدخول كتابعٍ يحدث تلقائيّاً؛ والدخول كقائدٍ يتطلّب الفعل الذي تلتزم به هذه الاستراتيجية.</p>
+
+          <h2>كيف تتحرّك القدرة الجديدة فعلاً عبر المنظّمات</h2>
+          <p>شبكة الأبطال ونموذج التبنّي القائم على الجذب ليسا خيارَي تصميمٍ اعتباطيين. بل يتبعان نمطاً راسخاً في كيفية انتشار الابتكار داخل المنظّمات: لا كموجةٍ موحّدة، بل في تتابعٍ من مجموعات متبنّين متمايزة.</p>
+          <p>نسبةٌ صغيرة من الناس في أيّ منظّمة ميّالون إلى تجربة الأدوات الجديدة فوراً — سيتفاعلون بصرف النظر عن تصميم البرنامج. ومجموعةٌ أكبر من المتبنّين الأوائل ستتفاعل إذا كان العمل ظاهراً وموثوقاً ومدعوماً من أشخاصٍ يحترمونهم. والأغلبية المبكرة ستتفاعل حين تصبح انتصارات المتبنّين الأوائل بادية اجتماعيّاً — حين يستفيد زملاءٌ يثقون بهم بشكلٍ ظاهر. والأغلبية المتأخّرة ستتفاعل حين يبدأ <em>عدم</em> التفاعل يبدو كتخلُّفٍ عن الرَّكب. ومجموعةٌ صغيرة ستمتنع إلى أجلٍ غير مسمّى، غالباً على نحوٍ مفيد كثقلٍ موازنٍ للحماس المفرط.</p>
+          <p>البرامج التي تحاول تحريك الجميع بالوتيرة نفسها تُنتج تفاعلاً منخفضاً موحّداً. والبرامج التي تركّز الجهد على الموجات المبكرة وتترك الموجات المتأخّرة تجذب نفسها تُنتج تبنّياً متفاوتاً لكنّه حقيقي. شبكة الأبطال هي تطبيق هذا النمط: تحدّد المتبنّين الأوائل وتمدّهم بالموارد، وتجعل عملهم ظاهراً، وتترك الآلية الاجتماعية تؤدّي العمل الذي لا يستطيعه أيّ أمر.</p>
+          <p>ويظهر النمط نفسه فيما هو معروفٌ عن كيفية بناء البالغين لقدرةٍ جديدة. تُبنى المهارات الجديدة غالباً بأداء عملٍ حقيقي — نحو سبعين بالمئة من التعلّم. وعشرون بالمئة أخرى تأتي من التفاعل مع أقرانٍ مَهَرة. وعشرة بالمئة فقط، في الأخير، تأتي من التعليم الرسمي. ونموذج المجموعة، وشبكة الأبطال، وتقديم التدريب عند الطلب من مكتب الذكاء الاصطناعي، تحترم معاً هذا التوزيع. أمّا منهجٌ رسميٌّ مدّته ستّة أشهر يُسلَّم لأناسٍ لا يؤدّون العمل بعد، فيقلبه.</p>
+
+          <h2>كيف يبدو الاستخدام الماهر للذكاء الاصطناعي</h2>
+          <p>لالتزام الاستراتيجية بالتعلّم المُضمَّن نظيرٌ في ما يعنيه «الاستخدام الماهر للذكاء الاصطناعي» فعلاً على مستوى الفرد. عبر الممارسة المؤسّسية، تبرز أربع قدراتٍ كعلاماتٍ ثابتة لمن يستخدم الذكاء الاصطناعي جيّداً:</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">التفويض</div><div class="def-desc">معرفة ما يُسلَّم للذكاء الاصطناعي وما يُحتفظ به. والحُكم مهمّةً بمهمّة، لا تقنيةً بتقنية.</div></div>
+            <div class="def"><div class="def-term">الوصف</div><div class="def-desc">القدرة على صياغة ما هو مطلوب، بالسياق الصحيح، وبالمستوى الصحيح من التحديد. ونادراً ما يكون عنق الزجاجة هو الذكاء الاصطناعي؛ بل قدرة الإنسان على وصف العمل.</div></div>
+            <div class="def"><div class="def-term">التمييز</div><div class="def-desc">تقييم مُخرَج الذكاء الاصطناعي نقديّاً قبل التصرّف بناءً عليه. وهي المهارة التي تمنع أخطاء الذكاء الاصطناعي التي تُقوّض الثقة.</div></div>
+            <div class="def"><div class="def-term">الحرص</div><div class="def-desc">الحفاظ على المسؤولية عن النتائج، بما فيها النتائج التي شارك فيها الذكاء الاصطناعي. الذكاء الاصطناعي لا يُبرئ الذمّة.</div></div>
+          </div>
+          <p>هذه القدرات الأربع لا تُدرَّس جيّداً في المقرّرات. بل تُبنى عبر دوراتٍ متكرّرة من المحاولة، والفشل الظاهر، وإعادة المعايرة مع الأقران. ونموذج المجموعة مصمَّمٌ لإنتاج هذه القدرات كأثرٍ جانبيٍّ لشحن النتائج، لا كهدفٍ أساسيٍّ لبرامج التدريب.</p>
+
+          <h2>الأدلّة التي ستولّدها الاستراتيجية</h2>
+          <p>تُنتج المرحلة الأولى قاعدة أدلّتها الخاصّة. نتائج معايير التحقّق من كلّ مجموعة، وأنماط أيّ الأقسام تتفاعل وأيّها يؤجّل، والتكلفة والوتيرة الفعليتان لعمل الركيزة، واستقبال التجارب الموجّهة للعميل في قطاعات القسمين — تتراكم هذه في البيانات التي تستخدمها الاستراتيجية لمعايرة نفسها. وتبدأ المرحلة الثانية وهذه الأدلّة في اليد وتتعدّل تبعاً لها.</p>
+          <p>لا تتطلّب الاستراتيجية أن تكون كلّ رهاناتها صائبة في اليوم الأول. تتطلّب احترام انضباط «التحقّق والمعايرة» — ولهذا تشغل المنهجية من المستند مساحةً بقدر ما تشغله الخيارات البنيوية.</p>
+
+          <h2>خاتمة</h2>
+          <p>الاستدلال خلف الاستراتيجية هو نفسه الاستدلال خلف أيّ رهانٍ مدروس: فُحِصت المقايضات، ووُزنت التكاليف والمنافع مقابل البيانات المتاحة، وأُدمِجت الأنماط من الجهود المماثلة، وصُمِّمت البنية لتتعلّم وتتعدّل مع وصول الأدلّة الجديدة.</p>
+          <p>القسم التالي — الأفراد والرعاية — يصف البنية البشرية التي تحفظ هذا متماسكاً: من يؤدّي أيّ دور، وكيف تنتقل الرعاية عبر الزمن، وكيف يُوزَّع الثقل السياسي للتحوّل عبر الأشخاص الذين سيملكون النتائج.</p>
         </div>
       </section>
 
@@ -2088,9 +2228,182 @@
             <h2 class="section-title">الأفراد والرعاية</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft (skeleton with five placeholders) lives in <a href="https://app.notion.com/p/37bcb67bf82c8143aa24cb9a77805f1b">Notion</a>.</p>
-          <p class="lang-ar">المسودّة الحالية (هيكل بخمسة مواضع شاغرة) في <a href="https://app.notion.com/p/37bcb67bf82c8143aa24cb9a77805f1b">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <div class="section-intro">
+            <p>The strategy is held together not by a single owner but by a distributed structure of stewardship. This section describes who holds which role, how the sponsorship transitions over the strategy window, and how the political and operational weight of the transformation is distributed deliberately rather than concentrated.</p>
+            <p>The discretion convention applies throughout: roles are described in structural and functional terms, by the seat they hold. Individual assignments are intentionally deferred. At this stage the strategy defines the seats and their authorities; who fills each seat is a decision for the chairman and the AI Council to make once the strategy is endorsed. Keeping names out of the document at this stage is deliberate — it keeps the focus on the structure and the tactics, and avoids prematurely anchoring the design to specific individuals.</p>
+          </div>
+
+          <h2>The Sponsorship Architecture</h2>
+          <p>Four layers, each with a distinct kind of authority and a distinct kind of accountability:</p>
+          <ul class="body-list">
+            <li><strong>Sponsorship layer.</strong> Holds the political weight of the transformation. Names the priority, removes obstacles, makes the work visible inside the company and to external partners. Operates at the rhythm of monthly briefings and quarterly reviews — not weekly decision-making.</li>
+            <li><strong>Strategic governance layer.</strong> The AI Council. Holds collective strategic authority over what scales, what stops, and what merges into business-as-usual. Composed deliberately across functions so that no single department's agenda dominates.</li>
+            <li><strong>Operational leadership layer.</strong> The Strategy Leader (the Council chair) and the workstream leads. Hold day-to-day responsibility for execution quality across the three workstreams.</li>
+            <li><strong>Strategy continuity layer.</strong> The Strategy Architect role, evolving from active drafting into advisory presence over the strategy window. Holds the institutional memory of why specific structural choices were made and the discipline to surface drift when it begins.</li>
+          </ul>
+          <p>The layers are not a hierarchy in the traditional sense. The Sponsorship layer does not direct the Strategic Governance layer's decisions. The Strategy Continuity layer advises across the others without commanding any of them. The Operational Leadership layer reports to the Strategic Governance layer on results, not on plans. This structure is designed for durability: any single departure from any layer should not derail the transformation.</p>
+
+          <h2>The Sponsorship Layer in Phase 1</h2>
+          <p>For the opening 6–12 months of execution, the chairman holds the visible sponsorship role. In practice this means:</p>
+          <ul class="body-list">
+            <li>Presence at the Phase 1 kickoff and quarterly milestones, with brief, direct remarks framing the strategic priority.</li>
+            <li>Active naming of AI as the company's transition theme in leadership meetings, customer presentations, and partner conversations — particularly with Markem-Imaje, where the partnership-readiness signal lands at the executive level.</li>
+            <li>Removing organizational obstacles when surfaced — budget approvals, headcount additions, cross-divisional conflicts that need senior intervention.</li>
+            <li>Receiving a monthly heartbeat briefing from the AI Council: what is shipping, what is stopping, what is being learned, what needs attention.</li>
+          </ul>
+          <p>What sponsorship explicitly does <em>not</em> include:</p>
+          <ul class="body-list">
+            <li>Approving individual pod work or technical decisions. The Council holds that authority collectively.</li>
+            <li>Attending every Council meeting. The cadence is a monthly briefing, not bi-weekly attendance.</li>
+            <li>Direct intervention in pod execution. Visible support, yes; operational intervention, no.</li>
+          </ul>
+          <p>This boundary is the political mechanism that lets the structure move at the speed the strategy requires. A sponsor who is visible but not interventionist is the rarest and most valuable form.</p>
+
+          <h2>The Sponsorship Transition</h2>
+          <p>The sponsorship layer is designed to transition from the chairman to the heads of the two divisions over the strategy window. <strong>The transition is condition-driven, not date-driven.</strong></p>
+          <div class="note"><span class="note-label">To be defined with the chairman</span><p>The specific transition conditions are a decision for the chairman and the divisional heads. Working framing for that discussion: the transition completes when (a) Phase 1 has produced a baseline of validated results visible to the divisions, (b) the divisional heads have formally co-sponsored at least one pod each across the workstreams that touch their division, and (c) the divisional heads are present at quarterly reviews as principals, not observers. The chairman remains available as an escalation path but no longer holds the visible sponsorship role.</p></div>
+          <p>The reason the transition is conditional rather than scheduled: a date-driven handoff risks transferring sponsorship before the divisional heads have built the relationship with the work that gives the sponsorship credibility. A condition-driven handoff transfers sponsorship when it is genuinely owned, not when the calendar says it should be.</p>
+
+          <h2>The Strategy Leadership Layer</h2>
+          <p>The Strategy Leader chairs the AI Council and holds operational responsibility for the transformation's execution quality. This seat sits in the Head of Software Development role because the methodology, the engineering capability, and the infrastructure substrate all originate from that organization.</p>
+          <p>This placement carries an explicit risk identified earlier in the strategy: that the initiative could be perceived as "an engineering thing" by non-technical functions. The structural counter is the AI Council's composition, which gives non-engineering seats a clear majority. The political counter is the workstream lead structure described below, which distributes operational ownership across functions.</p>
+          <p>The Strategy Leader's specific authorities:</p>
+          <ul class="body-list">
+            <li>Chairs the AI Council and shapes its agenda.</li>
+            <li>Coordinates across the three workstream leads.</li>
+            <li>Owns the relationship with the AI Office and the engineering capability supplied by Aura.</li>
+            <li>Represents the transformation to the Sponsorship layer in the monthly heartbeat briefing.</li>
+            <li>Surfaces strategic drift or under-investment to the Strategy Continuity layer.</li>
+          </ul>
+
+          <h2>The Governance Body — AI Council Composition by Role</h2>
+          <p>The AI Council seats are composed deliberately to distribute strategic authority across functions:</p>
+          <ul class="body-list">
+            <li><strong>Chair.</strong> The Strategy Leader.</li>
+            <li><strong>Head of Electronic Solutions division.</strong> Holds the operational view of the AI Products workstream as it touches the ES portfolio. <span class="seat-note">Seat — individual not yet assigned.</span></li>
+            <li><strong>Head of Marking &amp; Packing division.</strong> Holds the operational view of the Annuity Intelligence workstream as it touches the Markem-Imaje base. <span class="seat-note">Seat — individual not yet assigned.</span></li>
+            <li><strong>Head of HR.</strong> Holds the workforce capability dimension of the transformation — the human side of how new capability moves through the company. Engaged from day one through a review-and-shape loop with the strategy as it develops.</li>
+            <li><strong>Head of Innovation.</strong> Holds the external-facing surface of the transformation — partnerships, scouting, and the connection between Alfa's AI direction and the broader ecosystem of vendors, research partners, and customer segments. Engagement staged in after the strategic spine is established.</li>
+            <li><strong>Rotating cross-functional voices.</strong> One or two seats on six-month rotations, drawn from functions whose work is most relevant to the current pod portfolio (sales, field service, customer success, finance, depending on the moment).</li>
+          </ul>
+          <p><strong>The Head of HR seat warrants a specific note.</strong> The workforce capability dimension — how the people in the company actually build AI capability, how roles evolve, how the learning architecture lands in the HR systems and the company culture — is the layer most likely to be neglected by an engineering-led program and the layer most consequential for whether the transformation sticks. The Head of HR's day-one involvement is not a nominal seat; it is structurally load-bearing.</p>
+
+          <h2>Workstream Stewardship</h2>
+          <p>Each of the three workstreams has a designated lead who holds operational responsibility for the workstream's pods and outcomes. A fourth lead role covers the external-facing partnership and scouting work that connects the three workstreams to the broader ecosystem.</p>
+          <ul class="body-list">
+            <li><strong>Annuity Intelligence lead.</strong> Operational stewardship of the Markem-Imaje partner-readiness work — field service tooling, AI inspection integration, customer-facing intelligence. <span class="seat-note">Individual not yet assigned; natural fit is within the Marking &amp; Packing division or a senior figure within field service operations.</span></li>
+            <li><strong>AI Products lead.</strong> Operational stewardship of the Electronic Solutions reinvention — queueing, kiosks, hospitality, parking, and the next generation of the smart utility line. <span class="seat-note">Individual not yet assigned; natural fit is within the Electronic Solutions division in close coordination with Aura engineering.</span></li>
+            <li><strong>Operational Intelligence lead.</strong> Stewardship of the internal AI adoption work across sales, finance, HR, customer service, and operations. <span class="seat-note">Individual not yet assigned; natural fit is the Head of HR seat, given the workforce capability overlap.</span></li>
+            <li><strong>External Partnerships and Scouting lead.</strong> Stewardship of the partnership, ecosystem, and external-surface work. <span class="seat-note">Individual not yet assigned; natural fit is the Head of Innovation seat.</span></li>
+          </ul>
+          <p>The workstream leads do not chair the AI Council. They are accountable to it. The separation between Council governance and workstream operational leadership is intentional — it prevents any single workstream from capturing strategic direction.</p>
+
+          <h2>The Strategy Architect's Transition</h2>
+          <p>The Strategy Architect role — the originator of this document and the discipline behind its choices — is designed to transition from active drafting into an advisory presence over the strategy window:</p>
+          <ul class="body-list">
+            <li><strong>Phase 1 (Q3 2026 — year-end 2026).</strong> Active engagement: shaping the Council's agenda from outside, attending key milestones, working closely with the Strategy Leader on early validate-criteria results, supporting the chairman's sponsorship presence.</li>
+            <li><strong>Phase 2 (early 2027 onward).</strong> Advisory engagement: quarterly check-ins with the Strategy Leader, ad-hoc availability for strategic recalibration, surfacing drift when it appears.</li>
+            <li><strong>Phase 3+ (late 2027 and beyond).</strong> Continuity-of-memory role only. The operational ownership has fully transferred; the architect's role is to remember why specific choices were made and to surface them when context for those choices is needed.</li>
+          </ul>
+          <div class="note"><span class="note-label">To be defined with the chairman</span><p>The specific timing of each transition and the conditions that mark each shift are a decision for the chairman, the Strategy Leader, and the Head of HR — given the transition's interaction with the workforce dimension.</p></div>
+          <p>The reason for explicit transition rather than indefinite continuation: a strategy that depends indefinitely on its original architect has not been institutionalized. The architect's job is to make themselves progressively unnecessary to the work continuing.</p>
+
+          <h2>What This Distribution Achieves</h2>
+          <p>The political weight of the transformation is distributed across distinct seats: the chairman holds visible sponsorship; the Strategy Leader holds operational leadership; the Head of HR holds the workforce dimension; the two divisional heads hold the eventual long-term sponsorship stewardship and the divisional execution surfaces; the Head of Innovation holds the external surface; the Strategy Architect holds the continuity-of-memory role in an advisor capacity.</p>
+          <p><strong>No single seat can capture the transformation. No single departure can derail it.</strong></p>
+          <p>This distribution is itself the most important political choice the strategy makes. A program with a single owner — however capable — is exposed to that owner's availability, conviction, and tenure. A program distributed across the structure described here is owned by the company.</p>
+          <p>The next portion of this document — the Phase 1 Playbook appendix — describes the specific pods, the substrate work, and the first-90-days execution detail that brings this structure to life.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <div class="section-intro">
+            <p>لا تُحفظ الاستراتيجية بمالكٍ واحد، بل ببنيةٍ موزّعة من الإشراف. يصف هذا القسم من يحمل أيّ دور، وكيف تنتقل الرعاية عبر نافذة الاستراتيجية، وكيف يُوزَّع الثقل السياسي والتشغيلي للتحوّل عن قصدٍ بدلاً من أن يتركّز.</p>
+            <p>تنطبق قاعدة الكتمان في كلّ موضع: تُوصَف الأدوار بعباراتٍ بنيوية ووظيفية، بالمقعد الذي تشغله. والإسنادات الفردية مؤجَّلة عن قصد. في هذه المرحلة تُعرّف الاستراتيجية المقاعد وصلاحياتها؛ ومن يشغل كلّ مقعدٍ قرارٌ يتّخذه رئيس مجلس الإدارة ومجلس الذكاء الاصطناعي بعد إقرار الاستراتيجية. وإبقاء الأسماء خارج المستند في هذه المرحلة متعمَّد — يُبقي التركيز على البنية والتكتيكات، ويتجنّب تثبيت التصميم سابقاً لأوانه على أفرادٍ بعينهم.</p>
+          </div>
+
+          <h2>بنية الرعاية</h2>
+          <p>أربع طبقات، لكلٍّ منها نوعٌ متمايز من الصلاحية ونوعٌ متمايز من المساءلة:</p>
+          <ul class="body-list">
+            <li><strong>طبقة الرعاية.</strong> تحمل الثقل السياسي للتحوّل. تُسمّي الأولوية، وتُزيل العوائق، وتجعل العمل ظاهراً داخل الشركة وللشركاء الخارجيين. تعمل بإيقاع إحاطاتٍ شهرية ومراجعاتٍ فصلية — لا اتّخاذ قرارٍ أسبوعي.</li>
+            <li><strong>طبقة الحوكمة الاستراتيجية.</strong> مجلس الذكاء الاصطناعي. يحمل صلاحيةً استراتيجية جماعية على ما يتوسّع، وما يتوقّف، وما يندمج في العمل المعتاد. مُكوَّنٌ عن قصدٍ عبر الوظائف بحيث لا تهيمن أجندة قسمٍ واحد.</li>
+            <li><strong>طبقة القيادة التشغيلية.</strong> قائد الاستراتيجية (رئيس المجلس) وقادة مسارات العمل. يحملون المسؤولية اليومية عن جودة التنفيذ عبر مسارات العمل الثلاثة.</li>
+            <li><strong>طبقة استمرارية الاستراتيجية.</strong> دور مهندس الاستراتيجية، يتطوّر من الصياغة النشطة إلى حضورٍ استشاري عبر نافذة الاستراتيجية. يحمل الذاكرة المؤسّسية لسبب اتّخاذ خياراتٍ بنيوية محدّدة، والانضباط لإظهار الانحراف حين يبدأ.</li>
+          </ul>
+          <p>الطبقات ليست هرماً بالمعنى التقليدي. طبقة الرعاية لا توجّه قرارات طبقة الحوكمة الاستراتيجية. وطبقة استمرارية الاستراتيجية تُسدي المشورة عبر الأخريات دون أن تأمر أيّاً منها. وطبقة القيادة التشغيلية ترفع إلى طبقة الحوكمة الاستراتيجية تقارير النتائج، لا الخطط. وهذه البنية مصمَّمة للمتانة: أيّ مغادرةٍ فردية من أيّ طبقةٍ ينبغي ألّا تُخرج التحوّل عن مساره.</p>
+
+          <h2>طبقة الرعاية في المرحلة الأولى</h2>
+          <p>خلال الأشهر الستّة إلى الاثني عشر الأولى من التنفيذ، يحمل رئيس مجلس الإدارة دور الرعاية الظاهر. وعمليّاً يعني هذا:</p>
+          <ul class="body-list">
+            <li>الحضور في انطلاقة المرحلة الأولى والمحطّات الفصلية، بكلماتٍ قصيرة ومباشرة تُؤطّر الأولوية الاستراتيجية.</li>
+            <li>التسمية الفاعلة للذكاء الاصطناعي كثيمة انتقال الشركة في اجتماعات القيادة، وعروض العملاء، وأحاديث الشركاء — خصوصاً مع Markem-Imaje، حيث تصل إشارة جاهزية الشراكة على المستوى التنفيذي.</li>
+            <li>إزالة العوائق التنظيمية عند ظهورها — موافقات الميزانية، وإضافات الكوادر، والنزاعات العابرة للأقسام التي تحتاج تدخّلاً قياديّاً.</li>
+            <li>تلقّي إحاطة نبضٍ شهرية من مجلس الذكاء الاصطناعي: ما يُشحَن، وما يتوقّف، وما يُتعلَّم، وما يحتاج اهتماماً.</li>
+          </ul>
+          <p>ما <em>لا</em> تشمله الرعاية صراحةً:</p>
+          <ul class="body-list">
+            <li>اعتماد عمل المجموعات الفردي أو القرارات التقنية. المجلس يحمل تلك الصلاحية جماعيّاً.</li>
+            <li>حضور كلّ اجتماعات المجلس. الإيقاع إحاطةٌ شهرية، لا حضورٌ كلّ أسبوعين.</li>
+            <li>التدخّل المباشر في تنفيذ المجموعات. دعمٌ ظاهر، نعم؛ تدخّلٌ تشغيلي، لا.</li>
+          </ul>
+          <p>هذا الحدّ هو الآلية السياسية التي تتيح للبنية التحرّك بالسرعة التي تتطلّبها الاستراتيجية. والراعي الظاهر غير المتدخّل هو أندر الأشكال وأنفعها.</p>
+
+          <h2>انتقال الرعاية</h2>
+          <p>صُمِّمت طبقة الرعاية لتنتقل من رئيس مجلس الإدارة إلى رئيسَي القسمين عبر نافذة الاستراتيجية. <strong>الانتقال مدفوعٌ بالشروط، لا بالتواريخ.</strong></p>
+          <div class="note"><span class="note-label">يُحدَّد مع رئيس مجلس الإدارة</span><p>شروط الانتقال المحدّدة قرارٌ يتّخذه رئيس مجلس الإدارة ورئيسا القسمين. والتأطير العملي لذلك النقاش: يكتمل الانتقال حين (أ) تكون المرحلة الأولى قد أنتجت خطّ أساسٍ من النتائج المُتحقَّق منها ظاهراً للقسمين، (ب) ويكون رئيسا القسمين قد شارَكا رسميّاً في رعاية مجموعةٍ واحدة على الأقلّ لكلٍّ منهما عبر مسارات العمل التي تمسّ قسمه، (ج) ويكون رئيسا القسمين حاضرَين في المراجعات الفصلية كأصيلَين لا مراقبَين. ويبقى رئيس مجلس الإدارة متاحاً كمسار تصعيد لكنّه لم يَعُد يحمل دور الرعاية الظاهر.</p></div>
+          <p>وسبب كون الانتقال مشروطاً لا مجدولاً: تسليمٌ مدفوعٌ بالتاريخ يخاطر بنقل الرعاية قبل أن يبني رئيسا القسمين العلاقة بالعمل التي تمنح الرعاية مصداقيتها. أمّا التسليم المدفوع بالشروط فينقل الرعاية حين تُملَك فعلاً، لا حين يقول التقويم إنّها ينبغي أن تُنقَل.</p>
+
+          <h2>طبقة قيادة الاستراتيجية</h2>
+          <p>يرأس قائد الاستراتيجية مجلس الذكاء الاصطناعي ويحمل المسؤولية التشغيلية عن جودة تنفيذ التحوّل. ويقع هذا المقعد في دور رئيس تطوير البرمجيات لأنّ المنهجية، والقدرة الهندسية، وركيزة البنية التحتية، كلّها تنشأ من تلك المنظومة.</p>
+          <p>يحمل هذا الموضع خطراً صريحاً حُدِّد سابقاً في الاستراتيجية: أن تُتصوَّر المبادرة «شأناً هندسيّاً» من الوظائف غير التقنية. والردّ البنيوي هو تكوين مجلس الذكاء الاصطناعي الذي يمنح المقاعد غير الهندسية غالبيةً واضحة. والردّ السياسي هو بنية قادة مسارات العمل الموصوفة أدناه، التي توزّع الملكية التشغيلية عبر الوظائف.</p>
+          <p>صلاحيات قائد الاستراتيجية المحدّدة:</p>
+          <ul class="body-list">
+            <li>يرأس مجلس الذكاء الاصطناعي ويُشكّل أجندته.</li>
+            <li>ينسّق عبر قادة مسارات العمل الثلاثة.</li>
+            <li>يملك العلاقة مع مكتب الذكاء الاصطناعي والقدرة الهندسية التي توفّرها Aura.</li>
+            <li>يمثّل التحوّل أمام طبقة الرعاية في إحاطة النبض الشهرية.</li>
+            <li>يُظهِر الانحراف الاستراتيجي أو نقص الاستثمار لطبقة استمرارية الاستراتيجية.</li>
+          </ul>
+
+          <h2>هيئة الحوكمة — تكوين مجلس الذكاء الاصطناعي بحسب الدور</h2>
+          <p>مقاعد مجلس الذكاء الاصطناعي مُكوَّنة عن قصدٍ لتوزيع الصلاحية الاستراتيجية عبر الوظائف:</p>
+          <ul class="body-list">
+            <li><strong>الرئيس.</strong> قائد الاستراتيجية.</li>
+            <li><strong>رئيس قسم الحلول الإلكترونية.</strong> يحمل النظرة التشغيلية لمسار منتجات الذكاء الاصطناعي حيث يمسّ محفظة الحلول الإلكترونية. <span class="seat-note">مقعد — لم يُسنَد لفردٍ بعد.</span></li>
+            <li><strong>رئيس قسم الترميز والتغليف.</strong> يحمل النظرة التشغيلية لمسار ذكاء السنويّة حيث يمسّ قاعدة Markem-Imaje. <span class="seat-note">مقعد — لم يُسنَد لفردٍ بعد.</span></li>
+            <li><strong>رئيس الموارد البشرية.</strong> يحمل بُعد قدرة القوى العاملة في التحوّل — الجانب البشري لكيفية تحرّك القدرة الجديدة عبر الشركة. مُشارِكٌ من اليوم الأول عبر حلقة مراجعةٍ وتشكيل مع الاستراتيجية وهي تتطوّر.</li>
+            <li><strong>رئيس الابتكار.</strong> يحمل السطح الموجّه للخارج في التحوّل — الشراكات، والاستكشاف، والصلة بين توجّه ألفا في الذكاء الاصطناعي والنظام الأوسع من المورّدين وشركاء البحث وشرائح العملاء. تُدرَج مشاركته بعد إرساء العمود الفقري الاستراتيجي.</li>
+            <li><strong>أصواتٌ متناوبة متعدّدة الوظائف.</strong> مقعدٌ أو اثنان بالتناوب كلّ ستّة أشهر، يُسحَبان من الوظائف الأوثق صلةً بمحفظة المجموعات الحالية (المبيعات، والخدمة الميدانية، ونجاح العملاء، والمالية، بحسب اللحظة).</li>
+          </ul>
+          <p><strong>مقعد رئيس الموارد البشرية يستحقّ ملاحظةً محدّدة.</strong> بُعد قدرة القوى العاملة — كيف يبني الناس في الشركة قدرة الذكاء الاصطناعي فعلاً، وكيف تتطوّر الأدوار، وكيف تستقرّ بنية التعلّم في أنظمة الموارد البشرية وثقافة الشركة — هو الطبقة الأكثر عرضةً للإهمال من برنامجٍ تقوده الهندسة، والأكثر أثراً في ما إذا كان التحوّل سيرسخ. ومشاركة رئيس الموارد البشرية من اليوم الأول ليست مقعداً اسميّاً؛ بل حاملةٌ بنيويّاً.</p>
+
+          <h2>الإشراف على مسارات العمل</h2>
+          <p>لكلٍّ من مسارات العمل الثلاثة قائدٌ مُعيَّن يحمل المسؤولية التشغيلية عن مجموعات المسار ونتائجه. ويغطّي دورُ قيادةٍ رابع عملَ الشراكات والاستكشاف الموجّه للخارج الذي يربط مسارات العمل الثلاثة بالنظام الأوسع.</p>
+          <ul class="body-list">
+            <li><strong>قائد ذكاء السنويّة.</strong> الإشراف التشغيلي على عمل جاهزية الشراكة مع Markem-Imaje — أدوات الخدمة الميدانية، ودمج التفتيش بالذكاء الاصطناعي، والذكاء الموجّه للعميل. <span class="seat-note">لم يُسنَد لفردٍ بعد؛ والملاءمة الطبيعية داخل قسم الترميز والتغليف أو شخصٌ أقدم في عمليات الخدمة الميدانية.</span></li>
+            <li><strong>قائد منتجات الذكاء الاصطناعي.</strong> الإشراف التشغيلي على إعادة ابتكار الحلول الإلكترونية — الطوابير، والأكشاك، والضيافة، والمواقف، والجيل القادم من خطّ المرافق الذكية. <span class="seat-note">لم يُسنَد لفردٍ بعد؛ والملاءمة الطبيعية داخل قسم الحلول الإلكترونية بتنسيقٍ وثيق مع هندسة Aura.</span></li>
+            <li><strong>قائد الذكاء التشغيلي.</strong> الإشراف على عمل تبنّي الذكاء الاصطناعي الداخلي عبر المبيعات والمالية والموارد البشرية وخدمة العملاء والعمليات. <span class="seat-note">لم يُسنَد لفردٍ بعد؛ والملاءمة الطبيعية مقعد رئيس الموارد البشرية، نظراً لتداخل قدرة القوى العاملة.</span></li>
+            <li><strong>قائد الشراكات الخارجية والاستكشاف.</strong> الإشراف على عمل الشراكات والنظام البيئي والسطح الخارجي. <span class="seat-note">لم يُسنَد لفردٍ بعد؛ والملاءمة الطبيعية مقعد رئيس الابتكار.</span></li>
+          </ul>
+          <p>قادة مسارات العمل لا يرأسون مجلس الذكاء الاصطناعي. بل هم مساءَلون أمامه. والفصل بين حوكمة المجلس وقيادة مسارات العمل التشغيلية متعمَّد — يمنع أيّ مسار عملٍ واحد من الاستحواذ على التوجّه الاستراتيجي.</p>
+
+          <h2>انتقال مهندس الاستراتيجية</h2>
+          <p>دور مهندس الاستراتيجية — صاحب هذا المستند والانضباط خلف خياراته — مصمَّمٌ لينتقل من الصياغة النشطة إلى حضورٍ استشاري عبر نافذة الاستراتيجية:</p>
+          <ul class="body-list">
+            <li><strong>المرحلة الأولى (الربع الثالث 2026 — نهاية 2026).</strong> مشاركةٌ نشطة: تشكيل أجندة المجلس من الخارج، وحضور المحطّات الرئيسية، والعمل عن قربٍ مع قائد الاستراتيجية على نتائج معايير التحقّق المبكرة، ودعم حضور رئيس مجلس الإدارة الراعي.</li>
+            <li><strong>المرحلة الثانية (مطلع 2027 فصاعداً).</strong> مشاركةٌ استشارية: مراجعاتٌ فصلية مع قائد الاستراتيجية، وإتاحةٌ عند الحاجة لإعادة المعايرة الاستراتيجية، وإظهار الانحراف حين يظهر.</li>
+            <li><strong>المرحلة الثالثة وما بعدها (أواخر 2027 وبعده).</strong> دور استمرارية الذاكرة فقط. الملكية التشغيلية انتقلت بالكامل؛ ودور المهندس هو تذكُّر سبب اتّخاذ خياراتٍ محدّدة وإظهارها حين يُحتاج سياق تلك الخيارات.</li>
+          </ul>
+          <div class="note"><span class="note-label">يُحدَّد مع رئيس مجلس الإدارة</span><p>توقيت كلّ انتقالٍ بالتحديد والشروط التي تُعلِّم كلّ تحوّل قرارٌ يتّخذه رئيس مجلس الإدارة، وقائد الاستراتيجية، ورئيس الموارد البشرية — نظراً لتفاعل الانتقال مع بُعد القوى العاملة.</p></div>
+          <p>وسبب الانتقال الصريح بدلاً من الاستمرار غير المحدود: استراتيجيةٌ تعتمد إلى أجلٍ غير مسمّى على مهندسها الأصلي لم تُؤسَّس مؤسّسيّاً. ومهمّة المهندس أن يجعل نفسه تدريجيّاً غير ضروريٍّ لاستمرار العمل.</p>
+
+          <h2>ما الذي يحقّقه هذا التوزيع</h2>
+          <p>الثقل السياسي للتحوّل موزّعٌ عبر مقاعد متمايزة: رئيس مجلس الإدارة يحمل الرعاية الظاهرة؛ وقائد الاستراتيجية يحمل القيادة التشغيلية؛ ورئيس الموارد البشرية يحمل بُعد القوى العاملة؛ ورئيسا القسمين يحملان الإشراف الراعي طويل الأمد في النهاية وأسطح التنفيذ القسمية؛ ورئيس الابتكار يحمل السطح الخارجي؛ ومهندس الاستراتيجية يحمل دور استمرارية الذاكرة بصفةٍ استشارية.</p>
+          <p><strong>لا يستطيع أيّ مقعدٍ واحد أن يستحوذ على التحوّل. ولا تستطيع أيّ مغادرةٍ واحدة أن تُخرجه عن مساره.</strong></p>
+          <p>هذا التوزيع هو نفسه أهمّ خيارٍ سياسيٍّ تتّخذه الاستراتيجية. فبرنامجٌ بمالكٍ واحد — مهما كان قادراً — معرَّضٌ لتوافر ذلك المالك وقناعته ومدّة بقائه. أمّا برنامجٌ موزّعٌ عبر البنية الموصوفة هنا فهو مملوكٌ للشركة.</p>
+          <p>الجزء التالي من هذا المستند — ملحق كتيّب المرحلة الأولى — يصف المجموعات المحدّدة، وعمل الركيزة، وتفاصيل تنفيذ الأيام التسعين الأولى التي تُحيي هذه البنية.</p>
         </div>
       </section>
 
