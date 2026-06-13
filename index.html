@@ -607,19 +607,27 @@
     .section h3 {
       font-family: var(--sans-en);
       font-weight: 600;
-      font-size: 0.8125rem;
-      line-height: 1.4;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-top: 36px;
-      margin-bottom: 12px;
+      font-size: 1.0625rem;
+      line-height: 1.35;
+      letter-spacing: -0.005em;
+      color: var(--accent-deep);
+      margin-top: 40px;
+      margin-bottom: 14px;
     }
     html[lang="ar"] .section h3 {
-      text-transform: none;
-      letter-spacing: 0.01em;
-      font-size: 1.0625rem;
+      font-family: var(--sans-ar);
+      font-size: 1.1875rem;
     }
+    .section h4 {
+      font-family: var(--sans-en);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+    html[lang="ar"] .section h4 { font-family: var(--sans-ar); font-size: 1.0625rem; }
     .section p {
       margin-bottom: 20px;
       max-width: var(--content-w);
@@ -834,6 +842,334 @@
       font-size: 0.75rem;
       letter-spacing: 0;
     }
+
+    /* ─── CONTENT COMPONENTS (Sections 2–8) ─────────────────────── */
+    /* Framing intro before a section's first subsection */
+    .section-intro { max-width: var(--content-w); margin-bottom: 8px; }
+    .section-intro p {
+      font-size: 1.1875rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+    .section-intro p strong { color: var(--ink); }
+    .section-intro p em { color: var(--ink); font-style: italic; }
+    html[lang="ar"] .section-intro p { font-size: 1.3125rem; }
+
+    /* Narrative scene / vignette (Vision) */
+    .scene {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.46));
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 24px 30px;
+      margin: 18px 0;
+      max-width: var(--content-w);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+    .scene::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 22px; bottom: 22px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--gold));
+      border-radius: 2px;
+    }
+    html[dir="rtl"] .scene::before { left: auto; right: 0; }
+    .scene:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .scene p { margin-bottom: 0; max-width: none; }
+    .scene p + p { margin-top: 14px; }
+
+    /* Workstream block (Section 3) */
+    .workstream {
+      position: relative;
+      padding: 22px 28px 22px 64px;
+      margin: 20px 0;
+      max-width: var(--content-w);
+      background: var(--bg-elevated);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .workstream .ws-num {
+      position: absolute;
+      left: 24px; top: 22px;
+      font-family: var(--display-en);
+      font-weight: 500;
+      font-size: 1.6rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    html[dir="rtl"] .workstream { padding: 22px 64px 22px 28px; }
+    html[dir="rtl"] .workstream .ws-num { left: auto; right: 24px; }
+    .workstream p { margin-bottom: 0; max-width: none; }
+
+    /* Callout note + deferral marker (Section 6) */
+    .note {
+      background: var(--highlight);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 20px 26px;
+      margin: 24px 0;
+      max-width: var(--content-w);
+      font-family: var(--sans-en);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+    html[dir="rtl"] .note { border-left: 1px solid var(--rule); border-right: 3px solid var(--gold); }
+    .note p { margin: 0; max-width: none; font-family: inherit; font-size: inherit; color: inherit; }
+    .note strong { color: var(--accent-deep); }
+    html[lang="ar"] .note { font-family: var(--sans-ar); font-size: 1rem; }
+    .note-label {
+      display: block;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    html[lang="ar"] .note-label { text-transform: none; letter-spacing: 0; }
+
+    /* Inline "(Seat — individual not yet assigned.)" marker */
+    .seat-note {
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      font-style: normal;
+      color: var(--accent-soft);
+      background: rgba(160, 64, 80, 0.08);
+      border: 1px solid rgba(160, 64, 80, 0.20);
+      border-radius: 100px;
+      padding: 1px 11px;
+      white-space: nowrap;
+    }
+    html[lang="ar"] .seat-note { font-family: var(--sans-ar); white-space: normal; }
+
+    /* Definition grid (four layers, four D's) */
+    .def-list { margin: 26px 0; max-width: var(--content-w); }
+    .def-list .def {
+      padding: 16px 0;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 6px 28px;
+    }
+    .def-list .def:last-child { border-bottom: 1px solid var(--rule); }
+    .def-term {
+      font-family: var(--sans-en);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--accent-deep);
+    }
+    html[lang="ar"] .def-term { font-family: var(--sans-ar); font-size: 1.0625rem; }
+    .def-desc { color: var(--ink-muted); }
+    @media (max-width: 700px) { .def-list .def { grid-template-columns: 1fr; gap: 4px; } }
+
+    /* Numbered authority / step list */
+    ol.num-list { counter-reset: n; margin: 22px 0; max-width: var(--content-w); }
+    ol.num-list li {
+      counter-increment: n;
+      position: relative;
+      padding-left: 44px;
+      margin-bottom: 14px;
+      min-height: 28px;
+    }
+    ol.num-list li::before {
+      content: counter(n);
+      position: absolute;
+      left: 0; top: -1px;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans-en);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--highlight);
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      font-variant-numeric: tabular-nums;
+    }
+    html[dir="rtl"] ol.num-list li { padding-left: 0; padding-right: 44px; }
+    html[dir="rtl"] ol.num-list li::before { left: auto; right: 0; }
+
+    /* Metric groups (Section 7) */
+    .metric-group { margin: 20px 0 32px; max-width: var(--content-w); }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .metric:first-of-type { border-top: 1px solid var(--rule); }
+    .metric-name { flex: 1; }
+    .metric-name strong { color: var(--ink); }
+    .metric-target {
+      flex-shrink: 0;
+      font-family: var(--sans-en);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: right;
+      align-self: center;
+      max-width: 210px;
+    }
+    html[lang="ar"] .metric-target { font-family: var(--sans-ar); text-align: left; }
+
+    /* Risk cards (Section 7) */
+    .risk-card {
+      position: relative;
+      padding: 22px 26px 22px 62px;
+      margin: 16px 0;
+      max-width: var(--content-w);
+      background: var(--bg-elevated);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+    .risk-num {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 46px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display-en);
+      font-size: 1.3rem; font-weight: 500;
+      color: var(--accent-soft);
+      background: var(--highlight);
+      border-right: 1px solid var(--rule);
+      border-radius: 10px 0 0 10px;
+    }
+    html[dir="rtl"] .risk-card { padding: 22px 62px 22px 26px; }
+    html[dir="rtl"] .risk-num { left: auto; right: 0; border-right: none; border-left: 1px solid var(--rule); border-radius: 0 10px 10px 0; }
+    .risk-card h4 { margin-top: 0; margin-bottom: 0; }
+    .risk-meta { margin-top: 12px; display: grid; gap: 8px; }
+    .risk-line { font-size: 0.9375rem; line-height: 1.5; }
+    .risk-line .lbl {
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      margin-right: 8px;
+    }
+    html[lang="ar"] .risk-line .lbl { font-family: var(--sans-ar); text-transform: none; letter-spacing: 0; margin-right: 0; margin-left: 8px; }
+    .risk-line.mitigation .lbl { color: var(--accent); }
+
+    /* Pod cards (Section 8) */
+    .pod-card {
+      margin: 22px 0;
+      max-width: var(--content-w);
+      background: var(--bg-elevated);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .pod-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 18px 26px;
+      background: linear-gradient(180deg, var(--highlight), rgba(243, 236, 221, 0.35));
+      border-bottom: 1px solid var(--rule);
+    }
+    .pod-id {
+      font-family: var(--sans-en);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: var(--accent);
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .pod-name {
+      font-family: var(--display-en);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    html[lang="ar"] .pod-name { font-family: var(--serif-ar); }
+    .pod-body { padding: 6px 26px 20px; }
+    .pod-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 4px 24px;
+      padding: 13px 0;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .pod-row:first-child { border-top: none; }
+    .pod-row .k {
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--accent);
+      padding-top: 3px;
+    }
+    html[lang="ar"] .pod-row .k { font-family: var(--sans-ar); text-transform: none; letter-spacing: 0; font-size: 0.8125rem; }
+    .pod-row .v { color: var(--ink); }
+    .pod-row .v ul { margin: 0; }
+    .pod-row .v li { margin-bottom: 4px; padding-left: 15px; position: relative; }
+    .pod-row .v li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 7px; height: 1px; background: var(--gold); }
+    html[dir="rtl"] .pod-row .v li { padding-left: 0; padding-right: 15px; }
+    html[dir="rtl"] .pod-row .v li::before { left: auto; right: 0; }
+    @media (max-width: 700px) { .pod-row { grid-template-columns: 1fr; gap: 2px; } }
+
+    /* Workstream label divider (Section 8 groupings) */
+    .ws-label {
+      font-family: var(--sans-en);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin: 44px 0 6px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+    html[lang="ar"] .ws-label { font-family: var(--sans-ar); text-transform: none; letter-spacing: 0; }
+
+    /* Cadence timeline (Section 8) */
+    .timeline { margin: 28px 0; max-width: var(--content-w); position: relative; padding-left: 30px; }
+    html[dir="rtl"] .timeline { padding-left: 0; padding-right: 30px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 4px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--gold));
+    }
+    html[dir="rtl"] .timeline::before { left: auto; right: 4px; }
+    .tl-item { position: relative; padding: 0 0 26px 6px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -30px; top: 3px;
+      width: 11px; height: 11px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+    }
+    html[dir="rtl"] .tl-item::before { left: auto; right: -30px; }
+    .tl-when {
+      font-family: var(--sans-en);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      letter-spacing: 0.03em;
+      color: var(--accent-deep);
+      margin-bottom: 8px;
+    }
+    html[lang="ar"] .tl-when { font-family: var(--sans-ar); font-size: 0.9375rem; }
+    .tl-item ul { margin: 0; }
 
     .placeholder-section {
       position: relative;
@@ -1121,7 +1457,7 @@
 
           <p class="lead">Alfa Electronics has, since 1987, been an electronics-hardware company with software embedded inside the boxes it ships. Over the next 24 months, that order inverts. <strong>Alfa becomes an AI-enabled software-on-hardware company</strong> — a company whose products are intelligent software, delivered through the hardware substrates Alfa has spent thirty-nine years learning how to design, install, and service in the field.</p>
 
-          <p>This is not a pivot away from what Alfa is. It is the next move in a line of moves: becoming Markem's distributor in 1989, building the in-house engineering capability that produced the Electronic Solutions portfolio and earned the upgrade to the Markem-Imaje partnership, and folding Aura's software capability into Alfa's engineering arm. Each of those moves was a step toward software as the center of the offer. This one names what the previous ones implied.</p>
+          <p>This is not a pivot away from what Alfa is. It is the next move in a line of moves: the early Markem distribution partnership, the in-house engineering capability that produced the Electronic Solutions portfolio alongside the Markem-Imaje relationship, and the integration of Aura's software capability into Alfa's engineering arm. Each of those moves was a step toward software as the center of the offer. This one names what the previous ones implied.</p>
 
           <h2>What the Books Say</h2>
 
@@ -1188,13 +1524,13 @@
 
           <ul class="body-list">
             <li><strong>Protect the EGP 428M Markem-Imaje annuity</strong> by becoming an AI-capable distributor — equipping the field service organization with AI-augmented tools, integrating Markem-Imaje's AI inspection and connected services into the local offer, and developing the customer-facing intelligence layer that turns consumable supply from a transactional relationship into a managed one.</li>
-            <li><strong>Reinvent the Electronic Solutions line as a portfolio of intelligent software products on hardware substrates.</strong> The queueing platform, the kiosk line, ATUM's second generation, and the hospitality and parking products are reconceived with software as the center of the offer and hardware as the delivery substrate. The 2027 GS1 Digital Link inflection in the coding market creates a parallel upgrade wave Alfa must be positioned to lead among its existing customers, not lose to them.</li>
+            <li><strong>Reinvent the Electronic Solutions line as a portfolio of intelligent software products on hardware substrates.</strong> The queueing platform, the kiosk line, the hospitality and parking products, and the next generation of the smart utility line are reconceived from the inside: software as the center of the offer, hardware as the delivery substrate. The 2027 GS1 Digital Link inflection in the coding market creates a parallel upgrade wave Alfa must be positioned to lead among its existing customers, not lose to them.</li>
             <li><strong>Step R&amp;D investment up from 2.16% toward the 6–10% range</strong> characteristic of software-led B2B, funded by the recurring base the investment is protecting. The investment is not speculative — it is the cost of staying in the business Alfa is actually in.</li>
           </ul>
 
           <h2>How</h2>
 
-          <p>Execution runs through the engineering capability Alfa already has — Aura, operationally embedded as Alfa's software arm under Samer's leadership. A small AI Office is established to govern method, measurement, and data accessibility. Four to six AI Pods run at any given time, each owning a specific outcome with a measurable Phase 1 result by year-end 2026. A network of AI Champions in the divisions provides the connective tissue between pod work and day-to-day operations.</p>
+          <p>Execution runs through the engineering capability Alfa already has — Aura, operationally embedded as Alfa's software arm. A small AI Office is established to govern method, measurement, and data accessibility. Four to six AI Pods run at any given time, each owning a specific outcome with a measurable Phase 1 result by year-end 2026. A network of AI Champions in the divisions provides the connective tissue between pod work and day-to-day operations.</p>
 
           <p>The first wave includes product and engineering, deliberately. Internal efficiency wins are useful, but the strategic asset is the AI Products line — and product cannot lead from a position of catching up. Phase 1 measures product outcomes and operational outcomes from day one.</p>
 
@@ -1223,7 +1559,7 @@
 
           <p>ظلّت ألفا للإلكترونيات، منذ تأسيسها عام 1987، شركةً تعمل في الإلكترونيات والأجهزة، بينما كانت البرمجيات جزءاً مُدمَجاً داخل المنتجات التي تُسلَّم. خلال الأربعة والعشرين شهراً القادمة، يَنعكس هذا الترتيب. <strong>تتحوّل ألفا إلى شركة برمجيات على ركيزة من الأجهزة، مدعومة بالذكاء الاصطناعي</strong> — شركة يكون منتجها الأساسي ذكاءً برمجياً، يُقدَّم عبر الأجهزة التي قضت ألفا تسعةً وثلاثين عاماً تتعلّم تصميمها وتركيبها وصيانتها في الميدان.</p>
 
-          <p>هذا ليس انعطافاً عمّا هي عليه ألفا، بل هو الخطوة التالية في سلسلة من الخطوات: أن تصبح موزّعاً لـ Markem عام 1989، وبناء القدرة الهندسية الداخلية التي أنتجت محفظة الحلول الإلكترونية واستحقّت الترقية إلى شراكة Markem-Imaje، ودمج قدرات Aura البرمجية في الذراع الهندسي لألفا. كلّ خطوة من هذه كانت تقدُّماً نحو البرمجيات كمركز للعرض. هذه الخطوة تُعطي اسماً لما كانت الخطوات السابقة تُلمِّح إليه.</p>
+          <p>هذا ليس انعطافاً عمّا هي عليه ألفا، بل هو الخطوة التالية في سلسلة من الخطوات: شراكة التوزيع المبكرة مع Markem، والقدرة الهندسية الداخلية التي أنتجت محفظة الحلول الإلكترونية جنباً إلى جنب مع علاقة Markem-Imaje، ودمج قدرات Aura البرمجية في الذراع الهندسي لألفا. كلّ خطوة من هذه كانت تقدُّماً نحو البرمجيات كمركز للعرض. هذه الخطوة تُعطي اسماً لما كانت الخطوات السابقة تُلمِّح إليه.</p>
 
           <h2>ما تقوله الدفاتر</h2>
 
@@ -1290,13 +1626,13 @@
 
           <ul class="body-list">
             <li><strong>حماية سنويّة Markem-Imaje البالغة 428 مليون جنيه</strong> عبر التحوّل إلى موزّع قادر على الذكاء الاصطناعي — تجهيز منظومة خدمة الميدان بأدوات معزّزة بالذكاء الاصطناعي، ودمج برنامج التفتيش الذكي والخدمات المتّصلة من Markem-Imaje في العرض المحلّي، وتطوير طبقة الذكاء الموجّهة للعميل التي تحوّل تجهيز المستهلكات من علاقة معاملاتيّة إلى علاقة مُدارة.</li>
-            <li><strong>إعادة ابتكار خطّ الحلول الإلكترونية كمحفظةٍ من المنتجات البرمجية الذكيّة على ركائز من الأجهزة.</strong> يُعاد تصوُّر منصّة الطوابير، وخطّ الأكشاك، والجيل الثاني من ATUM، ومنتجات الضيافة والمواقف من الداخل: البرمجيات في مركز العرض، والأجهزة كركيزة للتسليم. إنّ منعطف 2027 لـ GS1 Digital Link في سوق التشفير يُحدِث موجة ترقية موازية يجب على ألفا أن تكون في موقع يقودها بين عملائها الحاليين، لا يخسرها.</li>
+            <li><strong>إعادة ابتكار خطّ الحلول الإلكترونية كمحفظةٍ من المنتجات البرمجية الذكيّة على ركائز من الأجهزة.</strong> يُعاد تصوُّر منصّة الطوابير، وخطّ الأكشاك، ومنتجات الضيافة والمواقف، والجيل القادم من خطّ المرافق الذكية من الداخل: البرمجيات في مركز العرض، والأجهزة كركيزة للتسليم. إنّ منعطف 2027 لـ GS1 Digital Link في سوق التشفير يُحدِث موجة ترقية موازية يجب على ألفا أن تكون في موقع يقودها بين عملائها الحاليين، لا يخسرها.</li>
             <li><strong>رفع استثمار البحث والتطوير من 2.16% نحو نطاق الـ 6–10%</strong> الخاصّ بشركات B2B التي تقودها البرمجيات، بتمويلٍ من القاعدة المتكرّرة التي يحميها هذا الاستثمار. الاستثمار ليس مضارَباً — إنّه تكلفة البقاء في النشاط الذي تعمل به ألفا فعلاً.</li>
           </ul>
 
           <h2>الكيفيّة</h2>
 
-          <p>يجري التنفيذ عبر القدرة الهندسية التي تملكها ألفا فعلاً — Aura، المُدمَجة عمليّاً كذراعٍ برمجي لألفا تحت قيادة سامر. يُؤسَّس مكتب صغير للذكاء الاصطناعي لإدارة المنهجية والقياس وإتاحة البيانات. تعمل من أربع إلى ست "مجموعات ذكاء اصطناعي" في أيّ وقت، تَملِك كلّ واحدة منها نتيجةً محدّدة بمعيار قياسٍ واضح خلال المرحلة الأولى حتى نهاية 2026. وشبكة من "أبطال الذكاء الاصطناعي" في الأقسام توفّر النسيج الرابط بين عمل المجموعات والتشغيل اليومي.</p>
+          <p>يجري التنفيذ عبر القدرة الهندسية التي تملكها ألفا فعلاً — Aura، المُدمَجة عمليّاً كذراعٍ برمجي لألفا. يُؤسَّس مكتب صغير للذكاء الاصطناعي لإدارة المنهجية والقياس وإتاحة البيانات. تعمل من أربع إلى ست "مجموعات ذكاء اصطناعي" في أيّ وقت، تَملِك كلّ واحدة منها نتيجةً محدّدة بمعيار قياسٍ واضح خلال المرحلة الأولى حتى نهاية 2026. وشبكة من "أبطال الذكاء الاصطناعي" في الأقسام توفّر النسيج الرابط بين عمل المجموعات والتشغيل اليومي.</p>
 
           <p>تشمل الموجة الأولى المنتج والهندسة، عن قصد. مكاسب الكفاءة الداخلية مفيدة، لكنّ الأصل الاستراتيجي هو خطّ منتجات الذكاء الاصطناعي — والمنتج لا يستطيع القيادة من موقع اللحاق بالرَّكب. تقيس المرحلة الأولى نتائج المنتج ونتائج التشغيل من اليوم الأوّل.</p>
 
@@ -1333,9 +1669,60 @@
             <h2 class="section-title">الرؤية — ألفا في 2028</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c81e99997ffd88dee13d8">Notion</a>. Will be rendered into the brief once visual direction is confirmed.</p>
-          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c81e99997ffd88dee13d8">Notion</a>. ستُدرَج في الملخّص بعد تأكيد الاتّجاه البصري.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <div class="section-intro">
+            <p>By the end of 2028, Alfa operates as an AI-enabled software-on-hardware company. The brand presentation is still a recognizable Alfa — the same divisions, the same customers, the same Markem-Imaje partnership — but the substance of what is built, sold, and delivered has shifted. The center of every product is software intelligence; the hardware is the substrate that gives that intelligence physical presence in customer environments.</p>
+            <p>What follows is what that looks like in practice, told through the kinds of moments that would not be possible in 2025.</p>
+          </div>
+
+          <h2>The Markem-Imaje base, intelligent</h2>
+          <div class="scene"><p>A bakery in Alexandria runs three Markem-Imaje coders on its bread line. The plant manager opens an app on her phone in the morning. She sees that Coder #2 is operating at 92% of its expected character quality, down from 99% last week — Alfa's predictive print-quality model has detected ribbon-tension drift and scheduled a service visit for Thursday. She sees that her consumable usage is tracking 4% above forecast; the system has already adjusted next month's standing ink order. She does not think about Alfa at all. The system simply ran.</p></div>
+          <div class="scene"><p>In Riyadh, a multinational FMCG plant manager receives a message from her Alfa account team: a competitor coder vendor has filed a regulatory submission for AI-based code verification that may, in 18 months, give them an advantage on European supply contracts. Alfa is shipping the equivalent capability in Q1 2029. She forwards the message to her procurement lead.</p></div>
+          <div class="scene"><p>In Cairo, an Alfa field service technician arrives at a packaging plant for a scheduled maintenance call. His tablet has already pulled the unit's last 90 days of operational telemetry, identified two parts likely to fail within the next 60 days, and pre-staged them in his truck. The visit takes 38 minutes instead of two hours. The customer's line never shuts down.</p></div>
+
+          <h2>The AI Products line (formerly Electronic Solutions)</h2>
+          <div class="scene"><p>In a National Bank branch in Tanta, a customer walks in. The queueing system detects he is carrying a sealed envelope marked with a corporate logo and routes him to the SME relationship desk instead of the general teller queue — saving him 28 minutes on average. The system also notices that the SME desk is becoming a bottleneck this morning and quietly notifies the branch manager's screen, suggesting a temporary reallocation of two staff. None of this involves new hardware; the entire intelligence layer is software running on the existing displays.</p></div>
+          <div class="scene"><p>A 4-star hotel in Sharm El Sheikh receives a guest at 11:43 PM. The Alfa hospitality platform pulls the guest's reservation history, recognizes a pattern of late check-ins, a previous request for a quiet room on a high floor, and an anniversary on the following day. The front desk associate sees this on her screen as the guest approaches. A complimentary upgrade and a small in-room gesture are already pre-cleared by the property manager's standing rules. The guest experiences a moment of being known.</p></div>
+          <div class="scene"><p>A municipal smart-poles deployment in 6th of October City — ATUM v2 — adjusts its lighting output based on real-time foot-traffic patterns. It detects an unusual crowd gathering at 9:14 PM and pings the relevant municipal officer with a flagged image and a recommended response. Power consumption across the deployment is 31% below the original deployment baseline.</p></div>
+          <div class="scene"><p>A self-service kiosk in a public hospital in Mansoura takes vitals from a patient, asks a short conversational triage in Arabic, and produces a draft note for the nurse. The nurse reviews, edits, and accepts the note into the patient's record. The kiosk has reduced the triage queue by 40% during peak hours.</p></div>
+
+          <h2>Operational intelligence — how the company itself runs</h2>
+          <p>The engineering organization — a small core plus a flexible Aura cohort — runs four AI Pods at any given time. Each pod owns a specific outcome: one is shipping the next iteration of the predictive consumables model; one is integrating vision-based quality verification into a European OEM customer pilot; one is reducing the average proposal generation time across the sales floor; one is building the second generation of the municipal IoT platform. Pods rotate every 8 to 12 weeks. Champions in each department escalate problems worth a pod's attention; not all of them get one.</p>
+          <div class="scene"><p>A sales rep at the Tanta branch needs to respond to a tender from a regional retailer. She types a paragraph describing the customer's situation into a tool. Sixteen minutes later, she has a draft proposal with the right product configuration, defensible pricing, references to comparable customer deployments, and a properly formatted PDF in Arabic. She edits for tone and sends. Her predecessor in 2025 would have spent two days on the same task.</p></div>
+          <div class="scene"><p>The finance team closes the monthly books in three days instead of nine. The HR team can answer "which sales reps in our team have closed the most kiosk deals in healthcare verticals this year" in under a minute, without opening Excel. The customer service inbox is triaged automatically; only the small fraction of messages that actually require human judgment reaches a human.</p></div>
+
+          <h2>The internal experience</h2>
+          <p>Working at Alfa in 2028 feels different. New engineers join Alfa and assume that AI is part of the substrate of their work — they have never known a different way to build. Sales people who, in 2025, were trapped reselling queueing systems they understood, now sell software products that explain themselves through interactive demos in the customer's office. Field service technicians, who used to drive long routes hoping their truck had the right part, now show up with the right parts already loaded and a clear plan.</p>
+          <p>The chairman still walks the office in Cairo. The conversations he overhears are different. The engineering DNA he built into the company in 1987 is still here — but it has shifted forms. The company is still Alfa. It is also something that was not possible to be, before.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <div class="section-intro">
+            <p>بحلول نهاية عام 2028، تعمل ألفا كشركة برمجيات على ركيزة من الأجهزة، مدعومة بالذكاء الاصطناعي. لا يزال حضور العلامة ألفا مألوفاً — الأقسام نفسها، والعملاء أنفسهم، وشراكة Markem-Imaje ذاتها — لكنّ جوهر ما يُبنى ويُباع ويُسلَّم قد تحوّل. مركز كلّ منتجٍ ذكاءٌ برمجي؛ والأجهزة هي الركيزة التي تمنح ذلك الذكاء حضوراً ماديّاً في بيئات العملاء.</p>
+            <p>وما يلي هو صورة ذلك في الواقع، مرويّةً من خلال لحظاتٍ لم تكن ممكنة في 2025.</p>
+          </div>
+
+          <h2>قاعدة Markem-Imaje، وقد صارت ذكيّة</h2>
+          <div class="scene"><p>مخبزٌ في الإسكندرية يُشغّل ثلاث طابعات ترميز من Markem-Imaje على خطّ إنتاج الخبز. تفتح مديرة المصنع تطبيقاً على هاتفها صباحاً. ترى أنّ الطابعة رقم 2 تعمل عند 92% من جودة الطباعة المتوقّعة، بانخفاضٍ عن 99% الأسبوع الماضي — وقد رصد نموذج ألفا التنبّؤي لجودة الطباعة انحرافاً في شدّ الشريط وحدّد زيارة صيانة يوم الخميس. وترى أنّ استهلاكها من المستهلكات يفوق التوقّعات بنسبة 4%؛ وقد عدّل النظام بالفعل طلب الحبر الدائم للشهر القادم. هي لا تفكّر في ألفا إطلاقاً. النظام ببساطة اشتغل.</p></div>
+          <div class="scene"><p>في الرياض، تتلقّى مديرة مصنعٍ لشركة سلعٍ استهلاكية متعدّدة الجنسيات رسالةً من فريق حسابها في ألفا: مورّد طابعات ترميز منافس قدّم طلباً تنظيميّاً للتحقّق من الرموز بالذكاء الاصطناعي قد يمنحه، خلال 18 شهراً، ميزةً في عقود التوريد الأوروبية. وألفا تطرح القدرة المكافئة في الربع الأول من 2029. تُحوّل الرسالة إلى مسؤول المشتريات لديها.</p></div>
+          <div class="scene"><p>في القاهرة، يصل فنّيُّ خدمةٍ ميدانية من ألفا إلى مصنع تغليف في زيارة صيانة مجدولة. لقد سحب جهازه اللوحي بالفعل بيانات تشغيل الوحدة لآخر 90 يوماً، وحدّد قطعتين مرشّحتين للعطل خلال الستّين يوماً القادمة، وجهّزهما مسبقاً في شاحنته. تستغرق الزيارة 38 دقيقة بدلاً من ساعتين. ولا يتوقّف خطّ إنتاج العميل أبداً.</p></div>
+
+          <h2>خطّ منتجات الذكاء الاصطناعي (الحلول الإلكترونية سابقاً)</h2>
+          <div class="scene"><p>في فرعٍ للبنك الأهلي في طنطا، يدخل عميل. يكتشف نظام إدارة الطوابير أنّه يحمل ظرفاً مختوماً عليه شعار شركة، فيوجّهه إلى مكتب علاقات الشركات الصغيرة والمتوسطة بدلاً من طابور الصرّاف العام — موفّراً عليه 28 دقيقة في المتوسط. ويلاحظ النظام أيضاً أنّ مكتب الشركات الصغيرة والمتوسطة بات عنق زجاجة هذا الصباح، فيُنبّه بهدوء شاشة مدير الفرع، مقترحاً إعادة توزيعٍ مؤقّتة لموظّفَين. لا شيء من هذا يتطلّب أجهزة جديدة؛ فطبقة الذكاء بأكملها برمجيات تعمل على الشاشات الموجودة أصلاً.</p></div>
+          <div class="scene"><p>فندقٌ من فئة أربع نجوم في شرم الشيخ يستقبل نزيلاً في الساعة 11:43 مساءً. تسحب منصّة الضيافة من ألفا سجلّ حجوزات النزيل، وتتعرّف على نمطٍ من الوصول المتأخّر، وطلبٍ سابق لغرفةٍ هادئة في طابقٍ مرتفع، وذكرى سنويةٍ في اليوم التالي. ترى موظّفة الاستقبال هذا على شاشتها بينما يقترب النزيل. وقد سبق أن أجاز مدير الفندق، عبر قواعده الدائمة، ترقيةً مجّانية ولفتةً صغيرة داخل الغرفة. يعيش النزيل لحظة أن يكون معروفاً.</p></div>
+          <div class="scene"><p>نشرٌ لأعمدة إنارةٍ ذكية في مدينة السادس من أكتوبر — ATUM v2 — يضبط شدّة إضاءته بناءً على أنماط حركة المشاة في الوقت الحقيقي. يرصد تجمّعاً غير معتادٍ للحشود عند الساعة 9:14 مساءً فيُنبّه المسؤول البلدي المعنيّ بصورةٍ مُعلَّمة وردٍّ موصى به. واستهلاك الطاقة عبر النشر كلّه أقلّ بنسبة 31% من خطّ الأساس الأصلي للنشر.</p></div>
+          <div class="scene"><p>كشكٌ للخدمة الذاتية في مستشفى عامّ في المنصورة يقيس العلامات الحيوية لمريض، ويُجري فرزاً تحاوريّاً قصيراً بالعربية، ويُنتج مسودّة ملاحظةٍ للممرّضة. تراجع الممرّضة الملاحظة وتعدّلها وتعتمدها في سجلّ المريض. وقد خفّض الكشك طابور الفرز بنسبة 40% خلال ساعات الذروة.</p></div>
+
+          <h2>الذكاء التشغيلي — كيف تُدار الشركة نفسها</h2>
+          <p>المنظومة الهندسية — نواةٌ صغيرة إضافةً إلى فريق Aura المرن — تُشغّل أربع مجموعات ذكاء اصطناعي في أيّ وقت. تَملِك كلّ مجموعة نتيجةً محدّدة: واحدة تطرح الإصدار التالي من نموذج المستهلكات التنبّؤي؛ وأخرى تدمج التحقّق من الجودة المعتمِد على الرؤية في تجربة عميل OEM أوروبي؛ وثالثة تقلّص متوسّط زمن توليد العروض عبر قسم المبيعات؛ ورابعة تبني الجيل الثاني من منصّة إنترنت الأشياء البلدية. تتناوب المجموعات كلّ 8 إلى 12 أسبوعاً. ويرفع الأبطال في كلّ قسمٍ المشكلات الجديرة باهتمام مجموعة؛ وليست كلّها تحصل على واحدة.</p>
+          <div class="scene"><p>تحتاج مندوبة مبيعاتٍ في فرع طنطا إلى الردّ على مناقصةٍ من تاجر تجزئةٍ إقليمي. تكتب فقرةً تصف وضع العميل في أداة. بعد ستّ عشرة دقيقة، يكون لديها مسودّة عرضٍ بالتكوين الصحيح للمنتج، وتسعيرٍ قابلٍ للدفاع عنه، وإشاراتٍ إلى عمليات نشرٍ مماثلة لدى عملاء، وملفّ PDF منسَّقٍ بإتقان بالعربية. تُحرّر العرض من حيث النبرة وترسله. سَلَفُها في 2025 كان سيقضي يومين على المهمّة نفسها.</p></div>
+          <div class="scene"><p>يُغلِق فريق المالية الدفاتر الشهرية في ثلاثة أيام بدلاً من تسعة. ويستطيع فريق الموارد البشرية أن يُجيب عن سؤال «أيّ مندوبي المبيعات في فريقنا أبرموا أكبر عددٍ من صفقات الأكشاك في قطاعات الرعاية الصحية هذا العام» في أقلّ من دقيقة، دون فتح Excel. ويُفرَز صندوق خدمة العملاء تلقائيّاً؛ ولا يصل إلى إنسانٍ سوى الجزء الصغير من الرسائل الذي يتطلّب فعلاً حُكماً بشريّاً.</p></div>
+
+          <h2>التجربة الداخلية</h2>
+          <p>العمل في ألفا عام 2028 يبدو مختلفاً. ينضمّ مهندسون جدد إلى ألفا وهم يفترضون أنّ الذكاء الاصطناعي جزءٌ من ركيزة عملهم — لم يعرفوا قطّ طريقةً أخرى للبناء. وأمّا الباعة الذين كانوا في 2025 أسرى إعادة بيع أنظمة طوابير يفهمونها، فصاروا يبيعون منتجاتٍ برمجية تشرح نفسها عبر عروضٍ تفاعلية في مكتب العميل. والفنّيون الميدانيون الذين اعتادوا قطع مساراتٍ طويلة آملين أن تكون القطعة الصحيحة في شاحنتهم، باتوا يصلون والقطع الصحيحة محمّلةٌ سلفاً ومعهم خطّةٌ واضحة.</p>
+          <p>لا يزال رئيس مجلس الإدارة يتجوّل في المكتب بالقاهرة. لكنّ الأحاديث التي تصل مسامعه مختلفة. الحمض النووي الهندسي الذي غرسه في الشركة عام 1987 لا يزال هنا — لكنّه تبدّل في صورته. الشركة لا تزال ألفا. وهي أيضاً شيءٌ لم يكن ممكناً أن تكونه من قبل.</p>
         </div>
       </section>
 
@@ -1350,9 +1737,104 @@
             <h2 class="section-title">الاختيار الاستراتيجي</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c81e0b777d7d5e36f029a">Notion</a>.</p>
-          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c81e0b777d7d5e36f029a">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <h2>Three Workstreams, Sequenced Deliberately</h2>
+          <p>The bet described in the Opening Hypothesis breaks into three workstreams. They are not three independent initiatives — they are three views of the same software-on-hardware transformation, sequenced so each feeds the next.</p>
+
+          <div class="workstream"><span class="ws-num">1</span><p><strong>Workstream 1: Annuity Intelligence.</strong> Protecting the EGP 428M Markem-Imaje recurring base by becoming an AI-capable distributor. The work: embed AI-augmented tooling into the 75-person field service organization, integrate Markem-Imaje's AI inspection software and connected services into the local offer, and build the customer-facing intelligence layer that turns consumable supply from transactional into managed. The strategic logic: the annuity is exposed; defending it earns the credibility and the capability for the larger bet.</p></div>
+          <div class="workstream"><span class="ws-num">2</span><p><strong>Workstream 2: AI Products.</strong> Reinventing the Electronic Solutions line from the inside. The queueing platform, the kiosk line, the hospitality and parking products, and the next generation of the smart utility line are reconceived with software as the center of the offer and hardware as the substrate. The strategic logic: the ES plateau is the market's verdict on the current product line; the plateau breaks when the product line catches up to where customer expectations have already moved.</p></div>
+          <div class="workstream"><span class="ws-num">3</span><p><strong>Workstream 3: Operational Intelligence.</strong> Internal AI adoption across sales, finance, HR, customer service, and operations. The strategic logic: this is the rehearsal ground for the AI capability we are shipping in our own products. A company that cannot use AI internally cannot credibly sell intelligent software externally.</p></div>
+
+          <p>These three workstreams run in parallel from day one. The critical sequencing decision — and the one most likely to be mishandled in execution — is that <strong>Workstream 2 (AI Products) cannot wait for Workstream 3 (Internal AI) to mature.</strong> The familiar industry pattern of "we'll get good at AI internally first, then ship it externally" produces companies with productive sales teams shipping yesterday's products. Product and engineering lead the first wave, not the last.</p>
+
+          <h2>The Two-Division Frame</h2>
+          <p>Electronic Solutions and Marking &amp; Packing have materially different customer profiles, sales motions, AI surfaces, and competitive threats. The strategy is <strong>one unified framework with two execution tracks</strong> — shared governance, shared learning architecture, shared methodology; division-specific tactics.</p>
+          <p>For the Markem-Imaje side, the AI surface is largely defined by the partner: AI inspection, IoT-connected services, predictive consumables management, the 2027 GS1 Digital Link transition. Alfa's role is to integrate, localize, and service these capabilities for the MEA customer base, with Arabic-first interaction as a structural differentiator the global partner cannot easily provide.</p>
+          <p>For Electronic Solutions, the AI surface is owned end-to-end. The queueing platform's predictive routing, the kiosk's conversational interface, the hospitality platform's guest recognition, the intelligent municipal layer of the smart utility line — these are Alfa product decisions, not partner integrations. The reinvention is structural, and the R&amp;D investment step-up funds it.</p>
+
+          <h2>Pacing — Fast Lanes Inside a Slow Organization</h2>
+          <p>The pacing principle is deliberate and contrarian. The instinct in a hierarchical industrial company is to roll change out uniformly: announce the program, mandate participation, measure compliance. We are not doing this.</p>
+          <p>The strategy concentrates early momentum in small, visible <strong>AI Pods</strong> — four to six at a time, six to twelve weeks per pod, cross-functional, each with a specific outcome to ship. Pods run with executive air cover but minimal procedural friction. The wins they produce — a sales team closing more tenders because proposals are drafted by AI, a field service visit that takes 38 minutes instead of two hours, a queueing demo where the system answers customer questions in Arabic — generate organic pull from the rest of the company.</p>
+          <p>The alternative — mandating company-wide adoption from day one — is what produces the typical enterprise AI failure pattern: high compliance, low absorption, no shipped product. The decision is to let the rest of the company catch up at its own pace, while a fast lane delivers the strategic capability.</p>
+          <p>This is the synthesis of the top-down/bottom-up question. Top-down provides the permission, the budget, and the chairman's visible air cover. Bottom-up provides the velocity, the evidence, and the wins that make the air cover worth giving. Neither alone produces the outcome.</p>
+
+          <h2>Decision Discipline — Do, Measure, Validate, Calibrate</h2>
+          <p>Each pod operates on a Do-Measure-Validate-Calibrate loop. The bar to <strong>do</strong> is low: try things, ship working drafts, accept early imperfection. The bar to <strong>validate</strong> is rigorous: did this actually move the metric we said it would move? Critical challenge happens at validate, not at do — which is the inverse of how this kind of work is typically run in a careful organization, where critique kills initiatives before they ship.</p>
+          <p>The implication for governance: the AI Council does not gate experimentation. It gates progression — from validated experiments into production, and from production into broader rollout. A pod that has run for eight weeks and produced something the validate criteria approve becomes a candidate for scaling. A pod that has run for eight weeks and produced something the validate criteria reject is a learning, not a failure — and the next pod incorporates the learning.</p>
+          <p>This discipline matters because it inverts the cultural default. In a hierarchical organization, the instinct is to plan thoroughly before doing. In an AI-enabled software organization, the cost of trying is low and the cost of not trying is high. The methodology gives the chairman a way to see that experimentation is bounded and accountable, not chaotic — and gives the operating teams permission to try things without first writing a six-month plan.</p>
+          <p>This is also the synthesis of the course-based/problem-based learning question. The chairman's underlying goal — a company-wide AI ethos — is honored. The method that delivers it is real work organized as a learning system, with formal training filling specific gaps that surface in pod work, rather than a pre-packaged curriculum delivered to people who do not yet know what to do with it.</p>
+
+          <h2>An Illustrative Case: What the Strategy Unlocks</h2>
+          <p>One product in the existing portfolio illustrates the pattern this strategy is built to address — not because it is the centerpiece of the bet, but because it shows, in miniature, why a directionally sound product can fail for reasons that have nothing to do with the product itself. ATUM is used here as one example among several; the queueing platform, the kiosk line, and the hospitality products each tell a version of the same story.</p>
+          <p>ATUM was built in 2016, when the local market was still selling pure hardware. The product was directionally right: smart utility management, IoT-led, software-centered, ahead of the curve. It is also, in 2026, a zero-revenue line — no units deployed.</p>
+          <p>The instructive reading is this: ATUM in 2016 was a correct product intuition that the rest of the company was not yet structured to execute on. The sales force was a hardware-selling sales force. The company had not named software as its identity. Customers approached for it were being asked to buy something that did not match what they understood Alfa to be. The product was, in effect, early on its own company.</p>
+          <p>The lesson generalizes beyond any single product. The strategy this document describes is what makes a product like this viable: software named as Alfa's identity, sales and product reorganized around intelligent products, the engineering capability to ship and iterate, and Arabic-first AI as a structural advantage in regional deployments. Where such a product belongs in the eventual roadmap — and how much weight it should carry relative to the queueing, kiosk, and hospitality lines — is a decision for the divisional heads and the AI Council to make on the evidence, not a determination this strategy presupposes. It is named here as illustration, not as a Phase 1 commitment.</p>
+
+          <h2>What We Are Not Doing</h2>
+          <p>The cuts are part of the bet. The strategy does not include:</p>
+          <ul class="body-list">
+            <li><strong>A six-month formal AI training course as the primary learning vehicle.</strong> Capability is built through doing, not through curriculum. The learning architecture is embedded in pod work, with formal training filling specific gaps as they surface.</li>
+            <li><strong>Company-wide AI adoption from day one.</strong> Adoption follows visible wins, not mandates. Departments that pull AI in earn it; departments that wait can wait.</li>
+            <li><strong>A wholesale data infrastructure rebuild as a prerequisite.</strong> The current data accessibility constraint is real and elevated to a Phase 1 priority — but the pods do not stall while infrastructure is upgraded. They work with the data they can reach, and the data work runs in parallel.</li>
+            <li><strong>Building AI capability from scratch where buying suffices.</strong> Off-the-shelf foundation models, vendor APIs, and partner offerings are used wherever they fit. Custom engineering is reserved for the layers that differentiate Alfa's products.</li>
+            <li><strong>Chasing every AI tool that emerges.</strong> The strategy is product-and-outcome-led, not tool-led. New tools are evaluated against the workstream they would serve, not against their general impressiveness.</li>
+            <li><strong>Treating internal efficiency wins as the success story.</strong> The success story is the AI Products line shipping. Internal wins are how the company learns to ship.</li>
+          </ul>
+
+          <h2>Closing Frame</h2>
+          <p>The choice described in this section is structural, not tactical. It is a choice about what kind of company Alfa is becoming, what it is willing to stop doing in order to become that, and what discipline it will hold itself to during the transition.</p>
+          <p>The next section — Execution Architecture — describes how the choice is implemented: the governance bodies, the pod structure, the champions network, the data and tooling layer, the cross-divisional mechanisms. It follows from this choice, not the other way around.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <h2>ثلاثة مسارات عمل، مرتّبة عن قصد</h2>
+          <p>ينقسم الرهان الموصوف في الفرضية الافتتاحية إلى ثلاثة مسارات عمل. وهي ليست ثلاث مبادرات مستقلّة — بل ثلاث زوايا للنظر إلى التحوّل نفسه (البرمجيات على ركيزة الأجهزة)، مرتّبةً بحيث يُغذّي كلٌّ منها التالي.</p>
+
+          <div class="workstream"><span class="ws-num">1</span><p><strong>المسار الأول: ذكاء السنويّة.</strong> حماية القاعدة المتكرّرة لـ Markem-Imaje البالغة 428 مليون جنيه عبر التحوّل إلى موزّعٍ قادرٍ على الذكاء الاصطناعي. العمل: تضمين أدواتٍ معزّزة بالذكاء الاصطناعي في منظومة الخدمة الميدانية المكوّنة من 75 شخصاً، ودمج برنامج التفتيش بالذكاء الاصطناعي والخدمات المتّصلة من Markem-Imaje في العرض المحلّي، وبناء طبقة الذكاء الموجّهة للعميل التي تحوّل تجهيز المستهلكات من معاملاتيٍّ إلى مُدار. المنطق الاستراتيجي: السنويّة معرَّضة للخطر؛ والدفاع عنها يكسب المصداقية والقدرة للرهان الأكبر.</p></div>
+          <div class="workstream"><span class="ws-num">2</span><p><strong>المسار الثاني: منتجات الذكاء الاصطناعي.</strong> إعادة ابتكار خطّ الحلول الإلكترونية من الداخل. يُعاد تصوُّر منصّة الطوابير، وخطّ الأكشاك، ومنتجات الضيافة والمواقف، والجيل القادم من خطّ المرافق الذكية، مع البرمجيات في مركز العرض والأجهزة كركيزة. المنطق الاستراتيجي: هضبة الحلول الإلكترونية هي حُكم السوق على خطّ المنتجات الحالي؛ وتنكسر الهضبة حين يلحق خطّ المنتجات بالموضع الذي انتقلت إليه توقّعات العملاء بالفعل.</p></div>
+          <div class="workstream"><span class="ws-num">3</span><p><strong>المسار الثالث: الذكاء التشغيلي.</strong> تبنّي الذكاء الاصطناعي داخليّاً عبر المبيعات والمالية والموارد البشرية وخدمة العملاء والعمليات. المنطق الاستراتيجي: هذه هي أرض التدريب على قدرة الذكاء الاصطناعي التي نشحنها في منتجاتنا نفسها. فالشركة التي لا تستطيع استخدام الذكاء الاصطناعي داخليّاً لا تستطيع أن تبيع بمصداقيةٍ برمجياتٍ ذكية في الخارج.</p></div>
+
+          <p>تعمل هذه المسارات الثلاثة بالتوازي منذ اليوم الأول. والقرار الحاسم في الترتيب — وهو الأكثر عرضةً لسوء الإدارة عند التنفيذ — هو أنّ <strong>المسار الثاني (منتجات الذكاء الاصطناعي) لا يمكن أن ينتظر نُضج المسار الثالث (الذكاء الاصطناعي الداخلي).</strong> النمط الصناعي المألوف القائل «سنُتقن الذكاء الاصطناعي داخليّاً أولاً، ثم نشحنه خارجيّاً» يُنتج شركاتٍ بفرق مبيعاتٍ منتِجة تشحن منتجات الأمس. المنتج والهندسة يقودان الموجة الأولى، لا الأخيرة.</p>
+
+          <h2>إطار القسمين</h2>
+          <p>للحلول الإلكترونية وقسم الترميز والتغليف ملامحُ عملاء، وحركاتُ بيع، وأسطحُ ذكاءٍ اصطناعي، وتهديداتٌ تنافسية مختلفةٌ جوهريّاً. الاستراتيجية هي <strong>إطارٌ موحّدٌ واحد بمسارَي تنفيذ</strong> — حوكمةٌ مشتركة، وبنية تعلُّمٍ مشتركة، ومنهجيةٌ مشتركة؛ وتكتيكاتٌ خاصّة بكلّ قسم.</p>
+          <p>بالنسبة إلى جانب Markem-Imaje، فإنّ سطح الذكاء الاصطناعي يحدّده الشريك إلى حدٍّ كبير: التفتيش بالذكاء الاصطناعي، والخدمات المتّصلة عبر إنترنت الأشياء، والإدارة التنبّؤية للمستهلكات، وانتقال GS1 Digital Link في 2027. ودور ألفا هو دمج هذه القدرات وتوطينها وصيانتها لقاعدة عملاء الشرق الأوسط وأفريقيا، مع التفاعل بالعربية أولاً بوصفه عامل تمايزٍ بنيويٍّ يصعب على الشريك العالمي توفيره.</p>
+          <p>أمّا بالنسبة إلى الحلول الإلكترونية، فسطح الذكاء الاصطناعي مملوكٌ من البداية إلى النهاية. التوجيه التنبّؤي لمنصّة الطوابير، والواجهة التحاورية للكشك، والتعرّف على الضيوف في منصّة الضيافة، والطبقة البلدية الذكية لخطّ المرافق الذكية — هذه قراراتُ منتجٍ تخصّ ألفا، لا عمليات دمجٍ مع شريك. إعادة الابتكار بنيوية، وزيادة استثمار البحث والتطوير هي ما يموّلها.</p>
+
+          <h2>الإيقاع — مساراتٌ سريعة داخل منظّمةٍ بطيئة</h2>
+          <p>مبدأ الإيقاع متعمَّدٌ ومخالفٌ للحدْس. الغريزة في شركةٍ صناعيةٍ هرمية هي طرح التغيير بشكلٍ موحَّد: الإعلان عن البرنامج، وفرض المشاركة، وقياس الالتزام. نحن لا نفعل هذا.</p>
+          <p>تُركّز الاستراتيجية الزخم المبكر في <strong>مجموعات ذكاء اصطناعي</strong> صغيرة وظاهرة — من أربعٍ إلى ستٍّ في آنٍ واحد، ومن ستّةٍ إلى اثني عشر أسبوعاً لكلّ مجموعة، متعدّدة الوظائف، ولكلٍّ نتيجةٌ محدّدة تشحنها. تعمل المجموعات بغطاءٍ تنفيذيٍّ علويّ وباحتكاكٍ إجرائيٍّ أدنى. والانتصارات التي تُنتجها — فريق مبيعاتٍ يُبرم مزيداً من المناقصات لأنّ العروض يصوغها الذكاء الاصطناعي، وزيارة خدمةٍ ميدانية تستغرق 38 دقيقة بدلاً من ساعتين، وعرض طوابير يُجيب فيه النظام عن أسئلة العملاء بالعربية — تُولّد جذباً عضويّاً من بقيّة الشركة.</p>
+          <p>البديل — فرض التبنّي على مستوى الشركة من اليوم الأول — هو ما يُنتج نمط فشل الذكاء الاصطناعي المؤسّسي النموذجي: التزامٌ عالٍ، وامتصاصٌ منخفض، ولا منتجٌ مشحون. والقرار هو ترك بقيّة الشركة تلحق بإيقاعها الخاصّ، بينما يُسلّم مسارٌ سريع القدرةَ الاستراتيجية.</p>
+          <p>هذا هو التوليف بين سؤال «من القمّة إلى القاعدة / من القاعدة إلى القمّة». القمّة توفّر الإذن والميزانية وغطاء رئيس مجلس الإدارة الظاهر. والقاعدة توفّر السرعة والأدلّة والانتصارات التي تجعل ذلك الغطاء جديراً بالبذل. ولا يُنتج أيٌّ منهما وحده هذه النتيجة.</p>
+
+          <h2>انضباط القرار — افعل، قِسْ، تحقّق، عايِر</h2>
+          <p>تعمل كلّ مجموعةٍ على حلقة «افعل–قِسْ–تحقّق–عايِر». عتبة <strong>الفعل</strong> منخفضة: جرّب الأشياء، اشحن مسوّداتٍ عاملة، تقبّل النقص المبكر. وعتبة <strong>التحقّق</strong> صارمة: هل حرّك هذا فعلاً المقياس الذي قلنا إنّه سيحرّكه؟ يحدث التحدّي النقدي عند التحقّق، لا عند الفعل — وهو عكس الطريقة التي يُدار بها هذا النوع من العمل عادةً في منظّمةٍ حذِرة، حيث يقتل النقدُ المبادراتِ قبل أن تُشحَن.</p>
+          <p>والأثر على الحوكمة: مجلس الذكاء الاصطناعي لا يضبط بوّابة التجريب. بل يضبط بوّابة التقدّم — من التجارب المُتحقَّق منها إلى الإنتاج، ومن الإنتاج إلى التوسّع الأشمل. فالمجموعة التي عملت ثمانية أسابيع وأنتجت ما تُقرّه معايير التحقّق تصبح مرشّحةً للتوسّع. والمجموعة التي عملت ثمانية أسابيع وأنتجت ما ترفضه معايير التحقّق هي تعلُّمٌ لا فشل — والمجموعة التالية تستوعب هذا التعلُّم.</p>
+          <p>يهمّ هذا الانضباط لأنّه يقلب الإعداد الثقافي الافتراضي. في المنظّمة الهرمية، الغريزة هي التخطيط الشامل قبل الفعل. وفي منظّمة برمجياتٍ مدعومة بالذكاء الاصطناعي، تكلفة المحاولة منخفضة وتكلفة عدم المحاولة عالية. تمنح المنهجيةُ رئيسَ مجلس الإدارة وسيلةً ليرى أنّ التجريب مُحدَّدٌ ومسؤول، لا فوضوي — وتمنح الفرق التشغيلية الإذن بتجربة الأشياء دون كتابة خطّةٍ من ستّة أشهر أولاً.</p>
+          <p>هذا أيضاً هو التوليف بين سؤال «التعلّم القائم على المقرّرات / القائم على المشكلات». هدف رئيس مجلس الإدارة الجوهري — رُوحُ ذكاءٍ اصطناعيٍّ على مستوى الشركة — مَصُون. والطريقة التي تُحقّقه هي عملٌ حقيقي مُنظَّمٌ كنظام تعلُّم، مع تدريبٍ رسميٍّ يملأ ثغراتٍ محدّدة تظهر في عمل المجموعات، بدلاً من منهجٍ مُعلَّبٍ يُسلَّم لأناسٍ لا يعرفون بعد ما يفعلونه به.</p>
+
+          <h2>حالةٌ توضيحية: ما الذي تُطلِقه الاستراتيجية</h2>
+          <p>منتجٌ واحد في المحفظة الحالية يوضّح النمط الذي بُنيت هذه الاستراتيجية لمعالجته — لا لأنّه محور الرهان، بل لأنّه يُظهِر، مصغَّراً، لماذا قد يفشل منتجٌ صحيح الاتّجاه لأسبابٍ لا علاقة لها بالمنتج نفسه. ويُستخدَم ATUM هنا مثالاً واحداً بين عدّة أمثلة؛ فمنصّة الطوابير وخطّ الأكشاك ومنتجات الضيافة، كلٌّ منها يروي نسخةً من القصّة نفسها.</p>
+          <p>بُني ATUM عام 2016، حين كان السوق المحلّي لا يزال يبيع الأجهزة الصرفة. كان المنتج صحيح الاتّجاه: إدارة مرافقٍ ذكية، يقودها إنترنت الأشياء، ومركزها البرمجيات، وسابقةٌ لزمنها. وهو أيضاً، في 2026، خطٌّ بإيراداتٍ صفرية — لا وحدات منشورة.</p>
+          <p>القراءة المفيدة هي هذه: كان ATUM في 2016 حدْسَ منتجٍ صحيحاً لم تكن بقيّة الشركة مُهيكَلةً بعدُ لتنفيذه. كان فريق المبيعات فريقاً يبيع الأجهزة. ولم تكن الشركة قد سمّت البرمجيات هويةً لها. والعملاء الذين عُرض عليهم المنتج كان يُطلب منهم شراء شيءٍ لا يطابق ما يفهمونه عن ألفا. كان المنتج، في الواقع، سابقاً لشركته نفسها.</p>
+          <p>ويتعمّم الدرس إلى ما هو أبعد من أيّ منتجٍ واحد. الاستراتيجية التي يصفها هذا المستند هي ما يجعل منتجاً كهذا قابلاً للحياة: البرمجيات مُسمّاةً هويةً لألفا، والمبيعات والمنتج مُعاد تنظيمهما حول المنتجات الذكية، والقدرة الهندسية على الشحن والتكرار، والذكاء الاصطناعي بالعربية أولاً كميزةٍ بنيوية في عمليات النشر الإقليمية. وأمّا أين يقع منتجٌ كهذا في خارطة الطريق النهائية — وكم من الثقل ينبغي أن يحمل نسبةً إلى خطوط الطوابير والأكشاك والضيافة — فهو قرارٌ يتّخذه رؤساء الأقسام ومجلس الذكاء الاصطناعي بناءً على الأدلّة، لا حكماً تفترضه هذه الاستراتيجية مسبقاً. وهو مذكورٌ هنا توضيحاً، لا التزاماً في المرحلة الأولى.</p>
+
+          <h2>ما الذي لا نفعله</h2>
+          <p>الاستبعادات جزءٌ من الرهان. الاستراتيجية لا تشمل:</p>
+          <ul class="body-list">
+            <li><strong>مقرّراً تدريبيّاً رسميّاً للذكاء الاصطناعي مدّته ستّة أشهر بوصفه وسيلة التعلّم الأساسية.</strong> القدرة تُبنى بالفعل، لا بالمنهج. وبنية التعلّم مُضمَّنة في عمل المجموعات، مع تدريبٍ رسميٍّ يملأ ثغراتٍ محدّدة عند ظهورها.</li>
+            <li><strong>تبنّياً للذكاء الاصطناعي على مستوى الشركة من اليوم الأول.</strong> التبنّي يتبع الانتصارات الظاهرة، لا الأوامر. الأقسام التي تجذب الذكاء الاصطناعي تستحقّه؛ والأقسام التي تنتظر يمكنها أن تنتظر.</li>
+            <li><strong>إعادة بناءٍ شاملة للبنية التحتية للبيانات كشرطٍ مسبق.</strong> قيد إتاحة البيانات الحالي حقيقيٌّ ومرفوعٌ إلى أولوية في المرحلة الأولى — لكنّ المجموعات لا تتوقّف بينما تُرقَّى البنية التحتية. تعمل بالبيانات التي تصل إليها، ويجري عمل البيانات بالتوازي.</li>
+            <li><strong>بناء قدرة ذكاءٍ اصطناعيٍّ من الصفر حيث يكفي الشراء.</strong> النماذج الأساسية الجاهزة، وواجهات المورّدين البرمجية، وعروض الشركاء تُستخدَم حيثما تناسب. والهندسة المخصّصة محفوظةٌ للطبقات التي تميّز منتجات ألفا.</li>
+            <li><strong>ملاحقة كلّ أداة ذكاءٍ اصطناعيٍّ تظهر.</strong> الاستراتيجية يقودها المنتج والنتيجة، لا الأداة. تُقيَّم الأدوات الجديدة في ضوء المسار الذي ستخدمه، لا في ضوء إبهارها العام.</li>
+            <li><strong>اعتبار مكاسب الكفاءة الداخلية قصّة النجاح.</strong> قصّة النجاح هي شحن خطّ منتجات الذكاء الاصطناعي. والمكاسب الداخلية هي كيف تتعلّم الشركة أن تشحن.</li>
+          </ul>
+
+          <h2>إطارٌ ختامي</h2>
+          <p>الاختيار الموصوف في هذا القسم بنيويٌّ لا تكتيكي. إنّه اختيارٌ بشأن أيّ نوعٍ من الشركات تُصبحه ألفا، وما الذي تقبل التوقّف عنه كي تُصبح ذلك، وأيّ انضباطٍ ستُلزِم به نفسها خلال الانتقال.</p>
+          <p>القسم التالي — هندسة التنفيذ — يصف كيف يُنفَّذ الاختيار: هيئات الحوكمة، وبنية المجموعات، وشبكة الأبطال، وطبقة البيانات والأدوات، والآليات العابرة للأقسام. وهو يتبع هذا الاختيار، لا العكس.</p>
         </div>
       </section>
 
@@ -1367,9 +1849,214 @@
             <h2 class="section-title">هندسة التنفيذ</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37bcb67bf82c8111911cef2be102874a">Notion</a>.</p>
-          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37bcb67bf82c8111911cef2be102874a">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <h2>Four Layers</h2>
+          <p>The execution structure has four layers, each with a distinct purpose and a clearly bounded authority:</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">Sponsorship</div><div class="def-desc">Provides air cover, removes obstacles, names the priority. Holds the political weight.</div></div>
+            <div class="def"><div class="def-term">Governance</div><div class="def-desc">The AI Council. Decides what scales, what stops, what merges into business-as-usual. Holds the strategic weight.</div></div>
+            <div class="def"><div class="def-term">Execution</div><div class="def-desc">AI Pods (the doers) and the Champions Network (the connective tissue). Holds the delivery weight.</div></div>
+            <div class="def"><div class="def-term">Enablement</div><div class="def-desc">The AI Office. Provides tooling, methodology, data accessibility, training. Holds the capability weight.</div></div>
+          </div>
+          <p>The layers are designed so that each has the resources and authority to do its job without depending on the others to make individual decisions. The Sponsorship layer does not approve pod work. The AI Council does not run pods. The pods do not negotiate budgets. The AI Office does not own strategic direction. This separation is deliberate — it is what makes the system run faster than a hierarchical command structure can.</p>
+
+          <h2>The Governance Layer: The AI Council</h2>
+          <p>The AI Council is the strategic body that governs the transformation. It is chaired by the Head of Software Development and includes the heads of both divisions, the Head of HR (representing the workforce capability dimension), the Head of Innovation, and one or two rotating cross-functional members on six-month rotations.</p>
+          <p>The deliberate composition signal: <strong>the Council is not an engineering committee.</strong> A clear majority of seats are non-engineering. The chair sits in software development because the methodology and infrastructure work originates there, but the strategic authority is collective. This is the explicit counter to the perception risk that the initiative is "an engineering thing." If the Council ever looks like a software department meeting, the structure has failed.</p>
+          <p>The Council meets every two weeks for the first six months of execution, then monthly once the operating rhythm has settled. Its authorities, in order of weight:</p>
+          <ol class="num-list">
+            <li>Approves which pods receive resources for the next quarter.</li>
+            <li>Decides which validated pods scale into production or merge into business-as-usual.</li>
+            <li>Approves the R&amp;D budget envelope and its allocation across the three workstreams.</li>
+            <li>Resolves cross-divisional dependencies and conflicts.</li>
+            <li>Acts as the formal interface to the Sponsorship layer — keeping the chairman informed without requiring the chairman's involvement in routine decisions.</li>
+          </ol>
+          <p>The Council does not run pods, write code, or approve technical implementation choices. Pods come to the Council with validate-criteria results. The Council says scale, stop, or extend.</p>
+
+          <h2>The Enablement Layer: The AI Office</h2>
+          <p>The AI Office is small by design — two to three people initially, growing to five or six by year-end of Phase 1. It sits inside the engineering organization for reporting and infrastructure purposes but serves the entire company. Its scope:</p>
+          <ul class="body-list">
+            <li><strong>Tooling and infrastructure.</strong> Standing up the AI development environment, securing vendor and model access, managing API keys and credentials, providing the common substrate that pods build on.</li>
+            <li><strong>Methodology custodianship.</strong> Owning the Do-Measure-Validate-Calibrate playbook. Helping pods scope their validate criteria. Capturing learnings across pods so the next pod inherits the wisdom of the last.</li>
+            <li><strong>Data accessibility.</strong> Elevated to a co-equal priority for Phase 1. The financial data exercise that built the strategy's baseline demonstrated that existing data infrastructure cannot, today, answer questions a software-led B2B company needs to answer routinely. The AI Office owns the multi-quarter program to fix this — not by replacing systems wholesale, but by building the access layer pods need to ship.</li>
+            <li><strong>Training delivery on demand.</strong> Curating and delivering targeted training when pod work surfaces specific capability gaps. Not running a curriculum.</li>
+          </ul>
+          <p>The AI Office does not own strategy. It does not run pods. It is a services organization for the rest of the structure.</p>
+
+          <h2>The Execution Layer: AI Pods</h2>
+          <p>A pod is a cross-functional team of four to seven people, time-boxed to six to twelve weeks, dedicated to a specific outcome with a measurable validate criterion. The anatomy:</p>
+          <ul class="body-list">
+            <li><strong>A pod lead.</strong> Owns the outcome. Reports to the AI Council on progress and validate-criteria results. Typically a senior contributor from the function whose outcome the pod is improving — not always an engineer.</li>
+            <li><strong>One or two engineers from Aura.</strong> Provide the technical capability.</li>
+            <li><strong>Two or three operational contributors from the relevant departments.</strong> Provide the domain context, sit closest to the customer or process being improved, and become embedded champions when the pod ends.</li>
+            <li><strong>A periodic check-in from the AI Office.</strong> On methodology, not on decisions.</li>
+          </ul>
+          <p>The pod's first deliverable is a written <strong>validate criterion</strong> — a single, measurable claim the pod is testing. Examples: <em>"Field service visit time on coder maintenance calls drops by 30% with AI-augmented diagnostic tooling."</em> <em>"Sales proposal generation time drops from two days to under one hour with AI drafting."</em> <em>"Predictive consumables forecasting reduces standing-order variance by 25%."</em> The criterion is approved by the AI Council before the pod starts work.</p>
+          <p>The pod's lifecycle has three checkpoints:</p>
+          <ul class="body-list">
+            <li><strong>Week 2.</strong> Initial demo of working draft. The Council confirms the pod is on the trajectory it described.</li>
+            <li><strong>Week 6.</strong> Mid-pod validation read. The pod presents what is and is not working. The Council may extend, narrow, or stop.</li>
+            <li><strong>Week 8–12.</strong> Final validate read. The Council decides: scale, merge into business-as-usual, stop with a learning, or extend for one additional iteration.</li>
+          </ul>
+          <p>Four to six pods run simultaneously. They are spread across the three workstreams so that the company is making progress on Annuity Intelligence, AI Products, and Operational Intelligence in parallel — not sequentially. Each pod is publicly visible across the company. Their wins are shared. Their stops are explained.</p>
+
+          <h2>The Execution Layer: Champions Network</h2>
+          <p>The Champions Network is the connective tissue between pod work and day-to-day operations. One to two champions per department, named at Phase 1 launch, with a fraction of their time formally allocated to AI champion duties.</p>
+          <p>Champions are not pod members by default — they are the people who:</p>
+          <ul class="body-list">
+            <li>Surface AI-relevant problems from inside their department to the AI Council.</li>
+            <li>Receive pod outputs and integrate them into the department's workflow when a pod completes.</li>
+            <li>Train colleagues in their department on tools and methods that have been validated and rolled out.</li>
+            <li>Provide ground-truth feedback to the AI Office about what is and is not working.</li>
+          </ul>
+          <p>The Champions Network is the mechanism by which <strong>pull replaces push</strong>. Departments that have an active champion get AI capability first; departments that do not, do not. Champions are selected from inside the department, not assigned from outside it — which means an engaged department can effectively volunteer itself for the next wave of pod work, and a disengaged department defers itself.</p>
+          <p>Two implications worth flagging:</p>
+          <ul class="body-list">
+            <li><strong>Champions are explicitly distributed across functions, not concentrated in engineering.</strong> Sales, field service, finance, HR, customer service, and both divisions' operations each have a champion or two. Engineering is included but is one of many.</li>
+            <li><strong>Champions earn their role through interest and effort.</strong> The first wave is selected by the AI Council; subsequent waves grow organically from people who have engaged with pod work.</li>
+          </ul>
+
+          <h2>The Data and Tooling Substrate</h2>
+          <p>The execution structure sits on a substrate of tooling, model access, and data accessibility. The financial data exercise that built the strategy's baseline made this visible: the existing infrastructure cannot, today, answer basic questions a software-led B2B company needs to answer routinely. The fundamentals took weeks to extract.</p>
+          <p>The substrate work is therefore not optional and not deferred. It runs as a dedicated workstream owned by the AI Office, with a multi-quarter horizon. The work is bounded by a single principle: <strong>the substrate serves the pods, not the other way around.</strong> Pods do not stall waiting for clean data. They work with what they can reach and flag what they cannot. The substrate team prioritizes accessibility work based on what the pods are actually blocked by — a feedback loop that prevents the common failure pattern of multi-year data warehouse rebuilds with no business value attached.</p>
+          <p>In practical terms, the substrate work in Phase 1 includes:</p>
+          <ul class="body-list">
+            <li>Standing up the central AI development environment (model access, vendor APIs, key management).</li>
+            <li>Building a common data-access layer over the Dynamics AX financial and operational data, prioritized by what pods need.</li>
+            <li>Establishing the customer and service data flow that the Annuity Intelligence workstream depends on.</li>
+            <li>Creating the shared knowledge base into which pod learnings accumulate.</li>
+          </ul>
+
+          <h2>Cross-Divisional Mechanisms</h2>
+          <p>Electronic Solutions and Marking &amp; Packing have different customer profiles, different sales motions, different competitive contexts, and — crucially — different employee bases that interact with each other less than is healthy for shared learning. The execution structure includes explicit mechanisms to keep the framework unified without either division dominating:</p>
+          <ul class="body-list">
+            <li><strong>AI Council composition</strong> ensures both divisions have a voice at the strategic table.</li>
+            <li><strong>Pod composition</strong> is required to span divisions where the outcome warrants it. A pod working on AI-augmented field service touches both divisions' field operations and is staffed that way.</li>
+            <li><strong>Champions Network</strong> is balanced across both divisions, with quarterly cross-divisional gatherings to share learnings.</li>
+            <li><strong>The shared AI Office</strong> serves both divisions, with no parallel division-specific capability allowed to grow.</li>
+          </ul>
+          <p>The intent: the divisions retain their distinct execution cultures, but the AI capability is a shared company asset, not a per-division initiative that could fork.</p>
+
+          <h2>Cadences</h2>
+          <p>The operating rhythm has a specific shape:</p>
+          <ul class="body-list">
+            <li><strong>Weekly.</strong> Each pod runs its own internal cadence (typically a working session and a status update). The AI Office holds an open clinic that any pod can attend for methodology or substrate questions.</li>
+            <li><strong>Every two weeks (first six months) or monthly (after).</strong> AI Council meeting. Pod check-ins, scale/stop/extend decisions, cross-pod learnings, strategic adjustments.</li>
+            <li><strong>Monthly.</strong> Sponsorship layer briefing. A short, visible update to the chairman with progress against the strategy's spine — what is being learned, what is shipping, what has stopped, what has surfaced.</li>
+            <li><strong>Quarterly.</strong> Strategy review. The AI Council and Sponsorship together review the trajectory, calibrate the strategy against accumulated evidence, and reset the pod portfolio for the next quarter.</li>
+            <li><strong>Half-yearly.</strong> Phase review. Did Phase 1 (or 2, or 3) achieve what it was meant to? Does the strategy still hold? What is the next phase?</li>
+          </ul>
+          <p>The cadences are designed so that fast pod work happens inside a stable governance rhythm. Pods iterate weekly; strategy adjusts quarterly; the spine moves half-yearly. The chairman sees a monthly heartbeat without being asked to make weekly decisions.</p>
+
+          <h2>Closing</h2>
+          <p>The architecture described here is the machine that delivers the choice described in the previous section. It is small enough to be fast, structured enough to be accountable, and distributed enough to avoid being captured by any one function.</p>
+          <p>The next section — Evidence and Reasoning — describes why this shape is the right one, drawing on what comparable enterprise AI adoption efforts have learned the hard way, and on the financial and competitive realities documented earlier in this document.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <h2>أربع طبقات</h2>
+          <p>تتكوّن بنية التنفيذ من أربع طبقات، لكلٍّ منها غرضٌ متمايز وصلاحيةٌ محدّدة بوضوح:</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">الرعاية</div><div class="def-desc">توفّر الغطاء، وتُزيل العوائق، وتُسمّي الأولوية. تحمل الثقل السياسي.</div></div>
+            <div class="def"><div class="def-term">الحوكمة</div><div class="def-desc">مجلس الذكاء الاصطناعي. يقرّر ما يتوسّع، وما يتوقّف، وما يندمج في العمل المعتاد. يحمل الثقل الاستراتيجي.</div></div>
+            <div class="def"><div class="def-term">التنفيذ</div><div class="def-desc">مجموعات الذكاء الاصطناعي (المنفِّذون) وشبكة الأبطال (النسيج الرابط). تحمل ثقل التسليم.</div></div>
+            <div class="def"><div class="def-term">التمكين</div><div class="def-desc">مكتب الذكاء الاصطناعي. يوفّر الأدوات والمنهجية وإتاحة البيانات والتدريب. يحمل ثقل القدرة.</div></div>
+          </div>
+          <p>صُمِّمت الطبقات بحيث تملك كلٌّ منها الموارد والصلاحية لأداء وظيفتها دون الاعتماد على الأخريات في اتّخاذ القرارات الفردية. طبقة الرعاية لا تعتمد عمل المجموعات. ومجلس الذكاء الاصطناعي لا يُشغّل المجموعات. والمجموعات لا تتفاوض على الميزانيات. ومكتب الذكاء الاصطناعي لا يملك التوجّه الاستراتيجي. هذا الفصل متعمَّد — وهو ما يجعل النظام يعمل أسرع ممّا تستطيعه بنية القيادة الهرمية.</p>
+
+          <h2>طبقة الحوكمة: مجلس الذكاء الاصطناعي</h2>
+          <p>مجلس الذكاء الاصطناعي هو الهيئة الاستراتيجية التي تحكم التحوّل. يرأسه رئيس تطوير البرمجيات، ويضمّ رئيسَي القسمين، ورئيس الموارد البشرية (ممثّلاً بُعد قدرة القوى العاملة)، ورئيس الابتكار، وعضواً أو عضوين متناوبَين متعدّدَي الوظائف بالتناوب كلّ ستّة أشهر.</p>
+          <p>إشارة التكوين المتعمَّدة: <strong>المجلس ليس لجنةً هندسية.</strong> غالبيةٌ واضحة من المقاعد غير هندسية. يجلس الرئيس في تطوير البرمجيات لأنّ عمل المنهجية والبنية التحتية ينشأ هناك، لكنّ الصلاحية الاستراتيجية جماعية. وهذا هو الردّ الصريح على خطر التصوُّر بأنّ المبادرة «شأنٌ هندسي». وإذا بدا المجلس يوماً كاجتماع قسم برمجيات، تكون البنية قد فشلت.</p>
+          <p>يجتمع المجلس كلّ أسبوعين خلال الأشهر الستّة الأولى من التنفيذ، ثم شهريّاً بعد أن يستقرّ إيقاع التشغيل. وصلاحياته، بترتيب الثقل:</p>
+          <ol class="num-list">
+            <li>يعتمد المجموعات التي تتلقّى الموارد للربع القادم.</li>
+            <li>يقرّر أيّ المجموعات المُتحقَّق منها تتوسّع إلى الإنتاج أو تندمج في العمل المعتاد.</li>
+            <li>يعتمد مظروف ميزانية البحث والتطوير وتوزيعها عبر مسارات العمل الثلاثة.</li>
+            <li>يحلّ التبعيات والنزاعات العابرة للأقسام.</li>
+            <li>يعمل واجهةً رسمية لطبقة الرعاية — يُبقي رئيس مجلس الإدارة على اطّلاع دون أن يستلزم إشراكه في القرارات الروتينية.</li>
+          </ol>
+          <p>المجلس لا يُشغّل المجموعات، ولا يكتب الشِّفرة، ولا يعتمد خيارات التنفيذ التقني. تأتيه المجموعات بنتائج معايير التحقّق. ويقول المجلس: توسَّع، أو توقّف، أو مدِّد.</p>
+
+          <h2>طبقة التمكين: مكتب الذكاء الاصطناعي</h2>
+          <p>مكتب الذكاء الاصطناعي صغيرٌ بحكم التصميم — من شخصين إلى ثلاثة في البداية، يكبر إلى خمسةٍ أو ستّة بحلول نهاية المرحلة الأولى. يقع داخل المنظومة الهندسية لأغراض التبعية والبنية التحتية لكنّه يخدم الشركة بأكملها. ونطاقه:</p>
+          <ul class="body-list">
+            <li><strong>الأدوات والبنية التحتية.</strong> إقامة بيئة تطوير الذكاء الاصطناعي، وتأمين الوصول إلى المورّدين والنماذج، وإدارة مفاتيح الواجهات البرمجية وبيانات الاعتماد، وتوفير الركيزة المشتركة التي تبني عليها المجموعات.</li>
+            <li><strong>الحفاظ على المنهجية.</strong> امتلاك دليل «افعل–قِسْ–تحقّق–عايِر». ومساعدة المجموعات على تحديد معايير تحقّقها. والتقاط التعلُّمات عبر المجموعات بحيث ترث المجموعة التالية حكمة السابقة.</li>
+            <li><strong>إتاحة البيانات.</strong> مرفوعةٌ إلى أولويةٍ مكافئة للمرحلة الأولى. أظهر تمرين البيانات المالية الذي بنى خطّ أساس الاستراتيجية أنّ البنية التحتية الحالية للبيانات لا تستطيع، اليوم، الإجابة عن أسئلةٍ تحتاج شركة B2B تقودها البرمجيات إلى الإجابة عنها روتينيّاً. ويمتلك مكتب الذكاء الاصطناعي البرنامج الممتدّ لعدّة أرباع لإصلاح هذا — لا باستبدال الأنظمة جملةً، بل ببناء طبقة الوصول التي تحتاجها المجموعات للشحن.</li>
+            <li><strong>تقديم التدريب عند الطلب.</strong> تنظيم وتقديم تدريبٍ موجّه حين يكشف عمل المجموعات ثغراتٍ محدّدة في القدرة. لا إدارة منهجٍ دراسي.</li>
+          </ul>
+          <p>مكتب الذكاء الاصطناعي لا يملك الاستراتيجية. ولا يُشغّل المجموعات. إنّه منظّمة خدماتٍ لبقيّة البنية.</p>
+
+          <h2>طبقة التنفيذ: مجموعات الذكاء الاصطناعي</h2>
+          <p>المجموعة فريقٌ متعدّد الوظائف من أربعةٍ إلى سبعة أشخاص، محدَّدٌ زمنيّاً من ستّةٍ إلى اثني عشر أسبوعاً، مكرَّسٌ لنتيجةٍ محدّدة بمعيار تحقّقٍ قابل للقياس. والتشريح:</p>
+          <ul class="body-list">
+            <li><strong>قائد المجموعة.</strong> يملك النتيجة. ويرفع إلى مجلس الذكاء الاصطناعي تقارير التقدّم ونتائج معايير التحقّق. وهو عادةً مساهمٌ أقدم من الوظيفة التي تُحسّن المجموعة نتيجتها — وليس دائماً مهندساً.</li>
+            <li><strong>مهندس أو اثنان من Aura.</strong> يوفّران القدرة التقنية.</li>
+            <li><strong>مساهمان أو ثلاثة تشغيليّون من الأقسام المعنيّة.</strong> يوفّرون السياق المجالي، ويجلسون أقرب ما يكون إلى العميل أو العملية محلّ التحسين، ويصبحون أبطالاً مُضمَّنين حين تنتهي المجموعة.</li>
+            <li><strong>مراجعةٌ دورية من مكتب الذكاء الاصطناعي.</strong> في المنهجية، لا في القرارات.</li>
+          </ul>
+          <p>أوّل مُخرَجٍ للمجموعة هو <strong>معيار تحقّقٍ</strong> مكتوب — ادّعاءٌ واحدٌ قابل للقياس تختبره المجموعة. أمثلة: <em>«زمن زيارة الخدمة الميدانية في مكالمات صيانة طابعات الترميز ينخفض بنسبة 30% بأدوات تشخيصٍ معزّزة بالذكاء الاصطناعي.»</em> <em>«زمن توليد عروض المبيعات ينخفض من يومين إلى أقلّ من ساعة بصياغةٍ بالذكاء الاصطناعي.»</em> <em>«التنبّؤ بالمستهلكات يقلّص تباين الطلبات الدائمة بنسبة 25%.»</em> ويعتمد مجلس الذكاء الاصطناعي المعيار قبل أن تبدأ المجموعة العمل.</p>
+          <p>دورة حياة المجموعة لها ثلاث نقاط تفتيش:</p>
+          <ul class="body-list">
+            <li><strong>الأسبوع 2.</strong> عرضٌ أوّلي لمسوّدةٍ عاملة. يؤكّد المجلس أنّ المجموعة على المسار الذي وصفته.</li>
+            <li><strong>الأسبوع 6.</strong> قراءة تحقّقٍ منتصفية. تعرض المجموعة ما ينجح وما لا ينجح. وقد يُمدّد المجلس أو يُضيّق أو يوقف.</li>
+            <li><strong>الأسبوع 8–12.</strong> قراءة التحقّق النهائية. يقرّر المجلس: توسَّع، أو ادمج في العمل المعتاد، أو توقّف مع تعلُّم، أو مدِّد لتكرارٍ إضافيٍّ واحد.</li>
+          </ul>
+          <p>تعمل من أربعٍ إلى ستّ مجموعات في آنٍ واحد. وهي موزّعة عبر مسارات العمل الثلاثة بحيث تُحرز الشركة تقدّماً في ذكاء السنويّة، ومنتجات الذكاء الاصطناعي، والذكاء التشغيلي بالتوازي — لا بالتتابع. وكلّ مجموعةٍ ظاهرةٌ علناً عبر الشركة. انتصاراتها تُشارَك. وتوقّفاتها تُشرَح.</p>
+
+          <h2>طبقة التنفيذ: شبكة الأبطال</h2>
+          <p>شبكة الأبطال هي النسيج الرابط بين عمل المجموعات والتشغيل اليومي. بطلٌ أو اثنان لكلّ قسم، يُسمَّون عند إطلاق المرحلة الأولى، مع تخصيص جزءٍ من وقتهم رسميّاً لمهامّ بطل الذكاء الاصطناعي.</p>
+          <p>الأبطال ليسوا أعضاء مجموعاتٍ افتراضيّاً — بل هم الأشخاص الذين:</p>
+          <ul class="body-list">
+            <li>يرفعون المشكلات ذات الصلة بالذكاء الاصطناعي من داخل أقسامهم إلى مجلس الذكاء الاصطناعي.</li>
+            <li>يتلقّون مُخرَجات المجموعات ويدمجونها في سير عمل القسم عند اكتمال المجموعة.</li>
+            <li>يدرّبون زملاءهم في أقسامهم على الأدوات والطرق التي جرى التحقّق منها وطرحها.</li>
+            <li>يقدّمون لمكتب الذكاء الاصطناعي تغذيةً راجعة من أرض الواقع عمّا ينجح وما لا ينجح.</li>
+          </ul>
+          <p>شبكة الأبطال هي الآلية التي يحلّ بها <strong>الجذب محلّ الدفع</strong>. الأقسام التي لديها بطلٌ نشط تحصل على قدرة الذكاء الاصطناعي أولاً؛ والأقسام التي ليس لديها، لا تحصل. ويُختار الأبطال من داخل القسم، لا يُعيَّنون من خارجه — ما يعني أنّ القسم المتفاعل يستطيع فعليّاً أن يرشّح نفسه للموجة التالية من عمل المجموعات، والقسم غير المتفاعل يؤجّل نفسه.</p>
+          <p>أثران جديران بالإشارة:</p>
+          <ul class="body-list">
+            <li><strong>الأبطال موزّعون صراحةً عبر الوظائف، لا متركّزون في الهندسة.</strong> المبيعات، والخدمة الميدانية، والمالية، والموارد البشرية، وخدمة العملاء، وعمليات القسمين، لكلٍّ بطلٌ أو اثنان. والهندسة مشمولة لكنّها واحدةٌ من كثير.</li>
+            <li><strong>الأبطال يستحقّون دورهم بالاهتمام والجهد.</strong> الموجة الأولى يختارها مجلس الذكاء الاصطناعي؛ والموجات اللاحقة تنمو عضويّاً من أناسٍ تفاعلوا مع عمل المجموعات.</li>
+          </ul>
+
+          <h2>ركيزة البيانات والأدوات</h2>
+          <p>تجلس بنية التنفيذ على ركيزةٍ من الأدوات والوصول إلى النماذج وإتاحة البيانات. وقد أظهر تمرين البيانات المالية الذي بنى خطّ أساس الاستراتيجية هذا: البنية التحتية الحالية لا تستطيع، اليوم، الإجابة عن أسئلةٍ أساسية تحتاج شركة B2B تقودها البرمجيات إلى الإجابة عنها روتينيّاً. استغرق استخراج الأساسيات أسابيع.</p>
+          <p>ولذلك فعمل الركيزة ليس اختياريّاً ولا مؤجَّلاً. يجري كمسار عملٍ مخصَّص يملكه مكتب الذكاء الاصطناعي، بأفقٍ يمتدّ لعدّة أرباع. ويحدّه مبدأٌ واحد: <strong>الركيزة تخدم المجموعات، لا العكس.</strong> المجموعات لا تتوقّف انتظاراً لبياناتٍ نظيفة. تعمل بما تصل إليه وتُشير إلى ما لا تصل إليه. ويُرتّب فريق الركيزة أولويات عمل الإتاحة بناءً على ما تتعطّل المجموعات بسببه فعلاً — حلقة تغذيةٍ راجعة تمنع نمط الفشل الشائع المتمثّل في إعادة بناء مستودعات بياناتٍ تمتدّ سنواتٍ دون قيمةٍ تجارية مرتبطة بها.</p>
+          <p>وبعباراتٍ عملية، يشمل عمل الركيزة في المرحلة الأولى:</p>
+          <ul class="body-list">
+            <li>إقامة بيئة تطوير الذكاء الاصطناعي المركزية (الوصول إلى النماذج، وواجهات المورّدين البرمجية، وإدارة المفاتيح).</li>
+            <li>بناء طبقة وصولٍ مشتركة فوق بيانات Dynamics AX المالية والتشغيلية، مرتّبةً بحسب ما تحتاجه المجموعات.</li>
+            <li>إرساء تدفّق بيانات العملاء والخدمة الذي يعتمد عليه مسار ذكاء السنويّة.</li>
+            <li>إنشاء قاعدة المعرفة المشتركة التي تتراكم فيها تعلُّمات المجموعات.</li>
+          </ul>
+
+          <h2>آليات عابرة للأقسام</h2>
+          <p>للحلول الإلكترونية وقسم الترميز والتغليف ملامحُ عملاء مختلفة، وحركاتُ بيع مختلفة، وسياقاتٌ تنافسية مختلفة، و — وهذا حاسم — قواعدُ موظّفين مختلفة تتفاعل فيما بينها أقلّ ممّا هو صحّيٌّ للتعلّم المشترك. وتتضمّن بنية التنفيذ آلياتٍ صريحة لإبقاء الإطار موحّداً دون أن يهيمن أيٌّ من القسمين:</p>
+          <ul class="body-list">
+            <li><strong>تكوين مجلس الذكاء الاصطناعي</strong> يضمن أن يكون للقسمين صوتٌ على الطاولة الاستراتيجية.</li>
+            <li><strong>تكوين المجموعات</strong> مطلوبٌ أن يمتدّ عبر القسمين حيث تستدعي النتيجة ذلك. فالمجموعة العاملة على خدمةٍ ميدانية معزّزة بالذكاء الاصطناعي تمسّ عمليات الميدان في القسمين وتُجهَّز بهذا الشكل.</li>
+            <li><strong>شبكة الأبطال</strong> متوازنة عبر القسمين، مع لقاءاتٍ فصلية عابرة للأقسام لتبادل التعلُّمات.</li>
+            <li><strong>مكتب الذكاء الاصطناعي المشترك</strong> يخدم القسمين، دون السماح بنموّ قدرةٍ موازية خاصّة بقسم.</li>
+          </ul>
+          <p>النيّة: يحتفظ القسمان بثقافتَي تنفيذهما المتمايزتين، لكنّ قدرة الذكاء الاصطناعي أصلٌ مشترك للشركة، لا مبادرةٌ لكلّ قسمٍ قد تتشعّب.</p>
+
+          <h2>الإيقاعات</h2>
+          <p>لإيقاع التشغيل شكلٌ محدّد:</p>
+          <ul class="body-list">
+            <li><strong>أسبوعيّاً.</strong> تُشغّل كلّ مجموعةٍ إيقاعها الداخلي (عادةً جلسة عملٍ وتحديث حالة). ويعقد مكتب الذكاء الاصطناعي عيادةً مفتوحة يمكن لأيّ مجموعةٍ حضورها لأسئلة المنهجية أو الركيزة.</li>
+            <li><strong>كلّ أسبوعين (الأشهر الستّة الأولى) أو شهريّاً (بعدها).</strong> اجتماع مجلس الذكاء الاصطناعي. مراجعات المجموعات، وقرارات التوسّع/التوقّف/التمديد، والتعلُّمات العابرة للمجموعات، والتعديلات الاستراتيجية.</li>
+            <li><strong>شهريّاً.</strong> إحاطة طبقة الرعاية. تحديثٌ قصيرٌ وظاهر لرئيس مجلس الإدارة بالتقدّم مقابل العمود الفقري للاستراتيجية — ما يُتعلَّم، وما يُشحَن، وما توقّف، وما طفا على السطح.</li>
+            <li><strong>فصليّاً.</strong> مراجعة الاستراتيجية. يراجع مجلس الذكاء الاصطناعي والرعاية معاً المسار، ويُعايران الاستراتيجية مقابل الأدلّة المتراكمة، ويعيدان ضبط محفظة المجموعات للربع القادم.</li>
+            <li><strong>نصف سنويّاً.</strong> مراجعة المرحلة. هل حقّقت المرحلة الأولى (أو الثانية أو الثالثة) ما قُصد منها؟ هل ما زالت الاستراتيجية صامدة؟ ما المرحلة التالية؟</li>
+          </ul>
+          <p>صُمِّمت الإيقاعات بحيث يحدث عمل المجموعات السريع داخل إيقاع حوكمةٍ مستقر. المجموعات تتكرّر أسبوعيّاً؛ والاستراتيجية تتعدّل فصليّاً؛ والعمود الفقري يتحرّك نصف سنويّاً. ويرى رئيس مجلس الإدارة نبضاً شهريّاً دون أن يُطلب منه اتّخاذ قراراتٍ أسبوعية.</p>
+
+          <h2>خاتمة</h2>
+          <p>البنية الموصوفة هنا هي الآلة التي تُسلّم الاختيار الموصوف في القسم السابق. هي صغيرةٌ بما يكفي لتكون سريعة، ومنظَّمةٌ بما يكفي لتكون مسؤولة، وموزّعةٌ بما يكفي لتتجنّب أن تستحوذ عليها أيّ وظيفةٍ واحدة.</p>
+          <p>القسم التالي — الأدلّة والاستدلال — يصف لماذا هذا الشكل هو الصحيح، مستنداً إلى ما تعلّمته جهود تبنّي الذكاء الاصطناعي المؤسّسي المماثلة بالطريقة الصعبة، وإلى الحقائق المالية والتنافسية الموثّقة سابقاً في هذا المستند.</p>
         </div>
       </section>
 
