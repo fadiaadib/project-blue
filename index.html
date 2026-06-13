@@ -628,6 +628,53 @@
       margin-bottom: 10px;
     }
     html[lang="ar"] .section h4 { font-family: var(--sans-ar); font-size: 1.0625rem; }
+
+    /* ─── SUBSECTION RHYTHM (visual interest in long prose) ─────── */
+    /* Gold accent rule above every content subsection heading */
+    .section h2:not(.section-title) { position: relative; }
+    .section h2:not(.section-title)::before {
+      content: "";
+      display: block;
+      width: 38px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--accent));
+      border-radius: 2px;
+      margin-bottom: 22px;
+    }
+    html[dir="rtl"] .section h2:not(.section-title)::before {
+      background: linear-gradient(270deg, var(--gold), var(--accent));
+    }
+    /* Standfirst — the opening paragraph of each subsection reads larger */
+    .section h2:not(.section-title) + p {
+      font-size: 1.1875rem;
+      line-height: 1.62;
+      color: var(--ink);
+    }
+    html[lang="ar"] .section h2:not(.section-title) + p { font-size: 1.3125rem; }
+
+    /* Statement — elevate a key in-flow line (purely presentational) */
+    .section p.statement {
+      font-family: var(--display-en);
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: 1.7rem;
+      line-height: 1.32;
+      letter-spacing: -0.015em;
+      color: var(--accent);
+      margin: 44px 0;
+      padding-left: 28px;
+      border-left: 2px solid var(--gold);
+      max-width: var(--content-w);
+    }
+    html[dir="rtl"] .section p.statement {
+      padding-left: 0;
+      padding-right: 28px;
+      border-left: none;
+      border-right: 2px solid var(--gold);
+    }
+    html[lang="ar"] .section p.statement { font-family: var(--serif-ar); font-size: 1.9rem; line-height: 1.4; }
+    .section p.statement strong { color: var(--accent); background: none; }
+    .section p.statement em { font-style: italic; }
     .section p {
       margin-bottom: 20px;
       max-width: var(--content-w);
@@ -1269,6 +1316,135 @@
       .stat-value { font-size: 2.4rem; }
     }
 
+    /* ─── MOBILE FLOATING NAV ───────────────────────────────────── */
+    .mobile-nav-toggle {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      box-shadow: var(--shadow-lg);
+      z-index: 170;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.9);
+      transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background 0.2s ease;
+    }
+    html[dir="rtl"] .mobile-nav-toggle { right: auto; left: 22px; }
+    .mobile-nav-toggle.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+    .mobile-nav-toggle:active { background: var(--accent-deep); }
+    .mnav-icon, .mnav-icon::before, .mnav-icon::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .mnav-icon { position: relative; }
+    .mnav-icon::before, .mnav-icon::after { content: ''; position: absolute; left: 0; }
+    .mnav-icon::before { top: -6px; }
+    .mnav-icon::after { top: 6px; }
+
+    .mobile-nav-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 22, 18, 0.45);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 175;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-nav-scrim.open { opacity: 1; visibility: visible; }
+
+    .mobile-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 180;
+      background: var(--bg-elevated);
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      box-shadow: 0 -8px 40px rgba(74, 26, 38, 0.18);
+      max-height: 74vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 24px;
+      transform: translateY(101%);
+      transition: transform 0.38s var(--ease-out);
+    }
+    .mobile-nav.open { transform: translateY(0); }
+    .mnav-grip {
+      width: 38px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--rule);
+      margin: 10px auto 4px;
+    }
+    .mobile-nav-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 24px 12px;
+      font-family: var(--sans-en);
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    html[lang="ar"] .mobile-nav-head { font-family: var(--sans-ar); text-transform: none; letter-spacing: 0; font-size: 0.9375rem; }
+    .mnav-close {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding: 0 4px;
+    }
+    .mobile-nav ol { counter-reset: mnav; list-style: none; padding: 4px 0; margin: 0; }
+    .mobile-nav li { counter-increment: mnav; margin: 0; }
+    .mobile-nav a {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      padding: 14px 24px;
+      font-family: var(--sans-en);
+      font-size: 0.95rem;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule-soft);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .mobile-nav a::before {
+      content: counter(mnav, decimal-leading-zero);
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      min-width: 1.6em;
+      flex-shrink: 0;
+    }
+    .mobile-nav a:active { background: var(--highlight); color: var(--accent); }
+    html[lang="ar"] .mobile-nav a { font-family: var(--sans-ar); font-size: 1.0625rem; }
+
+    @media (min-width: 901px) {
+      .mobile-nav-toggle, .mobile-nav, .mobile-nav-scrim { display: none !important; }
+    }
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: flex; }
+    }
+
     /* ─── PRINT ─────────────────────────────────────────────────── */
     @media print {
       :root { --gutter: 32px; }
@@ -1292,6 +1468,7 @@
       .doc-footer { margin-top: 32px; }
       /* Atmosphere + new components in print */
       .grain, .progress-rail { display: none !important; }
+      .mobile-nav-toggle, .mobile-nav, .mobile-nav-scrim { display: none !important; }
       .scene, .workstream, .note, .risk-card, .pod-card, .metric, .def,
       .tl-item, .stat-strip { page-break-inside: avoid; }
       .scene, .workstream, .risk-card, .pod-card, .note, .placeholder-section,
@@ -1687,7 +1864,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <div class="section-intro">
-            <p>By the end of 2028, Alfa operates as an AI-enabled software-on-hardware company. The brand presentation is still a recognizable Alfa — the same divisions, the same customers, the same Markem-Imaje partnership — but the substance of what is built, sold, and delivered has shifted. The center of every product is software intelligence; the hardware is the substrate that gives that intelligence physical presence in customer environments.</p>
+            <p class="lead">By the end of 2028, Alfa operates as an AI-enabled software-on-hardware company. The brand presentation is still a recognizable Alfa — the same divisions, the same customers, the same Markem-Imaje partnership — but the substance of what is built, sold, and delivered has shifted. The center of every product is software intelligence; the hardware is the substrate that gives that intelligence physical presence in customer environments.</p>
             <p>What follows is what that looks like in practice, told through the kinds of moments that would not be possible in 2025.</p>
           </div>
 
@@ -1755,7 +1932,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <h2>Three Workstreams, Sequenced Deliberately</h2>
-          <p>The bet described in the Opening Hypothesis breaks into three workstreams. They are not three independent initiatives — they are three views of the same software-on-hardware transformation, sequenced so each feeds the next.</p>
+          <p class="lead">The bet described in the Opening Hypothesis breaks into three workstreams. They are not three independent initiatives — they are three views of the same software-on-hardware transformation, sequenced so each feeds the next.</p>
 
           <div class="workstream"><span class="ws-num">1</span><p><strong>Workstream 1: Annuity Intelligence.</strong> Protecting the EGP 428M Markem-Imaje recurring base by becoming an AI-capable distributor. The work: embed AI-augmented tooling into the 75-person field service organization, integrate Markem-Imaje's AI inspection software and connected services into the local offer, and build the customer-facing intelligence layer that turns consumable supply from transactional into managed. The strategic logic: the annuity is exposed; defending it earns the credibility and the capability for the larger bet.</p></div>
           <div class="workstream"><span class="ws-num">2</span><p><strong>Workstream 2: AI Products.</strong> Reinventing the Electronic Solutions line from the inside. The queueing platform, the kiosk line, the hospitality and parking products, and the next generation of the smart utility line are reconceived with software as the center of the offer and hardware as the substrate. The strategic logic: the ES plateau is the market's verdict on the current product line; the plateau breaks when the product line catches up to where customer expectations have already moved.</p></div>
@@ -1867,7 +2044,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <h2>Four Layers</h2>
-          <p>The execution structure has four layers, each with a distinct purpose and a clearly bounded authority:</p>
+          <p class="lead">The execution structure has four layers, each with a distinct purpose and a clearly bounded authority:</p>
           <div class="def-list">
             <div class="def"><div class="def-term">Sponsorship</div><div class="def-desc">Provides air cover, removes obstacles, names the priority. Holds the political weight.</div></div>
             <div class="def"><div class="def-term">Governance</div><div class="def-desc">The AI Council. Decides what scales, what stops, what merges into business-as-usual. Holds the strategic weight.</div></div>
@@ -2089,7 +2266,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <div class="section-intro">
-            <p>This section makes the case for the specific shape of the strategy described in the preceding sections — the three workstreams, the product-first sequencing, the AI Pods with validate criteria, the Champions Network as a pull mechanism, the elevation of data accessibility to a co-equal Phase 1 priority. Each of these choices is supported by what comparable organizations have learned in their own AI adoption efforts, what the financial data on the table demands, and what is established about how new capability actually moves through an organization.</p>
+            <p class="lead">This section makes the case for the specific shape of the strategy described in the preceding sections — the three workstreams, the product-first sequencing, the AI Pods with validate criteria, the Champions Network as a pull mechanism, the elevation of data accessibility to a co-equal Phase 1 priority. Each of these choices is supported by what comparable organizations have learned in their own AI adoption efforts, what the financial data on the table demands, and what is established about how new capability actually moves through an organization.</p>
             <p>The argument is not <em>"AI is important."</em> That argument is settled. The argument is <em>"this shape is the right shape, for this company, at this moment."</em></p>
           </div>
 
@@ -2128,7 +2305,7 @@
           <h3>Claim 3: The Electronic Solutions plateau is unlockable, and the unlock pays for the work that unlocks it.</h3>
           <p>The ES line has been flat at roughly EGP 75M since 2023. Queueing systems account for 64% of that. The competitive scan documents the reason: customers in 2026 are seeing AI-enabled queueing systems from Q-MATIC, Wavetec, and others. Alfa's WAM platform does not carry that capability. The plateau is the product-feature gap.</p>
           <p>A successful re-base of the queueing platform with AI features — predictive routing, voice or chat agents, natural-language analytics, Arabic-first interaction — moves the addressable opportunity per tender materially. A return to growth that recovers even the 2018–2022 trajectory adds tens of millions of EGP to the ES line within the strategy window. The R&amp;D investment funds itself within two to three years, and continues compounding after.</p>
-          <p>The three claims together describe a <strong>self-funding transformation</strong>: the recurring base pays for the partnership evolution, the partnership evolution preserves the recurring base, the ES re-base unlocks growth, and the growth pays for further reinvestment. The strategy is not a cost program. It is a reallocation from underspending on identity to investing at the rate identity demands.</p>
+          <p class="statement">The three claims together describe a <strong>self-funding transformation</strong>: the recurring base pays for the partnership evolution, the partnership evolution preserves the recurring base, the ES re-base unlocks growth, and the growth pays for further reinvestment. The strategy is not a cost program. It is a reallocation from underspending on identity to investing at the rate identity demands.</p>
 
           <h2>What the Competitive Scan Says, in One Paragraph</h2>
           <p>The full scan is in the appendix. The summary that matters here: in both of Alfa's core markets, AI capability has moved from "emerging" to <em>operational and at scale</em>. Q-MATIC ships AI voice agents, Wavetec ships predictive forecasting and natural-language analytics, Tensator has integrated facial recognition for passenger flow. In industrial coding, Domino has shipped more than a thousand AI-vision inspection units since 2020 and launched a printhead purpose-built for the 2027 GS1 Digital Link transition. Markem-Imaje is actively closing the gap — AI inspection software, 24/7 AI service tools, IoT-connected printers. The window for entering the AI products line as a differentiated player closes in 2027. Entering as a follower happens automatically; entering as a leader requires the action this strategy commits to.</p>
@@ -2200,7 +2377,7 @@
           <h3>الادّعاء 3: هضبة الحلول الإلكترونية قابلة للفتح، والفتح يدفع تكلفة العمل الذي يفتحها.</h3>
           <p>ظلّ خطّ الحلول الإلكترونية ثابتاً عند نحو 75 مليون جنيه منذ 2023. وتمثّل أنظمة الطوابير 64% من ذلك. ويوثّق المسح التنافسي السبب: العملاء في 2026 يرَون أنظمة طوابير ممكَّنة بالذكاء الاصطناعي من Q-MATIC وWavetec وغيرهما. ومنصّة WAM الخاصّة بألفا لا تحمل تلك القدرة. الهضبة هي فجوة خصائص المنتج.</p>
           <p>إنّ إعادة تأسيسٍ ناجحة لمنصّة الطوابير بخصائص ذكاءٍ اصطناعي — توجيهٌ تنبّؤي، ووكلاء صوتٍ أو دردشة، وتحليلاتٌ باللغة الطبيعية، وتفاعلٌ بالعربية أولاً — تُحرّك الفرصة القابلة للتوجّه لكلّ مناقصةٍ بشكلٍ جوهري. وعودةٌ إلى النموّ تستعيد ولو مسار 2018–2022 تضيف عشرات الملايين من الجنيهات إلى خطّ الحلول الإلكترونية خلال نافذة الاستراتيجية. واستثمار البحث والتطوير يموّل نفسه خلال سنتين إلى ثلاث، ويواصل التراكم بعدها.</p>
-          <p>تصف الادّعاءات الثلاثة معاً <strong>تحوّلاً ذاتيّ التمويل</strong>: القاعدة المتكرّرة تدفع تكلفة تطوير الشراكة، وتطوير الشراكة يحفظ القاعدة المتكرّرة، وإعادة تأسيس الحلول الإلكترونية تفتح النموّ، والنموّ يدفع مزيداً من إعادة الاستثمار. الاستراتيجية ليست برنامج تكاليف. إنّها إعادة تخصيصٍ من إنفاقٍ ناقصٍ على الهوية إلى استثمارٍ بالمعدّل الذي تتطلّبه الهوية.</p>
+          <p class="statement">تصف الادّعاءات الثلاثة معاً <strong>تحوّلاً ذاتيّ التمويل</strong>: القاعدة المتكرّرة تدفع تكلفة تطوير الشراكة، وتطوير الشراكة يحفظ القاعدة المتكرّرة، وإعادة تأسيس الحلول الإلكترونية تفتح النموّ، والنموّ يدفع مزيداً من إعادة الاستثمار. الاستراتيجية ليست برنامج تكاليف. إنّها إعادة تخصيصٍ من إنفاقٍ ناقصٍ على الهوية إلى استثمارٍ بالمعدّل الذي تتطلّبه الهوية.</p>
 
           <h2>ما يقوله المسح التنافسي، في فقرةٍ واحدة</h2>
           <p>المسح الكامل في الملحق. والخلاصة المهمّة هنا: في كلا سوقَي ألفا الأساسيين، انتقلت قدرة الذكاء الاصطناعي من «ناشئة» إلى <em>تشغيليةٍ وعلى نطاق</em>. Q-MATIC تشحن وكلاء صوتٍ بالذكاء الاصطناعي، وWavetec تشحن تنبّؤاً استشرافيّاً وتحليلاتٍ باللغة الطبيعية، وTensator دمجت التعرّف على الوجوه لتدفّق الركّاب. وفي الترميز الصناعي، شحنت Domino أكثر من ألف وحدة تفتيشٍ بالرؤية والذكاء الاصطناعي منذ 2020 وأطلقت رأس طباعةٍ مصمّماً خصّيصاً لانتقال GS1 Digital Link في 2027. وMarkem-Imaje تُغلق الفجوة بنشاط — برنامج تفتيشٍ بالذكاء الاصطناعي، وأدوات خدمةٍ بالذكاء الاصطناعي على مدار الساعة، وطابعاتٌ متّصلة عبر إنترنت الأشياء. ونافذة الدخول إلى خطّ منتجات الذكاء الاصطناعي كلاعبٍ متمايز تُغلَق في 2027. الدخول كتابعٍ يحدث تلقائيّاً؛ والدخول كقائدٍ يتطلّب الفعل الذي تلتزم به هذه الاستراتيجية.</p>
@@ -2245,7 +2422,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <div class="section-intro">
-            <p>The strategy is held together not by a single owner but by a distributed structure of stewardship. This section describes who holds which role, how the sponsorship transitions over the strategy window, and how the political and operational weight of the transformation is distributed deliberately rather than concentrated.</p>
+            <p class="lead">The strategy is held together not by a single owner but by a distributed structure of stewardship. This section describes who holds which role, how the sponsorship transitions over the strategy window, and how the political and operational weight of the transformation is distributed deliberately rather than concentrated.</p>
             <p>The discretion convention applies throughout: roles are described in structural and functional terms, by the seat they hold. Individual assignments are intentionally deferred. At this stage the strategy defines the seats and their authorities; who fills each seat is a decision for the chairman and the AI Council to make once the strategy is endorsed. Keeping names out of the document at this stage is deliberate — it keeps the focus on the structure and the tactics, and avoids prematurely anchoring the design to specific individuals.</p>
           </div>
 
@@ -2326,7 +2503,7 @@
 
           <h2>What This Distribution Achieves</h2>
           <p>The political weight of the transformation is distributed across distinct seats: the chairman holds visible sponsorship; the Strategy Leader holds operational leadership; the Head of HR holds the workforce dimension; the two divisional heads hold the eventual long-term sponsorship stewardship and the divisional execution surfaces; the Head of Innovation holds the external surface; the Strategy Architect holds the continuity-of-memory role in an advisor capacity.</p>
-          <p><strong>No single seat can capture the transformation. No single departure can derail it.</strong></p>
+          <p class="statement">No single seat can capture the transformation. No single departure can derail it.</p>
           <p>This distribution is itself the most important political choice the strategy makes. A program with a single owner — however capable — is exposed to that owner's availability, conviction, and tenure. A program distributed across the structure described here is owned by the company.</p>
           <p>The next portion of this document — the Phase 1 Playbook appendix — describes the specific pods, the substrate work, and the first-90-days execution detail that brings this structure to life.</p>
         </div>
@@ -2415,7 +2592,7 @@
 
           <h2>ما الذي يحقّقه هذا التوزيع</h2>
           <p>الثقل السياسي للتحوّل موزّعٌ عبر مقاعد متمايزة: رئيس مجلس الإدارة يحمل الرعاية الظاهرة؛ وقائد الاستراتيجية يحمل القيادة التشغيلية؛ ورئيس الموارد البشرية يحمل بُعد القوى العاملة؛ ورئيسا القسمين يحملان الإشراف الراعي طويل الأمد في النهاية وأسطح التنفيذ القسمية؛ ورئيس الابتكار يحمل السطح الخارجي؛ ومهندس الاستراتيجية يحمل دور استمرارية الذاكرة بصفةٍ استشارية.</p>
-          <p><strong>لا يستطيع أيّ مقعدٍ واحد أن يستحوذ على التحوّل. ولا تستطيع أيّ مغادرةٍ واحدة أن تُخرجه عن مساره.</strong></p>
+          <p class="statement">لا يستطيع أيّ مقعدٍ واحد أن يستحوذ على التحوّل. ولا تستطيع أيّ مغادرةٍ واحدة أن تُخرجه عن مساره.</p>
           <p>هذا التوزيع هو نفسه أهمّ خيارٍ سياسيٍّ تتّخذه الاستراتيجية. فبرنامجٌ بمالكٍ واحد — مهما كان قادراً — معرَّضٌ لتوافر ذلك المالك وقناعته ومدّة بقائه. أمّا برنامجٌ موزّعٌ عبر البنية الموصوفة هنا فهو مملوكٌ للشركة.</p>
           <p>الجزء التالي من هذا المستند — ملحق كتيّب المرحلة الأولى — يصف المجموعات المحدّدة، وعمل الركيزة، وتفاصيل تنفيذ الأيام التسعين الأولى التي تُحيي هذه البنية.</p>
         </div>
@@ -2435,7 +2612,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <div class="section-intro">
-            <p>The strategy is a hypothesis. This section describes what will be measured to know if the hypothesis is holding, what could cause it to fail, and how the strategy will adjust as evidence accumulates.</p>
+            <p class="lead">The strategy is a hypothesis. This section describes what will be measured to know if the hypothesis is holding, what could cause it to fail, and how the strategy will adjust as evidence accumulates.</p>
             <p>The framing matters: the strategy does not assume its own correctness. It assumes the methodology — Do-Measure-Validate-Calibrate — and trusts that the methodology will surface where the strategy is right and where it needs adjustment. The metrics, risks, and calibration mechanisms described here are the means by which that adjustment happens.</p>
           </div>
 
@@ -2593,7 +2770,7 @@
         <!-- ENGLISH -->
         <div class="lang-en">
           <div class="section-intro">
-            <p>Phase 1 is the first 90–180 days of execution, starting Q3 2026 and running through approximately year-end. Its purpose is to:</p>
+            <p class="lead">Phase 1 is the first 90–180 days of execution, starting Q3 2026 and running through approximately year-end. Its purpose is to:</p>
           </div>
           <ol class="num-list">
             <li>Launch the first wave of AI Pods across the three workstreams.</li>
@@ -2998,6 +3175,20 @@
 
   </div>
 
+  <!-- ─── MOBILE FLOATING NAV ──────────────────────────────────── -->
+  <button class="mobile-nav-toggle" id="mnav-toggle" aria-label="Open contents" aria-expanded="false">
+    <span class="mnav-icon" aria-hidden="true"></span>
+  </button>
+  <div class="mobile-nav-scrim" id="mnav-scrim"></div>
+  <nav class="mobile-nav" id="mnav-panel" aria-label="Contents">
+    <div class="mnav-grip" aria-hidden="true"></div>
+    <div class="mobile-nav-head">
+      <span><span class="lang-en">Contents</span><span class="lang-ar">المحتويات</span></span>
+      <button class="mnav-close" id="mnav-close" aria-label="Close contents">&times;</button>
+    </div>
+    <div id="mnav-list"></div>
+  </nav>
+
   <script>
     // ─── Language toggle + persistence ────────────────────────
     (function() {
@@ -3183,6 +3374,49 @@
         });
       }, { threshold: 0.4 });
       vals.forEach(el => io.observe(el));
+    })();
+
+    // ─── Mobile floating navigation ───────────────────────────
+    (function() {
+      const toggle = document.getElementById('mnav-toggle');
+      const panel = document.getElementById('mnav-panel');
+      const scrim = document.getElementById('mnav-scrim');
+      const closeBtn = document.getElementById('mnav-close');
+      const list = document.getElementById('mnav-list');
+      if (!toggle || !panel || !scrim || !list) return;
+
+      // Clone the sidebar contents list into the sheet (keeps EN/AR spans)
+      const srcOl = document.querySelector('.sidebar-nav ol');
+      if (srcOl) list.appendChild(srcOl.cloneNode(true));
+
+      function open() {
+        panel.classList.add('open');
+        scrim.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function close() {
+        panel.classList.remove('open');
+        scrim.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      toggle.addEventListener('click', () => panel.classList.contains('open') ? close() : open());
+      scrim.addEventListener('click', close);
+      closeBtn.addEventListener('click', close);
+      list.addEventListener('click', (e) => { if (e.target.closest('a')) close(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+      // Reveal the FAB once the (top, on mobile) sidebar has scrolled out of view
+      const sidebar = document.querySelector('.sidebar');
+      if ('IntersectionObserver' in window && sidebar) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((en) => toggle.classList.toggle('is-visible', !en.isIntersecting));
+        }, { threshold: 0 });
+        io.observe(sidebar);
+      } else {
+        const onScroll = () => toggle.classList.toggle('is-visible', window.scrollY > 480);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
     })();
   </script>
 </body>
