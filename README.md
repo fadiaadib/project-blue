@@ -19,11 +19,47 @@ Open `index.html` in any modern browser. No server required.
 
 ## Printing / PDF export
 
-Browser `Cmd+P` (macOS) or `Ctrl+P` (Windows) → **Save as PDF**.
+Three options, quickest to most polished. The page carries a tuned print
+stylesheet (A4, sidebar/zoom-toolbar/grain hidden, each section on a new page,
+the financial dashboard reflowed to fit one page, Arabic draft-translation
+caveat kept).
 
-The active language is what gets printed. The sidebar navigation, language toggle, and Arabic review banner are automatically hidden in print. Sections are paginated with proper page breaks.
+### 1. Browser print (quick)
 
-For an Arabic PDF: switch to Arabic mode first, then print.
+`Cmd+P` (macOS) / `Ctrl+P` (Windows) → **Save as PDF**. Choose **A4**, margins
+**Default**, and **uncheck "Headers and footers"**. The active on-screen
+language is what prints — switch to Arabic first for an Arabic PDF.
+
+### 2. Headless Chrome (clean, reproducible single PDF)
+
+Applies the print stylesheet deterministically — no dialog settings to get
+wrong. `--force-prefers-reduced-motion` settles the count-up/reveal animations
+before the snapshot:
+
+```bash
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+"$CHROME" --headless --disable-gpu --force-prefers-reduced-motion \
+  --no-pdf-header-footer --virtual-time-budget=4000 \
+  --print-to-pdf="print/AI-Adoption-Strategy-EN.pdf" "file://$PWD/index.html"
+```
+
+### 3. Bound "book" build (cover, contents, page numbers)
+
+Book-grade PDFs with a cover, a table of contents, page-number folios, a
+running header, and chapter-per-page pagination:
+
+```bash
+npm install          # one-time: installs puppeteer-core (drives your system Chrome)
+npm run build:book   # writes print/AI-Adoption-Strategy-{EN,AR}-book.pdf
+```
+
+- **English** renders with [Paged.js](https://pagedjs.org) — its TOC carries
+  live page numbers.
+- **Arabic** renders with native Chrome: Paged.js drops content in
+  right-to-left layout, so Chrome's own print engine handles the RTL book, with
+  folios + running header supplied via print templates.
+- Requires Google Chrome installed and network access (Google Fonts).
+- Pre-built PDFs are committed under [`print/`](print/).
 
 ---
 
@@ -76,7 +112,9 @@ Single-file HTML. All CSS and JavaScript are inline. External dependencies:
   - IBM Plex Sans Arabic (Arabic sans)
   - Markazi Text (Arabic serif)
 
-No build tooling. No package manager. No framework. Open the file, edit, push.
+No build tooling is needed to view or deploy the brief — open the file, edit,
+push. (The optional book-PDF build under [`scripts/`](scripts/) uses Node +
+`puppeteer-core`; see **Printing / PDF export**.)
 
 ---
 

@@ -1,0 +1,24 @@
+{
+  "name": "project-blue",
+  "version": "1.0.0",
+  "description": "Executive strategy brief for Alfa Electronics' AI adoption initiative.",
+  "main": "index.html",
+  "scripts": {
+    "build:book": "node scripts/build-book.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadiaadib/project-blue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fadiaadib/project-blue/issues"
+  },
+  "homepage": "https://github.com/fadiaadib/project-blue#readme",
+  "dependencies": {
+    "puppeteer-core": "^25.1.0"
+  }
+}

@@ -1494,11 +1494,24 @@
 
     /* ─── PRINT ─────────────────────────────────────────────────── */
     @media print {
+      @page { size: A4; margin: 16mm 15mm; }
       :root { --gutter: 32px; }
       body { background: white; color: black; font-size: 11pt; line-height: 1.55; }
       .sidebar { display: none; }
       .toolbar { display: none; }
-      .review-banner { display: none !important; }
+      /* Keep the Arabic draft-translation caveat in the printed copy (Arabic only) */
+      html:not([lang="ar"]) .review-banner { display: none; }
+      html[lang="ar"] .review-banner {
+        display: block;
+        background: none;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        color: #555;
+        padding: 0 0 10px;
+        margin-bottom: 16px;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+      }
       .layout { display: block; }
       .main { padding: 0; max-width: none; }
       .section { page-break-inside: auto; margin-bottom: 48px; }
@@ -1526,8 +1539,25 @@
       .pod-head { background: none !important; }
       .pod-id { color: black !important; background: none !important; border: 1px solid #999; }
       .ws-label { page-break-after: avoid; }
-      .scene::before, .workstream .ws-num, .stat-strip { border-color: #ccc; }
+      .scene::before, .workstream .ws-num { border-color: #ccc; }
       h2, h3, h4 { page-break-after: avoid; }
+      /* Financial dashboard: force a compact 3×2 grid that fits one page
+         (A4 content width is below the 900px mobile breakpoint, which would
+         otherwise stack the six cards into a single tall column). */
+      .stat-strip {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1px !important;
+        background: #d8d2c6 !important;
+        border: 1px solid #d8d2c6 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+      .stat { background: #fff !important; padding: 12px 14px !important; }
+      .stat-value { font-size: 1.6rem !important; }
+      .stat-value .unit { font-size: 0.95rem !important; }
+      .stat-value .unit.pre { font-size: 0.8rem !important; }
+      .stat-label { margin-top: 8px !important; }
+      .stat-context { margin-top: 4px !important; font-size: 0.8rem !important; }
     }
   </style>
 </head>

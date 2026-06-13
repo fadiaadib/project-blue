@@ -1,0 +1,141 @@
+/* ──────────────────────────────────────────────────────────────
+   BOOK BUILD — Paged.js stylesheet.
+   Applied only by scripts/build-book.mjs when generating the bound
+   PDF. The live web page (index.html) never loads this file.
+   It composes on top of index.html's own @media print rules.
+   ────────────────────────────────────────────────────────────── */
+
+@page {
+  size: A4;
+  margin: 22mm 20mm 20mm 20mm;
+  @top-center { content: element(runhead); }
+  @bottom-center {
+    content: counter(page);
+    font-family: var(--sans-en);
+    font-size: 9pt;
+    color: var(--ink-soft);
+  }
+}
+html[lang="ar"] @page {
+  @bottom-center { font-family: var(--sans-ar); }
+}
+
+/* Cover page (the first page): no folio, no running header */
+@page :first {
+  @top-center { content: none; }
+  @bottom-center { content: none; }
+}
+.doc-header { break-after: page; }
+
+/* Running header (document title) — pulled out of flow into the top margin */
+.run-head {
+  position: running(runhead);
+  font-family: var(--sans-en);
+  font-size: 8pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: center;
+}
+html[lang="ar"] .run-head {
+  font-family: var(--sans-ar);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 9.5pt;
+}
+
+/* Each section opens a fresh page */
+.section { break-before: page; }
+
+/* ── Table of contents ───────────────────────────────────────── */
+/* Only break AFTER — the cover already breaks after itself, so adding
+   break-before here would insert a blank page between them. */
+.book-toc {
+  break-after: page;
+  max-width: none;
+}
+.book-toc h2 {
+  font-family: var(--display-en);
+  font-weight: 400;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+html[lang="ar"] .book-toc h2 { font-family: var(--serif-ar); }
+.book-toc .toc-rule {
+  width: 48px; height: 2px; background: var(--accent);
+  margin: 0 0 28px;
+}
+.book-toc ol { list-style: none; counter-reset: toc; padding: 0; margin: 0; }
+.book-toc li { counter-increment: toc; margin-bottom: 18px; }
+.book-toc a {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--serif-en);
+  font-size: 1.15rem;
+}
+html[lang="ar"] .book-toc a { font-family: var(--serif-ar); font-size: 1.3rem; }
+.book-toc a .num {
+  font-family: var(--sans-en);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  width: 30px;
+  flex: 0 0 30px;
+}
+.book-toc a .t { flex: 0 1 auto; }
+.book-toc a .leader {
+  flex: 1 1 auto;
+  align-self: stretch;
+  border-bottom: 1px dotted var(--ink-soft);
+  margin: 0 8px 5px;
+  min-width: 18px;
+}
+.book-toc a::after {
+  content: target-counter(attr(href), page);
+  font-family: var(--sans-en);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+/* Book never shows the web chrome */
+.toolbar, .sidebar, .grain, .progress-rail,
+.mobile-nav, .mobile-nav-toggle, .mobile-nav-scrim { display: none !important; }
+.layout { display: block; }
+.main { max-width: none; padding: 0; }
+
+/* Defeat scroll-reveal / load animation hidden states (no JS in book build) */
+.reveal { opacity: 1 !important; transform: none !important; }
+.load > * { opacity: 1 !important; animation: none !important; }
+
+body { background: #fff; }
+
+/* In RTL, Paged.js can abandon the rest of a section when it meets a tall
+   `break-inside: avoid` card it cannot place — dropping content. Letting the
+   cards break across pages keeps the full Arabic text flowing. */
+html[lang="ar"] .scene,
+html[lang="ar"] .workstream,
+html[lang="ar"] .note,
+html[lang="ar"] .risk-card,
+html[lang="ar"] .pod-card,
+html[lang="ar"] .stat-strip,
+html[lang="ar"] .metric,
+html[lang="ar"] .def,
+html[lang="ar"] .tl-item,
+html[lang="ar"] .pullquote {
+  break-inside: auto !important;
+  page-break-inside: auto !important;
+}
+/* `overflow: hidden` makes Paged.js drop overflowing content in RTL. */
+html[lang="ar"] .stat-strip,
+html[lang="ar"] .pod-card { overflow: visible !important; }
+
+/* The Arabic book is rendered by native Chrome (no target-counter), so the
+   contents page shows a clean numbered list rather than empty dot-leaders. */
+html[lang="ar"] .book-toc .leader,
+html[lang="ar"] .book-toc a::after { display: none; }
+html[lang="ar"] .book-toc a { gap: 14px; }
