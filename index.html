@@ -1312,6 +1312,8 @@
       html[lang="ar"] .section h2 { font-size: 1.5rem; }
       .toolbar { top: 16px; right: 16px; }
       html[dir="rtl"] .toolbar { right: auto; left: 16px; }
+      /* Keep the (Arabic) review banner text clear of the fixed toolbar */
+      .review-banner { padding-top: 64px; }
       .stat-strip { grid-template-columns: 1fr; }
       .stat-value { font-size: 2.4rem; }
     }
@@ -1494,7 +1496,7 @@
   <div class="toolbar">
     <div class="zoom-controls">
       <button class="zoom-btn" id="zoom-out" type="button" aria-label="Zoom out">&minus;</button>
-      <button class="zoom-level" id="zoom-reset" type="button" aria-label="Reset zoom to 100%" title="Reset to 100%">100%</button>
+      <button class="zoom-level" id="zoom-reset" type="button" aria-label="Reset zoom" title="Reset zoom">125%</button>
       <button class="zoom-btn" id="zoom-in" type="button" aria-label="Zoom in">&plus;</button>
     </div>
     <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
@@ -3221,14 +3223,15 @@
     (function() {
       const STORAGE_KEY = 'alfa-strategy-zoom';
       const root = document.documentElement;
-      const BASE = 16;          // matches html { font-size: 16px }
+      const BASE = 16;          // 100% — matches html { font-size: 16px }
+      const DEFAULT = 20;       // 125% — default reading size
       const MIN = 12, MAX = 24, STEP = 1;
 
       const out = document.getElementById('zoom-out');
       const inc = document.getElementById('zoom-in');
       const reset = document.getElementById('zoom-reset');
 
-      let size = BASE;
+      let size = DEFAULT;
       try {
         const saved = parseFloat(localStorage.getItem(STORAGE_KEY));
         if (!isNaN(saved)) size = Math.min(MAX, Math.max(MIN, saved));
@@ -3249,14 +3252,14 @@
 
       out.addEventListener('click', () => setSize(size - STEP));
       inc.addEventListener('click', () => setSize(size + STEP));
-      reset.addEventListener('click', () => setSize(BASE));
+      reset.addEventListener('click', () => setSize(DEFAULT));
 
       // Keyboard: Cmd/Ctrl with +/= (in), -/_ (out), 0 (reset)
       document.addEventListener('keydown', (e) => {
         if (!(e.metaKey || e.ctrlKey)) return;
         if (e.key === '+' || e.key === '=') { e.preventDefault(); setSize(size + STEP); }
         else if (e.key === '-' || e.key === '_') { e.preventDefault(); setSize(size - STEP); }
-        else if (e.key === '0') { e.preventDefault(); setSize(BASE); }
+        else if (e.key === '0') { e.preventDefault(); setSize(DEFAULT); }
       });
 
       apply();
