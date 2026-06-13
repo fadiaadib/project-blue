@@ -1290,6 +1290,20 @@
       .placeholder-section { display: none; }
       a { color: black; text-decoration: none; }
       .doc-footer { margin-top: 32px; }
+      /* Atmosphere + new components in print */
+      .grain, .progress-rail { display: none !important; }
+      .scene, .workstream, .note, .risk-card, .pod-card, .metric, .def,
+      .tl-item, .stat-strip { page-break-inside: avoid; }
+      .scene, .workstream, .risk-card, .pod-card, .note, .placeholder-section,
+      .stat, .section-number {
+        background: none !important;
+        box-shadow: none !important;
+      }
+      .pod-head { background: none !important; }
+      .pod-id { color: black !important; background: none !important; border: 1px solid #999; }
+      .ws-label { page-break-after: avoid; }
+      .scene::before, .workstream .ws-num, .stat-strip { border-color: #ccc; }
+      h2, h3, h4 { page-break-after: avoid; }
     }
   </style>
 </head>
@@ -2418,9 +2432,150 @@
             <h2 class="section-title">المخاطر والمقاييس والمعايرة</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Current draft lives in <a href="https://app.notion.com/p/37ccb67bf82c81d4a4d5fe1a252abfc6">Notion</a>.</p>
-          <p class="lang-ar">المسودّة الحالية في <a href="https://app.notion.com/p/37ccb67bf82c81d4a4d5fe1a252abfc6">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <div class="section-intro">
+            <p>The strategy is a hypothesis. This section describes what will be measured to know if the hypothesis is holding, what could cause it to fail, and how the strategy will adjust as evidence accumulates.</p>
+            <p>The framing matters: the strategy does not assume its own correctness. It assumes the methodology — Do-Measure-Validate-Calibrate — and trusts that the methodology will surface where the strategy is right and where it needs adjustment. The metrics, risks, and calibration mechanisms described here are the means by which that adjustment happens.</p>
+          </div>
+
+          <h2>Metrics</h2>
+          <p>The metrics fall into four groups: three mirroring the workstreams, plus a fourth covering cross-cutting strategic health.</p>
+
+          <div class="metric-group">
+            <h3>Annuity Intelligence</h3>
+            <p>The work is judged by whether the Markem-Imaje partnership becomes more resilient through Alfa's evolution.</p>
+            <div class="metric"><div class="metric-name"><strong>Field service efficiency.</strong> Average time per coder maintenance visit.</div><div class="metric-target">Target: 30% reduction by year-end Phase 1</div></div>
+            <div class="metric"><div class="metric-name"><strong>Consumables forecast accuracy.</strong> Standing-order variance for the top 50 customer accounts.</div><div class="metric-target">Target: 25% improvement in variance by year-end</div></div>
+            <div class="metric"><div class="metric-name"><strong>Markem-Imaje partner signals.</strong> Qualitative indicators: invitation to early partner programs, references to Alfa in MEA-region presentations, technical integration depth. Tracked through the AI Council's quarterly partner-engagement review.</div></div>
+            <div class="metric"><div class="metric-name"><strong>Customer retention proxies.</strong> Renewal rate and contract value evolution for the top 100 customers. Baseline established Q3 2026.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>AI Products</h3>
+            <p>The work is judged by whether the Electronic Solutions plateau breaks.</p>
+            <div class="metric"><div class="metric-name"><strong>Tender win rate on AI-enabled bids.</strong> Tracked from the first tender in which the new AI-enabled queueing demo is presented.</div><div class="metric-target">Target: visible improvement vs. baseline by mid-Phase 2</div></div>
+            <div class="metric"><div class="metric-name"><strong>Time from product idea to first shipped iteration.</strong> Measured against the 6–12 week pod timebox.</div><div class="metric-target">Target: 80%+ of pods ship within their timebox</div></div>
+            <div class="metric"><div class="metric-name"><strong>ES revenue trajectory.</strong> Quarter-over-quarter ES revenue. Phase 1 succeeds if the line stops declining; Phase 2 succeeds if it grows.</div></div>
+            <div class="metric"><div class="metric-name"><strong>Demo-to-discovery conversion.</strong> Percentage of customer demos that convert to pilot agreements. Baseline established Q3 2026.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>Operational Intelligence</h3>
+            <p>The work is judged by whether internal capability accumulates in a way that supports product evolution.</p>
+            <div class="metric"><div class="metric-name"><strong>Time saved per role per week.</strong> Self-reported surveys plus calibrated task timings.</div><div class="metric-target">Target: 4+ hours/week for adopted roles by year-end</div></div>
+            <div class="metric"><div class="metric-name"><strong>Adoption rate across departments.</strong> Percentage of department personnel actively using validated AI tools. Tracked via the AI Office.</div></div>
+            <div class="metric"><div class="metric-name"><strong>Sales proposal generation time.</strong> From paragraph-of-context to formatted PDF.</div><div class="metric-target">Target: under 1 hour, down from baseline 1–2 days</div></div>
+            <div class="metric"><div class="metric-name"><strong>Monthly close cycle.</strong> From 9 days to 5 days by year-end Phase 1.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>Strategic Health</h3>
+            <p>Cross-cutting indicators that signal whether the strategy itself is on track.</p>
+            <div class="metric"><div class="metric-name"><strong>R&amp;D as percentage of revenue, trajectory.</strong> From 2.16% baseline toward the 6–10% target. Reviewed quarterly.</div></div>
+            <div class="metric"><div class="metric-name"><strong>Pod validate-criteria pass rate.</strong> Percentage of pods that deliver against their stated criteria. Pass rate above 70% suggests pods are well-scoped; below 50% suggests scoping is too ambitious or substrate constraints are too tight.</div></div>
+            <div class="metric"><div class="metric-name"><strong>AI Council decision velocity.</strong> Average time from pod proposal to scale/stop/extend decision.</div><div class="metric-target">Target: under 30 days for routine decisions</div></div>
+            <div class="metric"><div class="metric-name"><strong>Champions Network density.</strong> Number of active champions, distribution across functions and divisions, organic growth rate.</div></div>
+            <div class="metric"><div class="metric-name"><strong>Workstream balance.</strong> Resource allocation across the three workstreams. <strong>Watch indicator:</strong> if Workstream 2 (AI Products) drops below 35% of pod allocation, the strategic risk identified at project start is materializing.</div></div>
+          </div>
+
+          <h2>Risks</h2>
+          <p>Eight risks are tracked actively. Each has a named mitigation and a leading indicator.</p>
+
+          <div class="risk-card"><span class="risk-num">1</span><h4>Internal efficiency wins crowd out product investment</h4><p>The strategic risk identified at the project's start. The familiar enterprise pattern: efficiency wins are celebrated, product evolution stalls.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Product-side metrics tracked from day one; minimum two AI Products pods running at all times; quarterly review of workstream balance.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Workstream allocation drift toward Operational Intelligence.</div></div></div>
+          <div class="risk-card"><span class="risk-num">2</span><h4>"Engineering thing" perception captures the initiative</h4><p>The cultural risk in placing the Strategy Leader inside software development.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>AI Council composition with non-engineering majority; Champions Network distributed deliberately across functions; pod composition required to include domain experts from non-engineering departments.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Champion distribution skew toward engineering, Council attendance patterns becoming software-department-heavy.</div></div></div>
+          <div class="risk-card"><span class="risk-num">3</span><h4>Substrate work becomes a multi-year delay</h4><p>The common failure pattern of treating data infrastructure as a prerequisite.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Substrate-serves-pods principle; pods proceed with what they can reach; substrate prioritized by pod blockers, not abstract architecture.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Percentage of pods reporting substrate blockers in their week-2 check-in.</div></div></div>
+          <div class="risk-card"><span class="risk-num">4</span><h4>Markem-Imaje partnership accelerates beyond Alfa's readiness</h4><p>The partner may move faster than Alfa's evolution can match, leading to partnership stress or marginalization.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Annuity Intelligence workstream begins day one; named pod for partner AI integration; quarterly partnership review with explicit readiness assessment.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Partner-led conversations about other regional distributors; delayed Alfa involvement in new product rollouts.</div></div></div>
+          <div class="risk-card"><span class="risk-num">5</span><h4>2027 GS1 Digital Link transition catches Alfa underprepared</h4><p>The specific industry inflection that creates exposure for both partner and direct customer relationships.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Dedicated tracking within the Annuity Intelligence workstream; coordinated with Markem-Imaje's own transition roadmap; customer-by-customer readiness assessment in 2026.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Customer questions about 2D code readiness that Alfa cannot confidently answer.</div></div></div>
+          <div class="risk-card"><span class="risk-num">6</span><h4>Sponsorship transition timing wrong</h4><p>Either too early (no validated results to anchor divisional ownership) or too late (chairman bottleneck slows progression).</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Condition-driven transition framework with explicit triggers; quarterly check on transition readiness.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Chairman becoming the deciding voice on operational matters that should sit in the Council.</div></div></div>
+          <div class="risk-card"><span class="risk-num">7</span><h4>Talent retention as Aura engineers see scaled opportunity</h4><p>Engineers becoming AI-fluent in a market where AI talent is in high demand.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Visible scope and ownership of named workstreams; R&amp;D budget growth that creates career room; explicit upgrade of titles and compensation as capability grows.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Voluntary attrition rate; exit interview themes.</div></div></div>
+          <div class="risk-card"><span class="risk-num">8</span><h4>Customer trust loss from poorly-shipped AI features</h4><p>The rush-to-market pattern that has cost other enterprises publicly.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">Mitigation</span>Validate criteria for every customer-facing shipment; controlled pilot rollouts; no big-bang launches.</div><div class="risk-line indicator"><span class="lbl">Leading indicator</span>Customer complaint patterns on AI-enabled features specifically.</div></div></div>
+
+          <h2>Calibration</h2>
+          <p>The strategy is itself a hypothesis with validate criteria. The calibration mechanism operates at three timescales.</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">Quarterly</div><div class="def-desc">The AI Council reviews accumulated pod validate-criteria results, adjusts the next quarter's pod portfolio, and refreshes the metrics dashboard with new data. Quarterly adjustments are tactical — which pods, what staffing, what substrate priorities.</div></div>
+            <div class="def"><div class="def-term">Half-yearly</div><div class="def-desc">The Council and Sponsorship layer together review the strategic spine. The questions: Do the workstream priorities still hold? Are the financial claims trending as expected? Are competitive conditions evolving as the scan predicted? Half-yearly adjustments are structural — workstream weighting, governance composition, R&amp;D allocation.</div></div>
+            <div class="def"><div class="def-term">Annual</div><div class="def-desc">Full strategy review. Is the bet still the right bet? Is the identity claim — AI-enabled software-on-hardware company — still the right framing? Annual adjustments are foundational; they may revise the strategic identity itself if accumulated evidence warrants.</div></div>
+          </div>
+          <p>The strategy's correctness is not assumed at any timescale. The methodology is. The shape of the strategy will evolve; the discipline of validate-and-calibrate is what makes that evolution rigorous rather than reactive.</p>
+
+          <h2>Closing</h2>
+          <p>A strategy that cannot be measured cannot be steered. A strategy that does not track its own risks accumulates them silently until they surface as crises. A strategy that assumes its own correctness becomes brittle.</p>
+          <p>The metrics, risks, and calibration framework described here are not bureaucratic overhead. They are the mechanism by which the strategy stays honest with itself as the company executes against it.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <div class="section-intro">
+            <p>الاستراتيجية فرضية. يصف هذا القسم ما سيُقاس لمعرفة ما إذا كانت الفرضية صامدة، وما قد يُفشِلها، وكيف ستتعدّل الاستراتيجية مع تراكم الأدلّة.</p>
+            <p>التأطير مهمّ: الاستراتيجية لا تفترض صحّتها. تفترض المنهجية — افعل–قِسْ–تحقّق–عايِر — وتثق بأنّ المنهجية ستُظهِر أين تكون الاستراتيجية صائبة وأين تحتاج تعديلاً. وآليات المقاييس والمخاطر والمعايرة الموصوفة هنا هي الوسيلة التي يحدث بها ذلك التعديل.</p>
+          </div>
+
+          <h2>المقاييس</h2>
+          <p>تنقسم المقاييس إلى أربع مجموعات: ثلاثٌ تُحاكي مسارات العمل، ورابعةٌ تغطّي الصحّة الاستراتيجية الشاملة.</p>
+
+          <div class="metric-group">
+            <h3>ذكاء السنويّة</h3>
+            <p>يُحكَم على العمل بما إذا كانت شراكة Markem-Imaje تزداد متانةً عبر تطوّر ألفا.</p>
+            <div class="metric"><div class="metric-name"><strong>كفاءة الخدمة الميدانية.</strong> متوسّط الزمن لكلّ زيارة صيانة طابعة ترميز.</div><div class="metric-target">الهدف: خفضٌ 30% بحلول نهاية المرحلة الأولى</div></div>
+            <div class="metric"><div class="metric-name"><strong>دقّة التنبّؤ بالمستهلكات.</strong> تباين الطلبات الدائمة لأكبر 50 حساب عميل.</div><div class="metric-target">الهدف: تحسّنٌ 25% في التباين بحلول نهاية العام</div></div>
+            <div class="metric"><div class="metric-name"><strong>إشارات شريك Markem-Imaje.</strong> مؤشّرات نوعية: الدعوة إلى برامج الشركاء المبكرة، والإشارات إلى ألفا في عروض منطقة الشرق الأوسط وأفريقيا، وعمق التكامل التقني. تُتابَع عبر المراجعة الفصلية لتفاعل الشركاء في مجلس الذكاء الاصطناعي.</div></div>
+            <div class="metric"><div class="metric-name"><strong>مؤشّرات الاحتفاظ بالعملاء.</strong> معدّل التجديد وتطوّر قيمة العقد لأكبر 100 عميل. يُؤسَّس خطّ الأساس في الربع الثالث 2026.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>منتجات الذكاء الاصطناعي</h3>
+            <p>يُحكَم على العمل بما إذا كانت هضبة الحلول الإلكترونية تنكسر.</p>
+            <div class="metric"><div class="metric-name"><strong>معدّل الفوز بالمناقصات في العطاءات الممكَّنة بالذكاء الاصطناعي.</strong> يُتابَع من أوّل مناقصةٍ يُعرَض فيها عرض الطوابير الجديد الممكَّن بالذكاء الاصطناعي.</div><div class="metric-target">الهدف: تحسّنٌ ظاهر مقابل خطّ الأساس بحلول منتصف المرحلة الثانية</div></div>
+            <div class="metric"><div class="metric-name"><strong>الزمن من فكرة المنتج إلى أوّل نسخة مشحونة.</strong> يُقاس مقابل الإطار الزمني للمجموعة (6–12 أسبوعاً).</div><div class="metric-target">الهدف: 80%+ من المجموعات تشحن ضمن إطارها الزمني</div></div>
+            <div class="metric"><div class="metric-name"><strong>مسار إيرادات الحلول الإلكترونية.</strong> إيرادات الحلول الإلكترونية ربعاً بربع. تنجح المرحلة الأولى إذا توقّف الخطّ عن التراجع؛ وتنجح المرحلة الثانية إذا نما.</div></div>
+            <div class="metric"><div class="metric-name"><strong>تحويل العرض إلى استكشاف.</strong> نسبة عروض العملاء التي تتحوّل إلى اتفاقات تجريبية. يُؤسَّس خطّ الأساس في الربع الثالث 2026.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>الذكاء التشغيلي</h3>
+            <p>يُحكَم على العمل بما إذا كانت القدرة الداخلية تتراكم بطريقةٍ تدعم تطوّر المنتج.</p>
+            <div class="metric"><div class="metric-name"><strong>الوقت الموفَّر لكلّ دورٍ أسبوعيّاً.</strong> استبياناتٌ ذاتية إضافةً إلى توقيتات مهامّ مُعايَرة.</div><div class="metric-target">الهدف: 4+ ساعات أسبوعيّاً للأدوار المتبنّية بحلول نهاية العام</div></div>
+            <div class="metric"><div class="metric-name"><strong>معدّل التبنّي عبر الأقسام.</strong> نسبة موظّفي القسم الذين يستخدمون أدوات الذكاء الاصطناعي المُتحقَّق منها بفاعلية. يُتابَع عبر مكتب الذكاء الاصطناعي.</div></div>
+            <div class="metric"><div class="metric-name"><strong>زمن توليد عروض المبيعات.</strong> من فقرة السياق إلى ملفّ PDF منسَّق.</div><div class="metric-target">الهدف: أقلّ من ساعة، نزولاً من خطّ أساس 1–2 يوم</div></div>
+            <div class="metric"><div class="metric-name"><strong>دورة الإغلاق الشهري.</strong> من 9 أيام إلى 5 أيام بحلول نهاية المرحلة الأولى.</div></div>
+          </div>
+
+          <div class="metric-group">
+            <h3>الصحّة الاستراتيجية</h3>
+            <p>مؤشّراتٌ شاملة تُنبئ بما إذا كانت الاستراتيجية نفسها على المسار.</p>
+            <div class="metric"><div class="metric-name"><strong>البحث والتطوير كنسبةٍ من الإيرادات، المسار.</strong> من خطّ أساس 2.16% نحو هدف 6–10%. يُراجَع فصليّاً.</div></div>
+            <div class="metric"><div class="metric-name"><strong>معدّل اجتياز معايير التحقّق للمجموعات.</strong> نسبة المجموعات التي تُسلّم وفق معاييرها المعلنة. معدّل اجتيازٍ فوق 70% يُشير إلى مجموعاتٍ جيّدة التحديد؛ ودون 50% يُشير إلى أنّ التحديد مفرطٌ في الطموح أو أنّ قيود الركيزة شديدة.</div></div>
+            <div class="metric"><div class="metric-name"><strong>سرعة قرار مجلس الذكاء الاصطناعي.</strong> متوسّط الزمن من اقتراح المجموعة إلى قرار التوسّع/التوقّف/التمديد.</div><div class="metric-target">الهدف: أقلّ من 30 يوماً للقرارات الروتينية</div></div>
+            <div class="metric"><div class="metric-name"><strong>كثافة شبكة الأبطال.</strong> عدد الأبطال النشطين، وتوزيعهم عبر الوظائف والأقسام، ومعدّل النموّ العضوي.</div></div>
+            <div class="metric"><div class="metric-name"><strong>توازن مسارات العمل.</strong> تخصيص الموارد عبر مسارات العمل الثلاثة. <strong>مؤشّر مراقبة:</strong> إذا هبط المسار الثاني (منتجات الذكاء الاصطناعي) دون 35% من تخصيص المجموعات، فإنّ الخطر الاستراتيجي المُحدَّد عند بداية المشروع يتحقّق.</div></div>
+          </div>
+
+          <h2>المخاطر</h2>
+          <p>ثمانية مخاطر تُتابَع بنشاط. لكلٍّ منها تخفيفٌ مُسمّى ومؤشّرٌ مُبكِّر.</p>
+
+          <div class="risk-card"><span class="risk-num">1</span><h4>مكاسب الكفاءة الداخلية تُزاحم استثمار المنتج</h4><p>الخطر الاستراتيجي المُحدَّد عند بداية المشروع. النمط المؤسّسي المألوف: يُحتفى بمكاسب الكفاءة، ويتعثّر تطوّر المنتج.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>تُتابَع مقاييس جانب المنتج من اليوم الأول؛ وتعمل مجموعتان من منتجات الذكاء الاصطناعي على الأقلّ في كلّ وقت؛ ومراجعةٌ فصلية لتوازن مسارات العمل.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>انجراف تخصيص مسارات العمل نحو الذكاء التشغيلي.</div></div></div>
+          <div class="risk-card"><span class="risk-num">2</span><h4>تصوُّر «الشأن الهندسي» يستحوذ على المبادرة</h4><p>الخطر الثقافي في وضع قائد الاستراتيجية داخل تطوير البرمجيات.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>تكوين مجلس الذكاء الاصطناعي بغالبيةٍ غير هندسية؛ وشبكة أبطالٍ موزّعة عن قصدٍ عبر الوظائف؛ وتكوين مجموعاتٍ يُشترَط أن يضمّ خبراء مجالٍ من أقسامٍ غير هندسية.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>ميل توزيع الأبطال نحو الهندسة، وأنماط حضور المجلس تصبح مُثقلةً بقسم البرمجيات.</div></div></div>
+          <div class="risk-card"><span class="risk-num">3</span><h4>عمل الركيزة يصبح تأخيراً يمتدّ سنوات</h4><p>نمط الفشل الشائع المتمثّل في معاملة البنية التحتية للبيانات كشرطٍ مسبق.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>مبدأ «الركيزة تخدم المجموعات»؛ والمجموعات تمضي بما تصل إليه؛ وتُرتَّب الركيزة بحسب معوّقات المجموعات، لا بحسب بنيةٍ مجرّدة.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>نسبة المجموعات التي تُبلِغ عن معوّقات ركيزة في مراجعة الأسبوع الثاني.</div></div></div>
+          <div class="risk-card"><span class="risk-num">4</span><h4>شراكة Markem-Imaje تتسارع بما يفوق جاهزية ألفا</h4><p>قد يتحرّك الشريك أسرع ممّا يستطيع تطوّر ألفا مجاراته، ما يؤدّي إلى توتّر الشراكة أو التهميش.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>مسار ذكاء السنويّة يبدأ من اليوم الأول؛ ومجموعةٌ مُسمّاة لدمج ذكاء الشريك الاصطناعي؛ ومراجعةٌ فصلية للشراكة بتقييم جاهزيةٍ صريح.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>أحاديثٌ يقودها الشريك عن جهات توزيعٍ إقليمية أخرى؛ وتأخّر إشراك ألفا في عمليات طرح المنتجات الجديدة.</div></div></div>
+          <div class="risk-card"><span class="risk-num">5</span><h4>انتقال GS1 Digital Link في 2027 يُباغت ألفا غير مستعدّة</h4><p>المنعطف الصناعي المحدّد الذي يخلق انكشافاً لعلاقات الشريك والعملاء المباشرين معاً.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>تتبّعٌ مخصَّص داخل مسار ذكاء السنويّة؛ بالتنسيق مع خارطة طريق انتقال Markem-Imaje نفسها؛ وتقييم جاهزيةٍ عميلاً بعميل في 2026.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>أسئلة عملاءٍ عن الجاهزية للرموز ثنائية الأبعاد لا تستطيع ألفا الإجابة عنها بثقة.</div></div></div>
+          <div class="risk-card"><span class="risk-num">6</span><h4>توقيت انتقال الرعاية خاطئ</h4><p>إمّا مبكراً جدّاً (لا نتائج مُتحقَّق منها لترسيخ الملكية القسمية) أو متأخراً جدّاً (عنق زجاجة رئيس مجلس الإدارة يُبطئ التقدّم).</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>إطار انتقالٍ مدفوعٌ بالشروط بمحفّزاتٍ صريحة؛ وفحصٌ فصلي لجاهزية الانتقال.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>رئيس مجلس الإدارة يصبح الصوت الحاسم في أمورٍ تشغيلية ينبغي أن تقع في المجلس.</div></div></div>
+          <div class="risk-card"><span class="risk-num">7</span><h4>الاحتفاظ بالمواهب مع رؤية مهندسي Aura لفرصٍ أوسع</h4><p>مهندسون يصبحون طُلَقاء في الذكاء الاصطناعي في سوقٍ يكثر فيه الطلب على مواهب الذكاء الاصطناعي.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>نطاقٌ وملكيةٌ ظاهران لمسارات عملٍ مُسمّاة؛ ونموّ ميزانية البحث والتطوير الذي يخلق مساحةً مهنية؛ وترقيةٌ صريحة للألقاب والتعويضات مع نموّ القدرة.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>معدّل التسرّب الطوعي؛ وثيمات مقابلات إنهاء الخدمة.</div></div></div>
+          <div class="risk-card"><span class="risk-num">8</span><h4>خسارة ثقة العملاء من خصائص ذكاءٍ اصطناعيٍّ سيّئة الشحن</h4><p>نمط الاندفاع إلى السوق الذي كلّف مؤسّساتٍ أخرى علناً.</p><div class="risk-meta"><div class="risk-line mitigation"><span class="lbl">التخفيف</span>معايير تحقّقٍ لكلّ شحنةٍ موجّهة للعميل؛ وعمليات طرحٍ تجريبية مضبوطة؛ ولا إطلاقات دفعةً واحدة.</div><div class="risk-line indicator"><span class="lbl">المؤشّر المبكِّر</span>أنماط شكاوى العملاء على خصائص الذكاء الاصطناعي تحديداً.</div></div></div>
+
+          <h2>المعايرة</h2>
+          <p>الاستراتيجية نفسها فرضيةٌ بمعايير تحقّق. وتعمل آلية المعايرة على ثلاثة مقاييس زمنية.</p>
+          <div class="def-list">
+            <div class="def"><div class="def-term">فصليّاً</div><div class="def-desc">يراجع مجلس الذكاء الاصطناعي نتائج معايير التحقّق المتراكمة للمجموعات، ويعدّل محفظة المجموعات للربع القادم، ويُحدّث لوحة المقاييس ببياناتٍ جديدة. التعديلات الفصلية تكتيكية — أيّ المجموعات، وأيّ تجهيزٍ بالكوادر، وأيّ أولويات ركيزة.</div></div>
+            <div class="def"><div class="def-term">نصف سنويّاً</div><div class="def-desc">يراجع المجلس وطبقة الرعاية معاً العمود الفقري الاستراتيجي. الأسئلة: هل ما زالت أولويات مسارات العمل صامدة؟ هل تتّجه الادّعاءات المالية كما هو متوقّع؟ هل تتطوّر الظروف التنافسية كما تنبّأ المسح؟ التعديلات نصف السنوية بنيوية — وزن مسارات العمل، وتكوين الحوكمة، وتخصيص البحث والتطوير.</div></div>
+            <div class="def"><div class="def-term">سنويّاً</div><div class="def-desc">مراجعةٌ كاملة للاستراتيجية. هل ما زال الرهان هو الرهان الصحيح؟ هل ادّعاء الهوية — شركة برمجيات على ركيزة أجهزة مدعومة بالذكاء الاصطناعي — ما زال هو التأطير الصحيح؟ التعديلات السنوية تأسيسية؛ وقد تُراجِع الهوية الاستراتيجية نفسها إذا اقتضت الأدلّة المتراكمة ذلك.</div></div>
+          </div>
+          <p>صحّة الاستراتيجية غير مفترَضة عند أيّ مقياسٍ زمني. المنهجية هي المفترَضة. شكل الاستراتيجية سيتطوّر؛ وانضباط «التحقّق والمعايرة» هو ما يجعل ذلك التطوّر صارماً لا ارتجاليّاً.</p>
+
+          <h2>خاتمة</h2>
+          <p>استراتيجيةٌ لا يمكن قياسها لا يمكن توجيهها. واستراتيجيةٌ لا تتتبّع مخاطرها تراكمها بصمتٍ حتى تطفو أزماتٍ. واستراتيجيةٌ تفترض صحّتها تصبح هشّة.</p>
+          <p>إطار المقاييس والمخاطر والمعايرة الموصوف هنا ليس عبئاً بيروقراطيّاً. إنّه الآلية التي تبقى بها الاستراتيجية صادقةً مع نفسها بينما تنفّذ الشركة مقابلها.</p>
         </div>
       </section>
 
@@ -2435,9 +2590,396 @@
             <h2 class="section-title">كتيّب المرحلة الأولى</h2>
           </div>
         </div>
-        <div class="placeholder-section">
-          <p class="lang-en">Proposed draft (five pods, substrate work, 30/60/90 cadence) lives in <a href="https://app.notion.com/p/37ccb67bf82c815d87ceff2537606121">Notion</a>.</p>
-          <p class="lang-ar">المسودّة المقترحة (خمس مجموعات، عمل البنية التحتية، إيقاع 30/60/90) في <a href="https://app.notion.com/p/37ccb67bf82c815d87ceff2537606121">Notion</a>.</p>
+        <!-- ENGLISH -->
+        <div class="lang-en">
+          <div class="section-intro">
+            <p>Phase 1 is the first 90–180 days of execution, starting Q3 2026 and running through approximately year-end. Its purpose is to:</p>
+          </div>
+          <ol class="num-list">
+            <li>Launch the first wave of AI Pods across the three workstreams.</li>
+            <li>Stand up the substrate (AI Office, tooling environment, data accessibility) that subsequent pods depend on.</li>
+            <li>Produce a baseline of validated results that justify Phase 2 scaling.</li>
+            <li>Surface the first wave of strategic learnings that calibrate the broader strategy.</li>
+          </ol>
+          <p>Phase 1 is deliberately bounded. It is not the strategy — it is the credible start of the strategy. The work that anchors months 6–24 of the bet is informed by Phase 1's evidence, not pre-determined by Phase 1's plan.</p>
+
+          <h2>Proposed Phase 1 Pod Portfolio</h2>
+          <p>Five pods proposed for the first wave, distributed across the three workstreams. The portfolio is sequenced for measurable validate-criteria results within Phase 1.</p>
+
+          <div class="ws-label">Workstream 1: Annuity Intelligence</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">Pod 1A</span><span class="pod-name">Field Service AI-Augmented Diagnostics</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">Outcome</div><div class="v">Reduce the average Markem-Imaje field service visit time through AI-augmented diagnostic tooling and pre-staged parts recommendation.</div></div>
+              <div class="pod-row"><div class="k">Validate criterion</div><div class="v">Average time per coder maintenance call drops by 30% in a pilot territory (Cairo or Alexandria) by week 10.</div></div>
+              <div class="pod-row"><div class="k">Anatomy</div><div class="v"><ul><li>Pod lead: Senior figure from field service operations</li><li>1 Aura engineer</li><li>1 spare parts / logistics person</li><li>1 Markem-Imaje technical liaison (if available)</li></ul></div></div>
+              <div class="pod-row"><div class="k">Timeline</div><div class="v">10 weeks.</div></div>
+              <div class="pod-row"><div class="k">Substrate dependencies</div><div class="v">Field service ticket history; equipment telemetry where available; Markem-Imaje technical bulletins.</div></div>
+              <div class="pod-row"><div class="k">Why first wave</div><div class="v">Direct, measurable impact on a 75-person field organization. Visible early win. Substrate work needed is bounded.</div></div>
+            </div>
+          </div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">Pod 1B</span><span class="pod-name">Predictive Consumables Forecasting</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">Outcome</div><div class="v">Reduce variance in customer consumables orders through AI-driven forecasting.</div></div>
+              <div class="pod-row"><div class="k">Validate criterion</div><div class="v">Standing-order variance for the top 50 customer accounts drops by 25% in the pilot quarter (Q4 2026).</div></div>
+              <div class="pod-row"><div class="k">Anatomy</div><div class="v"><ul><li>Pod lead: Senior account manager</li><li>1 Aura engineer</li><li>1 inventory / logistics person</li><li>Periodic AI Office check-in</li></ul></div></div>
+              <div class="pod-row"><div class="k">Timeline</div><div class="v">8 weeks.</div></div>
+              <div class="pod-row"><div class="k">Substrate dependencies</div><div class="v">Customer consumables order history; production data where customers share it.</div></div>
+              <div class="pod-row"><div class="k">Why first wave</div><div class="v">Direct working-capital impact. Stress-tests the customer-facing intelligence layer the strategy commits to.</div></div>
+            </div>
+          </div>
+
+          <div class="ws-label">Workstream 2: AI Products</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">Pod 2A</span><span class="pod-name">AI-Enabled Queueing Demo Build</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">Outcome</div><div class="v">Ship a demo-ready AI-enabled queueing system to compete with Q-MATIC and Wavetec — predictive routing, Arabic voice agent, natural-language manager analytics.</div></div>
+              <div class="pod-row"><div class="k">Validate criterion</div><div class="v">A demonstrable AI-enabled queueing demo presented in 5 customer tenders by week 12, with measurable improvement in tender close rate vs. baseline.</div></div>
+              <div class="pod-row"><div class="k">Anatomy</div><div class="v"><ul><li>Pod lead: ES division product person</li><li>2 Aura engineers</li><li>1 senior salesperson (banking vertical primary)</li><li>1 banking-vertical SME</li></ul></div></div>
+              <div class="pod-row"><div class="k">Timeline</div><div class="v">12 weeks.</div></div>
+              <div class="pod-row"><div class="k">Substrate dependencies</div><div class="v">WAM platform integration access; Arabic NLP capability (vendor or build); customer demo environment.</div></div>
+              <div class="pod-row"><div class="k">Why first wave</div><div class="v">This is the load-bearing pod for the AI Products workstream and the visible answer to the competitive scan. Its success or failure shapes the Phase 2 product roadmap heavily.</div></div>
+            </div>
+          </div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">Pod 2B</span><span class="pod-name">Sales Proposal Generation Engine</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">Outcome</div><div class="v">Cut proposal drafting time for ES tenders by 90%+.</div></div>
+              <div class="pod-row"><div class="k">Validate criterion</div><div class="v">Average proposal generation time drops from approximately 2 days to under 1 hour by week 8, with quality maintained per sales lead review.</div></div>
+              <div class="pod-row"><div class="k">Anatomy</div><div class="v"><ul><li>Pod lead: Senior sales rep</li><li>1 Aura engineer</li><li>1 ES product person</li><li>1 sales operations lead</li></ul></div></div>
+              <div class="pod-row"><div class="k">Timeline</div><div class="v">6–8 weeks (shortest pod; fastest validate cycle).</div></div>
+              <div class="pod-row"><div class="k">Substrate dependencies</div><div class="v">Past proposals; product configuration data; pricing/discount guidelines.</div></div>
+              <div class="pod-row"><div class="k">Why first wave</div><div class="v">Quick win. Demonstrates AI capability immediately to a non-engineering function (sales). Generates the kind of organic pull the strategy depends on.</div></div>
+            </div>
+          </div>
+
+          <div class="ws-label">Workstream 3: Operational Intelligence</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">Pod 3A</span><span class="pod-name">Sales &amp; Customer Service Knowledge Layer</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">Outcome</div><div class="v">Reduce time-to-answer in customer service and sales operations through AI-mediated knowledge access.</div></div>
+              <div class="pod-row"><div class="k">Validate criterion</div><div class="v">Customer service tier-1 response time drops by 40%, and sales rep time spent on internal lookups drops by 50%, by week 8.</div></div>
+              <div class="pod-row"><div class="k">Anatomy</div><div class="v"><ul><li>Pod lead: Customer service lead</li><li>1 Aura engineer</li><li>1 sales operations person</li><li>1 cross-divisional SME (one from each division)</li></ul></div></div>
+              <div class="pod-row"><div class="k">Timeline</div><div class="v">8 weeks.</div></div>
+              <div class="pod-row"><div class="k">Substrate dependencies</div><div class="v">CRM data; customer service ticket history; product documentation.</div></div>
+              <div class="pod-row"><div class="k">Why first wave</div><div class="v">Broadest internal impact across functions. Provides an early reality-check on data accessibility constraints. Builds substrate that later operational pods will depend on.</div></div>
+            </div>
+          </div>
+
+          <h2>Substrate Work</h2>
+          <p>Substrate work runs in parallel with the pods, owned by the AI Office. It is prioritized by pod blockers, not by abstract architecture.</p>
+          <h4>Substrate Stream 1: AI Development Environment</h4>
+          <p><strong>Weeks 1–3.</strong> Standing up the central AI development environment pods build on.</p>
+          <ul class="body-list">
+            <li>Vendor/model access: foundation model APIs, vendor selection per use case</li>
+            <li>Key management: secure API key storage and rotation</li>
+            <li>Pod scaffolding: standard templates for kickoff, validate criteria, status reporting</li>
+            <li>Logging and monitoring: shared observability for pod work in progress</li>
+          </ul>
+          <p><em>Owned by the AI Office, supported by Aura engineering.</em></p>
+          <h4>Substrate Stream 2: Data Access Layer</h4>
+          <p><strong>Ongoing, prioritized by pod blockers.</strong> Building the access layer pods need to ship.</p>
+          <ul class="body-list">
+            <li>Dynamics AX read access: financial and operational data, exposed via API or SQL layer</li>
+            <li>Customer service / CRM data: real-time access for Workstreams 1 and 3</li>
+            <li>Field service ticket history: needed for Pod 1A</li>
+            <li>Customer order history: needed for Pod 1B</li>
+            <li>Product documentation: needed for Pods 2B and 3A</li>
+          </ul>
+          <p><em>Owned by the AI Office in coordination with Aura engineering and the existing IT/operations function.</em></p>
+          <h4>Substrate Stream 3: Arabic NLP Capability</h4>
+          <p><strong>Weeks 4–12.</strong> Needed for Pod 2A and subsequent customer-facing products.</p>
+          <ul class="body-list">
+            <li>Vendor evaluation (Cohere Aya, Jais, custom Arabic-tuned models)</li>
+            <li>Cost/quality benchmarking on Alfa-relevant use cases</li>
+            <li>Selection and integration</li>
+          </ul>
+          <p><em>Owned by Pod 2A in collaboration with the AI Office.</em></p>
+          <h4>Substrate Stream 4: Shared Knowledge Base</h4>
+          <p><strong>Weeks 4–8.</strong> Capturing pod learnings so subsequent pods inherit them.</p>
+          <ul class="body-list">
+            <li>Pod completion templates: what was tried, what worked, what did not</li>
+            <li>Pattern library: emerging patterns across pods</li>
+            <li>Cross-pod weekly sync notes</li>
+          </ul>
+          <p><em>Owned by the AI Office.</em></p>
+
+          <h2>Engineering Capacity Reality</h2>
+          <p>A practical note worth flagging. With five pods running concurrently, each requiring 1–2 Aura engineers, Phase 1 will require approximately 7–9 engineers concurrently engaged from Aura. Given Aura's current size and existing commitments, this is a real constraint.</p>
+          <p><strong>Mitigations:</strong></p>
+          <ul class="body-list">
+            <li>Pods staggered so no more than three pods are in their most engineering-intensive weeks simultaneously.</li>
+            <li>Pods 2B and 3A are deliberately shorter and front-loaded so their engineering capacity frees up by mid-Phase 1.</li>
+            <li>A clear policy: pods may NOT recruit additional Aura engineers mid-flight. Scope is constrained at kickoff. If a pod realizes it needs more, it goes to the Council for a scope decision — narrow scope, defer scope, or extend timeline.</li>
+          </ul>
+          <p>If the engineering capacity reality forces a tradeoff between Phase 1 ambition and Phase 1 deliverability, the explicit guidance is: <strong>deliver fewer pods well rather than more pods partially.</strong> Three pods successfully validated is a stronger Phase 1 than six pods half-shipped.</p>
+
+          <h2>30 / 60 / 90 / 180 Day Cadence</h2>
+          <p>The Phase 1 rhythm has specific checkpoints.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-when">Day 0 — Kickoff (Q3 2026 launch)</div><ul class="body-list">
+              <li>Chairman opens with framing remarks.</li>
+              <li>AI Council convenes formally for the first time; charter and authorities confirmed.</li>
+              <li>Five Phase 1 pods named publicly with their pod leads.</li>
+              <li>AI Office team named, two to three people initially.</li>
+              <li>Champions Network: initial wave of champions announced.</li>
+              <li>Substrate Stream 1 (AI Development Environment) begins.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">Day 30</div><ul class="body-list">
+              <li>All five pods have had their week-2 Council check-in.</li>
+              <li>Substrate Stream 1 substantially complete; pods have working environments.</li>
+              <li>Initial substrate findings reported (where data accessibility is harder than expected).</li>
+              <li>First quarterly Sponsorship briefing prepared.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">Day 60</div><ul class="body-list">
+              <li>Mid-pod validates for Pods 2B and 3A (the fastest pods).</li>
+              <li>Pod 1B mid-pod validate.</li>
+              <li>Council makes first scale/stop/extend decisions.</li>
+              <li>Substrate Stream 2 (data access layer) prioritized work substantially complete.</li>
+              <li>Quarterly Sponsorship briefing delivered.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">Day 90</div><ul class="body-list">
+              <li>Pods 2B and 3A complete validate cycles. Council decides scale / merge / stop.</li>
+              <li>Pod 1B complete validate cycle.</li>
+              <li>Pods 1A and 2A enter their final validate weeks.</li>
+              <li>Phase 1 mid-point review by the AI Council.</li>
+              <li>First Champions Network gathering (lessons from the first wave).</li>
+              <li>Wave 2 pods scoped, prepared for Q4 launch.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">Day 120–180</div><ul class="body-list">
+              <li>Pods 1A and 2A complete validate cycles.</li>
+              <li>Phase 1 full retrospective by AI Council and Sponsorship layer.</li>
+              <li>Calibration: which strategic assumptions held, which need revision.</li>
+              <li>Phase 2 portfolio approved.</li>
+              <li>First-half year strategic review delivered to the board level.</li>
+            </ul></div>
+          </div>
+
+          <h2>Early-Warning Indicators</h2>
+          <p>Phase 1 success depends on catching problems early. Specific signals to watch for in weeks 2–4:</p>
+          <ul class="body-list">
+            <li><strong>No pod has produced a demonstrable working draft by week 4.</strong> Either pod scoping is too ambitious or substrate is more constrained than understood. <em>Action:</em> Council convenes early to re-scope.</li>
+            <li><strong>More than 50% of pods are blocked on data accessibility.</strong> Substrate priorities are wrong or substrate capacity is insufficient. <em>Action:</em> AI Office's substrate priorities reset.</li>
+            <li><strong>The Champions Network is concentrated in engineering despite design intent.</strong> Distribution effort needs reinforcement from sponsorship. <em>Action:</em> Chairman or Strategy Leader visibly engages non-engineering champion recruitment.</li>
+            <li><strong>Aura engineering is consistently over-capacity.</strong> Phase 1 ambition exceeds reality. <em>Action:</em> Council narrows scope per the "fewer pods well" principle.</li>
+            <li><strong>One workstream is dominating Council attention.</strong> Strategic risk materializing. <em>Action:</em> Council reviews workstream balance, adjusts.</li>
+          </ul>
+
+          <h2>Phase 1 Success Criteria</h2>
+          <p>Phase 1 is deemed successful if, by year-end 2026:</p>
+          <ol class="num-list">
+            <li>At least three of the five proposed pods have completed their validate cycle with passing criteria.</li>
+            <li>At least one customer-facing AI capability has shipped to pilot or production — most likely the queueing AI demo from Pod 2A or the sales proposal engine from Pod 2B.</li>
+            <li>The substrate work has produced a foundation subsequent pods can build on without each pod re-inventing access.</li>
+            <li>The AI Council is operating as a real governance body, making scale/stop decisions on validate-criteria results rather than on political negotiation.</li>
+            <li>The Champions Network is real: at least one named, active champion in each major function across both divisions.</li>
+            <li>R&amp;D investment trajectory is visible: spend in Phase 1 exceeds 2.16% of prorated revenue, on a path toward the multi-year target.</li>
+          </ol>
+          <p>Phase 1 is <strong>not</strong> expected to deliver:</p>
+          <ul class="body-list">
+            <li>Revenue growth in ES (that is a Phase 2 signal).</li>
+            <li>Major Markem-Imaje partnership commitments (Phase 2 signal).</li>
+            <li>Company-wide adoption (Phase 3+).</li>
+            <li>A perfectly validated R&amp;D investment ratio (takes 24 months).</li>
+          </ul>
+          <p>The point of Phase 1 is to make the strategy real enough that Phase 2 can be planned from evidence rather than from theory.</p>
+        </div>
+
+        <!-- ARABIC -->
+        <div class="lang-ar">
+          <div class="section-intro">
+            <p>المرحلة الأولى هي أوّل 90–180 يوماً من التنفيذ، تبدأ في الربع الثالث 2026 وتمتدّ حتى نهاية العام تقريباً. والغرض منها:</p>
+          </div>
+          <ol class="num-list">
+            <li>إطلاق الموجة الأولى من مجموعات الذكاء الاصطناعي عبر مسارات العمل الثلاثة.</li>
+            <li>إقامة الركيزة (مكتب الذكاء الاصطناعي، وبيئة الأدوات، وإتاحة البيانات) التي تعتمد عليها المجموعات اللاحقة.</li>
+            <li>إنتاج خطّ أساسٍ من النتائج المُتحقَّق منها يبرّر توسّع المرحلة الثانية.</li>
+            <li>إظهار الموجة الأولى من التعلُّمات الاستراتيجية التي تُعايِر الاستراتيجية الأوسع.</li>
+          </ol>
+          <p>المرحلة الأولى محدودةٌ عن قصد. إنّها ليست الاستراتيجية — بل البداية الموثوقة للاستراتيجية. والعمل الذي يرسّخ الأشهر 6–24 من الرهان تُنيره أدلّة المرحلة الأولى، لا تُحدّده خطّة المرحلة الأولى مسبقاً.</p>
+
+          <h2>محفظة مجموعات المرحلة الأولى المقترحة</h2>
+          <p>خمس مجموعات مقترحة للموجة الأولى، موزّعة عبر مسارات العمل الثلاثة. والمحفظة مرتّبة للحصول على نتائج معايير تحقّقٍ قابلة للقياس ضمن المرحلة الأولى.</p>
+
+          <div class="ws-label">المسار الأول: ذكاء السنويّة</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">المجموعة 1A</span><span class="pod-name">تشخيصات الخدمة الميدانية المعزّزة بالذكاء الاصطناعي</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">النتيجة</div><div class="v">خفض متوسّط زمن زيارة الخدمة الميدانية لـ Markem-Imaje عبر أدوات تشخيصٍ معزّزة بالذكاء الاصطناعي وتوصيةٍ بقطعٍ مُجهَّزة مسبقاً.</div></div>
+              <div class="pod-row"><div class="k">معيار التحقّق</div><div class="v">متوسّط الزمن لكلّ مكالمة صيانة طابعة ترميز ينخفض بنسبة 30% في منطقةٍ تجريبية (القاهرة أو الإسكندرية) بحلول الأسبوع 10.</div></div>
+              <div class="pod-row"><div class="k">التشريح</div><div class="v"><ul><li>قائد المجموعة: شخصٌ أقدم من عمليات الخدمة الميدانية</li><li>مهندس Aura واحد</li><li>شخصٌ لقطع الغيار / اللوجستيات</li><li>مسؤول ارتباطٍ تقني من Markem-Imaje (إن وُجد)</li></ul></div></div>
+              <div class="pod-row"><div class="k">الإطار الزمني</div><div class="v">10 أسابيع.</div></div>
+              <div class="pod-row"><div class="k">تبعيات الركيزة</div><div class="v">سجلّ تذاكر الخدمة الميدانية؛ وقياسات الأجهزة عن بُعد حيثما توفّرت؛ ونشرات Markem-Imaje التقنية.</div></div>
+              <div class="pod-row"><div class="k">لماذا الموجة الأولى</div><div class="v">أثرٌ مباشر وقابل للقياس على منظومةٍ ميدانية من 75 شخصاً. انتصارٌ مبكر ظاهر. وعمل الركيزة المطلوب محدود.</div></div>
+            </div>
+          </div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">المجموعة 1B</span><span class="pod-name">التنبّؤ بطلبات المستهلكات</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">النتيجة</div><div class="v">خفض التباين في طلبات مستهلكات العملاء عبر تنبّؤٍ مدفوعٍ بالذكاء الاصطناعي.</div></div>
+              <div class="pod-row"><div class="k">معيار التحقّق</div><div class="v">تباين الطلبات الدائمة لأكبر 50 حساب عميل ينخفض بنسبة 25% في الربع التجريبي (الربع الرابع 2026).</div></div>
+              <div class="pod-row"><div class="k">التشريح</div><div class="v"><ul><li>قائد المجموعة: مدير حساباتٍ أقدم</li><li>مهندس Aura واحد</li><li>شخصٌ للمخزون / اللوجستيات</li><li>مراجعةٌ دورية من مكتب الذكاء الاصطناعي</li></ul></div></div>
+              <div class="pod-row"><div class="k">الإطار الزمني</div><div class="v">8 أسابيع.</div></div>
+              <div class="pod-row"><div class="k">تبعيات الركيزة</div><div class="v">سجلّ طلبات مستهلكات العملاء؛ وبيانات الإنتاج حيثما يشاركها العملاء.</div></div>
+              <div class="pod-row"><div class="k">لماذا الموجة الأولى</div><div class="v">أثرٌ مباشر على رأس المال العامل. ويختبر طبقة الذكاء الموجّهة للعميل التي تلتزم بها الاستراتيجية.</div></div>
+            </div>
+          </div>
+
+          <div class="ws-label">المسار الثاني: منتجات الذكاء الاصطناعي</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">المجموعة 2A</span><span class="pod-name">بناء عرض الطوابير الممكَّن بالذكاء الاصطناعي</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">النتيجة</div><div class="v">شحن نظام طوابير ممكَّن بالذكاء الاصطناعي جاهزٍ للعرض ينافس Q-MATIC وWavetec — توجيهٌ تنبّؤي، ووكيل صوتٍ بالعربية، وتحليلات مديرٍ باللغة الطبيعية.</div></div>
+              <div class="pod-row"><div class="k">معيار التحقّق</div><div class="v">عرض طوابير ممكَّن بالذكاء الاصطناعي قابل للإيضاح يُقدَّم في 5 مناقصات عملاء بحلول الأسبوع 12، مع تحسّنٍ قابل للقياس في معدّل إبرام المناقصات مقابل خطّ الأساس.</div></div>
+              <div class="pod-row"><div class="k">التشريح</div><div class="v"><ul><li>قائد المجموعة: شخص منتجٍ من قسم الحلول الإلكترونية</li><li>مهندسا Aura</li><li>مندوب مبيعاتٍ أقدم (قطاع البنوك أساساً)</li><li>خبير مجالٍ في قطاع البنوك</li></ul></div></div>
+              <div class="pod-row"><div class="k">الإطار الزمني</div><div class="v">12 أسبوعاً.</div></div>
+              <div class="pod-row"><div class="k">تبعيات الركيزة</div><div class="v">وصولٌ لتكامل منصّة WAM؛ وقدرة معالجة لغةٍ طبيعية بالعربية (مورّد أو بناء)؛ وبيئة عرضٍ للعميل.</div></div>
+              <div class="pod-row"><div class="k">لماذا الموجة الأولى</div><div class="v">هذه هي المجموعة الحاملة لمسار منتجات الذكاء الاصطناعي والجواب الظاهر على المسح التنافسي. ونجاحها أو فشلها يُشكّل خارطة طريق منتجات المرحلة الثانية بشكلٍ كبير.</div></div>
+            </div>
+          </div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">المجموعة 2B</span><span class="pod-name">محرّك توليد عروض المبيعات</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">النتيجة</div><div class="v">خفض زمن صياغة العروض لمناقصات الحلول الإلكترونية بنسبة 90%+.</div></div>
+              <div class="pod-row"><div class="k">معيار التحقّق</div><div class="v">متوسّط زمن توليد العرض ينخفض من نحو يومين إلى أقلّ من ساعة بحلول الأسبوع 8، مع الحفاظ على الجودة وفق مراجعة قائد المبيعات.</div></div>
+              <div class="pod-row"><div class="k">التشريح</div><div class="v"><ul><li>قائد المجموعة: مندوب مبيعاتٍ أقدم</li><li>مهندس Aura واحد</li><li>شخص منتجٍ من الحلول الإلكترونية</li><li>قائد عمليات مبيعات</li></ul></div></div>
+              <div class="pod-row"><div class="k">الإطار الزمني</div><div class="v">6–8 أسابيع (أقصر مجموعة؛ أسرع دورة تحقّق).</div></div>
+              <div class="pod-row"><div class="k">تبعيات الركيزة</div><div class="v">عروضٌ سابقة؛ وبيانات تكوين المنتج؛ وإرشادات التسعير/الخصومات.</div></div>
+              <div class="pod-row"><div class="k">لماذا الموجة الأولى</div><div class="v">انتصارٌ سريع. يُظهِر قدرة الذكاء الاصطناعي فوراً لوظيفةٍ غير هندسية (المبيعات). ويُولّد نوع الجذب العضوي الذي تعتمد عليه الاستراتيجية.</div></div>
+            </div>
+          </div>
+
+          <div class="ws-label">المسار الثالث: الذكاء التشغيلي</div>
+          <div class="pod-card">
+            <div class="pod-head"><span class="pod-id">المجموعة 3A</span><span class="pod-name">طبقة معرفة المبيعات وخدمة العملاء</span></div>
+            <div class="pod-body">
+              <div class="pod-row"><div class="k">النتيجة</div><div class="v">خفض زمن الوصول إلى الإجابة في خدمة العملاء وعمليات المبيعات عبر وصولٍ إلى المعرفة وسيطه الذكاء الاصطناعي.</div></div>
+              <div class="pod-row"><div class="k">معيار التحقّق</div><div class="v">زمن استجابة المستوى الأول في خدمة العملاء ينخفض بنسبة 40%، وزمن مندوب المبيعات في عمليات البحث الداخلية ينخفض بنسبة 50%، بحلول الأسبوع 8.</div></div>
+              <div class="pod-row"><div class="k">التشريح</div><div class="v"><ul><li>قائد المجموعة: قائد خدمة العملاء</li><li>مهندس Aura واحد</li><li>شخص عمليات مبيعات</li><li>خبير مجالٍ عابر للأقسام (واحد من كلّ قسم)</li></ul></div></div>
+              <div class="pod-row"><div class="k">الإطار الزمني</div><div class="v">8 أسابيع.</div></div>
+              <div class="pod-row"><div class="k">تبعيات الركيزة</div><div class="v">بيانات إدارة علاقات العملاء؛ وسجلّ تذاكر خدمة العملاء؛ ووثائق المنتج.</div></div>
+              <div class="pod-row"><div class="k">لماذا الموجة الأولى</div><div class="v">أوسع أثرٍ داخلي عبر الوظائف. يوفّر فحص واقعٍ مبكر لقيود إتاحة البيانات. ويبني ركيزةً ستعتمد عليها مجموعات التشغيل اللاحقة.</div></div>
+            </div>
+          </div>
+
+          <h2>عمل الركيزة</h2>
+          <p>يجري عمل الركيزة بالتوازي مع المجموعات، يملكه مكتب الذكاء الاصطناعي. ويُرتَّب بحسب معوّقات المجموعات، لا بحسب بنيةٍ مجرّدة.</p>
+          <h4>تيار الركيزة 1: بيئة تطوير الذكاء الاصطناعي</h4>
+          <p><strong>الأسابيع 1–3.</strong> إقامة بيئة تطوير الذكاء الاصطناعي المركزية التي تبني عليها المجموعات.</p>
+          <ul class="body-list">
+            <li>الوصول إلى المورّدين/النماذج: واجهات النماذج الأساسية البرمجية، واختيار المورّد بحسب حالة الاستخدام</li>
+            <li>إدارة المفاتيح: تخزينٌ آمن لمفاتيح الواجهات البرمجية وتدويرها</li>
+            <li>هياكل المجموعات: قوالب موحّدة للانطلاق، ومعايير التحقّق، وتقارير الحالة</li>
+            <li>التسجيل والمراقبة: رصدٌ مشترك لعمل المجموعات الجاري</li>
+          </ul>
+          <p><em>يملكه مكتب الذكاء الاصطناعي، بدعم هندسة Aura.</em></p>
+          <h4>تيار الركيزة 2: طبقة الوصول إلى البيانات</h4>
+          <p><strong>مستمرّ، مرتّبٌ بحسب معوّقات المجموعات.</strong> بناء طبقة الوصول التي تحتاجها المجموعات للشحن.</p>
+          <ul class="body-list">
+            <li>وصول قراءةٍ إلى Dynamics AX: البيانات المالية والتشغيلية، مكشوفةً عبر واجهةٍ برمجية أو طبقة SQL</li>
+            <li>بيانات خدمة العملاء / إدارة علاقات العملاء: وصولٌ آنيّ للمسارَين الأول والثالث</li>
+            <li>سجلّ تذاكر الخدمة الميدانية: مطلوبٌ للمجموعة 1A</li>
+            <li>سجلّ طلبات العملاء: مطلوبٌ للمجموعة 1B</li>
+            <li>وثائق المنتج: مطلوبةٌ للمجموعتين 2B و3A</li>
+          </ul>
+          <p><em>يملكه مكتب الذكاء الاصطناعي بالتنسيق مع هندسة Aura ووظيفة تقنية المعلومات/العمليات القائمة.</em></p>
+          <h4>تيار الركيزة 3: قدرة معالجة اللغة الطبيعية بالعربية</h4>
+          <p><strong>الأسابيع 4–12.</strong> مطلوبةٌ للمجموعة 2A والمنتجات الموجّهة للعميل اللاحقة.</p>
+          <ul class="body-list">
+            <li>تقييم المورّدين (Cohere Aya، وJais، ونماذج عربية مخصّصة)</li>
+            <li>قياسٌ مرجعي للتكلفة/الجودة على حالات استخدامٍ ذات صلة بألفا</li>
+            <li>الاختيار والدمج</li>
+          </ul>
+          <p><em>تملكه المجموعة 2A بالتعاون مع مكتب الذكاء الاصطناعي.</em></p>
+          <h4>تيار الركيزة 4: قاعدة المعرفة المشتركة</h4>
+          <p><strong>الأسابيع 4–8.</strong> التقاط تعلُّمات المجموعات بحيث ترثها المجموعات اللاحقة.</p>
+          <ul class="body-list">
+            <li>قوالب إتمام المجموعة: ما جُرِّب، وما نجح، وما لم ينجح</li>
+            <li>مكتبة أنماط: الأنماط الناشئة عبر المجموعات</li>
+            <li>ملاحظات مزامنةٍ أسبوعية عابرة للمجموعات</li>
+          </ul>
+          <p><em>يملكه مكتب الذكاء الاصطناعي.</em></p>
+
+          <h2>واقع القدرة الهندسية</h2>
+          <p>ملاحظةٌ عملية جديرة بالإشارة. مع تشغيل خمس مجموعات بالتزامن، تتطلّب كلٌّ منها 1–2 مهندس من Aura، ستحتاج المرحلة الأولى نحو 7–9 مهندسين منخرطين بالتزامن من Aura. ونظراً لحجم Aura الحالي والتزاماتها القائمة، فهذا قيدٌ حقيقي.</p>
+          <p><strong>التخفيفات:</strong></p>
+          <ul class="body-list">
+            <li>تُرتَّب المجموعات على نحوٍ متدرّج بحيث لا تكون أكثر من ثلاث مجموعات في أسابيعها الأكثف هندسيّاً في آنٍ واحد.</li>
+            <li>المجموعتان 2B و3A أقصر عن قصدٍ ومقدَّمتان زمنيّاً بحيث تتحرّر قدرتهما الهندسية بحلول منتصف المرحلة الأولى.</li>
+            <li>سياسةٌ واضحة: لا يجوز للمجموعات تجنيد مهندسي Aura إضافيين أثناء العمل. النطاق مُقيَّدٌ عند الانطلاق. وإذا أدركت مجموعةٌ أنّها تحتاج المزيد، تذهب إلى المجلس لقرار نطاق — تضييق النطاق، أو تأجيله، أو تمديد الإطار الزمني.</li>
+          </ul>
+          <p>إذا فرض واقع القدرة الهندسية مقايضةً بين طموح المرحلة الأولى وقابلية تسليمها، فالإرشاد الصريح هو: <strong>سلِّم مجموعاتٍ أقلّ بإتقانٍ بدلاً من مجموعاتٍ أكثر جزئيّاً.</strong> ثلاث مجموعات مُتحقَّق منها بنجاح مرحلةٌ أولى أقوى من ستّ مجموعات نصف مشحونة.</p>
+
+          <h2>إيقاع 30 / 60 / 90 / 180 يوماً</h2>
+          <p>لإيقاع المرحلة الأولى نقاط تفتيشٍ محدّدة.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-when">اليوم 0 — الانطلاق (إطلاق الربع الثالث 2026)</div><ul class="body-list">
+              <li>رئيس مجلس الإدارة يفتتح بكلماتٍ تأطيرية.</li>
+              <li>مجلس الذكاء الاصطناعي ينعقد رسميّاً لأوّل مرّة؛ وتُؤكَّد لائحته وصلاحياته.</li>
+              <li>تُسمّى مجموعات المرحلة الأولى الخمس علناً مع قادتها.</li>
+              <li>يُسمّى فريق مكتب الذكاء الاصطناعي، من شخصين إلى ثلاثة في البداية.</li>
+              <li>شبكة الأبطال: يُعلَن عن الموجة الأولى من الأبطال.</li>
+              <li>يبدأ تيار الركيزة 1 (بيئة تطوير الذكاء الاصطناعي).</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">اليوم 30</div><ul class="body-list">
+              <li>كلّ المجموعات الخمس أجرت مراجعة الأسبوع الثاني مع المجلس.</li>
+              <li>تيار الركيزة 1 مكتملٌ إلى حدٍّ كبير؛ والمجموعات لديها بيئات عمل.</li>
+              <li>تُرفَع نتائج الركيزة الأولية (حيث تكون إتاحة البيانات أصعب من المتوقّع).</li>
+              <li>تُجهَّز أوّل إحاطة رعايةٍ فصلية.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">اليوم 60</div><ul class="body-list">
+              <li>تحقّقاتٌ منتصفية للمجموعتين 2B و3A (أسرع المجموعات).</li>
+              <li>تحقّقٌ منتصفي للمجموعة 1B.</li>
+              <li>المجلس يتّخذ أوّل قرارات توسّع/توقّف/تمديد.</li>
+              <li>العمل المرتّب في تيار الركيزة 2 (طبقة الوصول إلى البيانات) مكتملٌ إلى حدٍّ كبير.</li>
+              <li>تُسلَّم إحاطة الرعاية الفصلية.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">اليوم 90</div><ul class="body-list">
+              <li>المجموعتان 2B و3A تُكملان دورتَي التحقّق. المجلس يقرّر التوسّع / الدمج / التوقّف.</li>
+              <li>المجموعة 1B تُكمل دورة التحقّق.</li>
+              <li>المجموعتان 1A و2A تدخلان أسابيع تحقّقهما النهائية.</li>
+              <li>مراجعة منتصف المرحلة الأولى من مجلس الذكاء الاصطناعي.</li>
+              <li>أوّل لقاءٍ لشبكة الأبطال (دروس الموجة الأولى).</li>
+              <li>تُحدَّد مجموعات الموجة الثانية، وتُجهَّز لإطلاق الربع الرابع.</li>
+            </ul></div>
+            <div class="tl-item"><div class="tl-when">اليوم 120–180</div><ul class="body-list">
+              <li>المجموعتان 1A و2A تُكملان دورتَي التحقّق.</li>
+              <li>مراجعةٌ استرجاعية كاملة للمرحلة الأولى من مجلس الذكاء الاصطناعي وطبقة الرعاية.</li>
+              <li>المعايرة: أيّ الفرضيات الاستراتيجية صمدت، وأيّها يحتاج مراجعة.</li>
+              <li>اعتماد محفظة المرحلة الثانية.</li>
+              <li>تُسلَّم مراجعة النصف الأول الاستراتيجية على مستوى المجلس.</li>
+            </ul></div>
+          </div>
+
+          <h2>مؤشّرات الإنذار المبكر</h2>
+          <p>نجاح المرحلة الأولى يعتمد على التقاط المشكلات مبكراً. إشاراتٌ محدّدة يُنتبَه لها في الأسابيع 2–4:</p>
+          <ul class="body-list">
+            <li><strong>لم تُنتج أيّ مجموعة مسوّدةً عاملة قابلة للإيضاح بحلول الأسبوع 4.</strong> إمّا أنّ تحديد المجموعات مفرطٌ في الطموح أو أنّ الركيزة أكثر تقييداً ممّا فُهِم. <em>الإجراء:</em> ينعقد المجلس مبكراً لإعادة التحديد.</li>
+            <li><strong>أكثر من 50% من المجموعات معطَّلة على إتاحة البيانات.</strong> أولويات الركيزة خاطئة أو قدرة الركيزة غير كافية. <em>الإجراء:</em> تُعاد ضبط أولويات ركيزة مكتب الذكاء الاصطناعي.</li>
+            <li><strong>شبكة الأبطال متركّزة في الهندسة رغم نيّة التصميم.</strong> جهد التوزيع يحتاج تعزيزاً من الرعاية. <em>الإجراء:</em> رئيس مجلس الإدارة أو قائد الاستراتيجية ينخرط بشكلٍ ظاهر في تجنيد أبطالٍ غير هندسيين.</li>
+            <li><strong>هندسة Aura فوق طاقتها باستمرار.</strong> طموح المرحلة الأولى يفوق الواقع. <em>الإجراء:</em> يُضيّق المجلس النطاق وفق مبدأ «مجموعاتٌ أقلّ بإتقان».</li>
+            <li><strong>مسار عملٍ واحد يهيمن على اهتمام المجلس.</strong> خطرٌ استراتيجي يتحقّق. <em>الإجراء:</em> يراجع المجلس توازن مسارات العمل، ويعدّل.</li>
+          </ul>
+
+          <h2>معايير نجاح المرحلة الأولى</h2>
+          <p>تُعدّ المرحلة الأولى ناجحة إذا، بحلول نهاية 2026:</p>
+          <ol class="num-list">
+            <li>ثلاث على الأقلّ من المجموعات الخمس المقترحة أكملت دورة تحقّقها بمعايير ناجحة.</li>
+            <li>قدرة ذكاءٍ اصطناعيٍّ واحدة على الأقلّ موجّهة للعميل شُحِنت إلى التجريب أو الإنتاج — على الأرجح عرض الطوابير الذكي من المجموعة 2A أو محرّك عروض المبيعات من المجموعة 2B.</li>
+            <li>عمل الركيزة أنتج أساساً تستطيع المجموعات اللاحقة البناء عليه دون أن تعيد كلّ مجموعةٍ اختراع الوصول.</li>
+            <li>مجلس الذكاء الاصطناعي يعمل كهيئة حوكمةٍ حقيقية، يتّخذ قرارات التوسّع/التوقّف بناءً على نتائج معايير التحقّق لا على المفاوضة السياسية.</li>
+            <li>شبكة الأبطال حقيقية: بطلٌ واحد على الأقلّ مُسمّى ونشط في كلّ وظيفةٍ رئيسية عبر القسمين.</li>
+            <li>مسار استثمار البحث والتطوير ظاهر: الإنفاق في المرحلة الأولى يتجاوز 2.16% من الإيرادات المتناسبة، على طريقٍ نحو الهدف المتعدّد السنوات.</li>
+          </ol>
+          <p>المرحلة الأولى <strong>لا</strong> يُتوقَّع أن تُسلّم:</p>
+          <ul class="body-list">
+            <li>نموّ إيرادات في الحلول الإلكترونية (تلك إشارة المرحلة الثانية).</li>
+            <li>التزامات شراكةٍ كبرى مع Markem-Imaje (إشارة المرحلة الثانية).</li>
+            <li>تبنّياً على مستوى الشركة (المرحلة الثالثة فما بعد).</li>
+            <li>نسبة استثمار بحثٍ وتطوير مُتحقَّقاً منها تماماً (تأخذ 24 شهراً).</li>
+          </ul>
+          <p>الغاية من المرحلة الأولى أن تجعل الاستراتيجية حقيقيةً بما يكفي لتُخطَّط المرحلة الثانية من الأدلّة لا من النظرية.</p>
         </div>
       </section>
 
@@ -2591,7 +3133,7 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
       targets.forEach(t => io.observe(t));
     })();
 
